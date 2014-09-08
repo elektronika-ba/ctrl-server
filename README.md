@@ -1,5 +1,7 @@
-ctrl-server-v0.4
-================
+ctrl-server
+===========
+
+ (v0.4)
 
 CTRL server for the IoT. (Real-time, with sockets)
 
