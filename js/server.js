@@ -26,7 +26,7 @@ var BaseSock = require('./sockets/basesock');
 // Base's server
 var srvBase = net.createServer(BaseSock)
 	.on('listening', function () {
-	    wl.info("Base's Server listening on port: %d.", Configuration.base.srv.PORT);
+	    wl.info("Base's Server listening on port: %d.", Configuration.base.srv.PORT + Configuration.version);
 	})
 	.on('error', function (e) {
 	    if (e.code == 'EADDRINUSE') {
@@ -34,7 +34,7 @@ var srvBase = net.createServer(BaseSock)
 	        setTimeout(function () {
 	            try {
 	                srvBase.close();
-	                srvBase.listen(Configuration.base.srv.PORT); // GO AGAIN!
+                    srvBase.listen(Configuration.base.srv.PORT + Configuration.version); // GO AGAIN!
 	            } catch (err) {
 	                wl.error("Couldn't restart Base's server:", err);
 	            }
@@ -43,12 +43,12 @@ var srvBase = net.createServer(BaseSock)
 	});
 srvBase.maxConnections = Configuration.base.srv.MAX_CONN;
 wl.info("Base's Server is starting...");
-srvBase.listen(Configuration.base.srv.PORT); // GO!
+srvBase.listen(Configuration.base.srv.PORT + Configuration.version); // GO!
 
 // Client's server
 var srvClient = net.createServer(ClientSock)
 	.on('listening', function () {
-	    wl.info("Client's Server listening on port: %d.", Configuration.client.srv.PORT);
+        wl.info("Client's Server listening on port: %d.", Configuration.client.srv.PORT + Configuration.version);
 	})
 	.on('error', function (e) {
 	    if (e.code == 'EADDRINUSE') {
@@ -56,7 +56,7 @@ var srvClient = net.createServer(ClientSock)
 	        setTimeout(function () {
 	            try {
 	                srvClient.close();
-	                srvClient.listen(Configuration.client.srv.PORT); // GO AGAIN!
+                    srvClient.listen(Configuration.client.srv.PORT + Configuration.version); // GO AGAIN!
 	            } catch (err) {
 	                wl.error("Couldn't restart Client's server:", err);
 	            }
@@ -65,6 +65,6 @@ var srvClient = net.createServer(ClientSock)
 	});
 srvClient.maxConnections = Configuration.client.srv.MAX_CONN;
 wl.info("Client's Server is starting...");
-srvClient.listen(Configuration.client.srv.PORT); // GO!
+srvClient.listen(Configuration.client.srv.PORT + Configuration.version); // GO!
 
 // All further work is done in BaseSock and ClientSock .js files
