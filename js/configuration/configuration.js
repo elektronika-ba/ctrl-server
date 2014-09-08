@@ -1,0 +1,60 @@
+'use strict';
+
+var Configuration = {
+
+    // MySQL Database Connection
+    //--------------------------
+    mySQL: {
+        HOST: '127.0.0.1',
+        USER: 'root',
+        PASS: '',
+        DB: 'ctrl_0v4',
+    },
+
+    // Base Socket Server related
+    //-----------------------------
+    base: {
+        // Server Setup
+        srv: {
+            PORT: 8000,
+            MAX_CONN: 1000,
+        },
+
+        // Socket Setup
+        sock: {
+            KEEPALIVE_MS: 5000,    				// keep-alive connection timeout
+            AUTH_TIMEOUT_MS: 5000,        // authorization timeout after connection establishment
+            SENDER_TASK_MS: 500,          // task that writes data to Base on socket (timer exists only because we don't want to flush Base with pending data all at once)
+            ON_DATA_THROTTLING_MS: 50,    // throttling of received commands
+
+            MAX_AUTH_ATTEMPTS: 5,					// how many failed auth attempts are allowed?
+            MAX_AUTH_ATTEMPTS_MINUTES: 5,	// ...in this duration (minutes)?
+
+            BACKOFF_MS: 3000,							// initial backoff period (milliseconds) - will increment by *2 on each successive backoff reply from Base
+        },
+    },
+
+    // Client Socket Server related
+    //-----------------------------
+    client: {
+        // Server Setup
+        srv: {
+            PORT: 9000,
+            MAX_CONN: 3000,
+        },
+
+        // Socket Setup
+        sock: {
+            KEEPALIVE_MS: 10000,   				// keep-alive connection timeout
+            AUTH_TIMEOUT_MS: 5000,        // authorization timeout after connection establishment
+            SENDER_TASK_MS: 500,          // task that writes data to Client on socket (timer exists only because we don't want to flush Client with pending data all at once)
+            ON_DATA_THROTTLING_MS: 100,    // throttling of received commands
+
+            MAX_AUTH_ATTEMPTS: 10,					// how many failed auth attempts are allowed?
+            MAX_AUTH_ATTEMPTS_MINUTES: 5,		// ...in this duration (minutes)?
+        },
+    },
+
+};
+
+module.exports = Configuration;

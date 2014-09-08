@@ -1,0 +1,90 @@
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:11:53.946Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:11:53.962Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:11:53.962Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:11:53.962Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:14:11.608Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 closed.","timestamp":"2014-09-06T16:14:13.400Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:14:16.094Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-06T16:14:16.625Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:14:17.467Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-09-06T16:14:17.467Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 0","timestamp":"2014-09-06T16:14:17.467Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-06T16:14:21.102Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:16:04.275Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:16:04.290Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:16:04.306Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:16:04.306Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:16:09.641Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:20:04.397Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:20:04.412Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:20:04.412Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:20:04.412Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:20:13.102Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:  Error:","timestamp":"2014-09-06T16:20:14.069Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2014-09-06T16:20:14.708Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:21:29.746Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:21:29.761Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:21:29.777Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:21:29.777Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:21:32.242Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2014-09-06T16:21:34.426Z"}
+{"level":"warn","message":"  ...reason: Wrong username/password.","timestamp":"2014-09-06T16:21:34.426Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-06T16:21:37.249Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:24:52.127Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:24:52.137Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:24:52.147Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:24:52.147Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:24:55.098Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:24:57.173Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:25:31.039Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:25:31.054Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:25:31.054Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:25:31.054Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:25:34.393Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:25:36.171Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:26:59.074Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:26:59.090Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:26:59.090Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:26:59.090Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:27:05.938Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:27:07.498Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:33:39.359Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-09-06T16:33:39.936Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-06T16:33:44.366Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:35:38.497Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:35:38.512Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:35:38.528Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:35:38.528Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:35:40.197Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-09-06T16:35:40.759Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-06T16:35:45.205Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:36:17.044Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:36:18.121Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:37:48.812Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:37:48.827Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:37:48.843Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:37:48.843Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:37:50.387Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:37:51.448Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:38:27.801Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:38:28.971Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:42:34.471Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:42:34.487Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:42:34.487Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:42:34.487Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:42:44.674Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:42:46.265Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:42:51.756Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:42:52.380Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-06T16:44:05.869Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-06T16:44:05.884Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-06T16:44:05.900Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-06T16:44:05.900Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:44:14.995Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:44:16.742Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-06T16:44:18.536Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:44:19.051Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-08T06:42:57.840Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-08T06:42:57.856Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-08T06:42:57.867Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-08T06:42:57.870Z"}

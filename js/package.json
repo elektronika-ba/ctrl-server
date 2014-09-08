@@ -1,0 +1,24 @@
+{
+  "name": "CTRL",
+  "version": "0.0.1",
+  "description": "CTRL - Remote Control Thing",
+  "main": "server.js",
+  "dependencies": {
+    "moment": "~2.6.0",
+    "mysql": "~2.1.1",
+    "node-gcm": "~0.9.10",
+    "winston": "~0.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "ctrl",
+    "iot",
+    "elektronika"
+  ],
+  "author": "Trax",
+  "license": "WTF"
+}

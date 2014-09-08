@@ -1,0 +1,1 @@
+You don't need to execute creation of these stored procedures. They are already included in CREATE.sql

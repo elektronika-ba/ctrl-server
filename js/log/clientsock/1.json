@@ -1,0 +1,42 @@
+{"level":"info","message":"Client trax authorized, his IDbase is: 1 .","timestamp":"2014-09-06T16:27:07.514Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-09-06T16:27:07.514Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-06T16:27:07.514Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:27:52.972Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-09-06T16:27:52.972Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-09-06T16:27:52.972Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2014-09-06T16:27:53.269Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:31:04.966Z"}
+{"level":"info","message":"  ...didn't ACK because this was AUTH command from Client, or Client is not authorized, or this was a notification.","timestamp":"2014-09-06T16:31:04.966Z"}
+{"level":"info","message":"  ...system message. Don't know what to do with it - ignoring...","timestamp":"2014-09-06T16:31:04.966Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:31:22.063Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-09-06T16:31:22.063Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 0","timestamp":"2014-09-06T16:31:22.063Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:31:27.898Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-09-06T16:31:27.898Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 0","timestamp":"2014-09-06T16:31:27.898Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:31:43.217Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-09-06T16:31:43.217Z"}
+{"level":"info","message":"  ...system message. Don't know what to do with it - ignoring...","timestamp":"2014-09-06T16:31:43.217Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-09-06T16:31:53.670Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-09-06T16:31:53.670Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-09-06T16:31:53.670Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-09-06T16:31:59.095Z"}
+{"level":"info","message":"  ...saved current TXclient ( 2 ) to database.","timestamp":"2014-09-06T16:31:59.095Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-06T16:32:07.376Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-06T16:32:09.591Z"}
+{"level":"info","message":"Client trax authorized, his IDbase is: 1 .","timestamp":"2014-09-06T16:32:09.591Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-09-06T16:32:09.591Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-06T16:32:09.591Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-09-06T16:32:27.925Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) to database.","timestamp":"2014-09-06T16:32:27.925Z"}
+{"level":"info","message":"Client trax authorized, his IDbase is: 1 .","timestamp":"2014-09-06T16:38:28.971Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-09-06T16:38:28.971Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-06T16:38:28.971Z"}
+{"level":"info","message":"Client trax authorized, his IDbase is: 1 .","timestamp":"2014-09-06T16:42:46.265Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-09-06T16:42:46.265Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-06T16:42:46.265Z"}
+{"level":"info","message":"Client trax authorized, his IDbase is: 1 .","timestamp":"2014-09-06T16:44:16.758Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-09-06T16:44:16.758Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-06T16:44:16.758Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-09-06T16:44:45.190Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) to database.","timestamp":"2014-09-06T16:44:45.190Z"}
