@@ -5,13 +5,13 @@
     <MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA>
 */
 
-var HEADER_ACK = 0x01; // this packet IS ack
-var HEADER_SYNC = 0x02; // should other side sync to 0?
+var HEADER_SYNC = 0x01; // should other side sync to 0?
+var HEADER_ACK = 0x02; // this packet IS ack
 var HEADER_PROCESSED = 0x04; // this packet is processed on the other side (not ignored because ID is the same as the previous one received)
 var HEADER_OUT_OF_SYNC = 0x08; // if the originator of this package is out of sync?
-var HEADER_BACKOFF = 0x10; // if receiver can't buffer anymore data (including the data he is acknowledging to) from sender, he will acknowledge with this bit set
-var HEADER_NOTIFICATION = 0x20; // is notification required with this message (only used if this is not an ACK)
-var HEADER_SYSTEM_MESSAGE = 0x40; // is this a system message? (not to be forwarded to Client, or sending a system message to Base)
+var HEADER_NOTIFICATION = 0x10; // is notification required with this message (only used if this is not an ACK)
+var HEADER_SYSTEM_MESSAGE = 0x20; // is this a system message? (not to be forwarded to Client, or sending a system message to Base)
+var HEADER_BACKOFF = 0x40; // if receiver can't buffer anymore data (including the data he is acknowledging to) from sender, he will acknowledge with this bit set
 
 function baseMessage() {
     this.binaryPackage = null;

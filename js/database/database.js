@@ -18,6 +18,21 @@ var pool = mysql.createPool({
 // For Base Socket
 //////////////////////////////////////////
 
+exports.flushBaseQueue = function (IDbase, callback) {
+    var sql = "DELETE FROM txserver2base WHERE IDbase=CAST(? AS UNSIGNED)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDbase], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('flushBaseQueue() error:', err); callback(true); return; }
+            callback(false);
+        });
+    });
+};
+
 exports.markUnsentTxServer2Base = function (IDbase, TXserver, callback) {
     var sql = "UPDATE txserver2base SET sent = 0 WHERE IDbase = CAST(? AS UNSIGNED) AND TXserver = ? LIMIT 1";
 
@@ -116,6 +131,21 @@ exports.getClientsOfBase = function (IDbase, callback) {
 
 // For Client Socket
 //////////////////////////////////////////
+
+exports.flushClientQueue = function (IDclient, callback) {
+    var sql = "DELETE FROM txserver2client WHERE IDclient=CAST(? AS UNSIGNED)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDclient], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('flushClientQueue() error:', err); callback(true); return; }
+            callback(false);
+        });
+    });
+};
 
 exports.authClient = function (username, password, remoteAddress, limit, minutes, callback) {
     pool.getConnection(function (err, connection) {

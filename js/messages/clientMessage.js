@@ -13,6 +13,7 @@ function clientMessage() {
             "out_of_sync": false,
             "notification": false,
             "system_message": false,
+            "backoff": false,
         },
 
         "TXsender": 0,
@@ -37,7 +38,7 @@ clientMessage.prototype.extractFrom = function (jd) {
             jd.header = {};
         }
 
-        var harr = ["ack", "sync", "processed", "out_of_sync", "notification", "system_message"];
+        var harr = ["ack", "sync", "processed", "out_of_sync", "notification", "system_message", "backoff"];
         for (var aim = 0; aim < harr.length; aim++) {
             if ((harr[aim] in jd.header) && (typeof jd.header[harr[aim]] == "boolean")) {
                 this.jsonData.header[harr[aim]] = jd.header[harr[aim]];

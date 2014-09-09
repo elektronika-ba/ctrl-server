@@ -2,7 +2,7 @@
 
 var Configuration = {
 
-    version: 004,                           // only whole numbers here! this increases the port number for both base and client sockets!
+    version: 4,                             // only whole numbers here! this increases the port number for both base and client sockets!
 
     // MySQL Database Connection
     //--------------------------

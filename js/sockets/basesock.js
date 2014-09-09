@@ -261,13 +261,28 @@ BaseSock.prototype.onData = function () {
                         }
 
                         if (bp.getOutOfSync()) {
-                            // TRAXY TODO: jos uvijek ne znam kako da ovo tretiram? da oborim konekciju totalno? nista? da flusham sve pending, oborim konekciju i krenemo ispocetka???
-                            wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC!!!');
+                            wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC! Will flush queue and destroy socket...');
+
+                            // STOP SENDING
+                            clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
+                            socket.myObj.tmrSenderTask = null; // don't forget this!
+
+                            // FLUSH PENDING MESSAGES QUEUE
+                            Database.flushBaseQueue(socket.myObj.IDbase, function (err) {
+                                if (err) {
+                                    wlog.error('Unknown error in Database.flushBaseQueue()!');
+                                }
+
+                                // DISCONNECT (kill socket)
+                                wlog.error('Socket destroyed for IDbase=', socket.myObj.IDbase, 'because of out-of-sync!');
+                                socket.end();
+                                socket.destroy();
+                            });
                         }
                     });
                 }
             }
-            // not an ACK
+                // not an ACK
             else {
                 wlog.info('Processing Base\'s data...');
 
@@ -328,7 +343,7 @@ BaseSock.prototype.onData = function () {
                             for (var i = 0; i < rowsLength; i++) {
 
                                 // insert message into database for this client and trigger sending if he is online
-                                (function(IDclient) {
+                                (function (IDclient) {
                                     Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
                                         if (err) {
                                             wlog.info('Error in Database.addTxServer2Client, for IDclient=', IDclient);
@@ -387,6 +402,8 @@ BaseSock.prototype.cmdAuthorize = function () {
 
     Database.authBase(baseid.toString('hex'), socket.myObj.ip, Configuration.base.sock.MAX_AUTH_ATTEMPTS, Configuration.base.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {
+            wlog.error('Unknown error in Database.authBase()!');
+
             socket.end();
             socket.destroy();
             return;
@@ -477,7 +494,7 @@ BaseSock.prototype.informMyClients = function (connected) {
         cm.setIsNotification(true);
         cm.setIsSystemMessage(true);
         var ccm = {
-            "type": "connection_status",
+            "type": "base_connection_status",
             "connected": connected,
             "baseid": socket.myObj.baseid,
         };

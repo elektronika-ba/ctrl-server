@@ -243,8 +243,23 @@ ClientSock.prototype.onData = function () {
                     }
 
                     if (cm.getIsOutOfSync()) {
-                        // TRAXY TODO: jos uvijek ne znam kako da ovo tretiram? da oborim konekciju totalno? nista? da obrisem sve sto je pending i da resetujem konekciju pa kad se uspostavi odradice se vec napravljeni sync?
-                        wlog.warn('  ...ERROR: ACKed but Client told me OUT-OF-SYNC!!!');
+                        wlog.error('  ...ERROR: ACKed but Client told me OUT-OF-SYNC! Will flush queue and destroy socket...');
+
+                        // STOP SENDING
+                        clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
+                        socket.myObj.tmrSenderTask = null; // don't forget this!
+
+                        // FLUSH PENDING MESSAGES QUEUE
+                        Database.flushClientQueue(socket.myObj.IDclient, function (err) {
+                            if (err) {
+                                wlog.error('Unknown error in Database.flushClientQueue()!');
+                            }
+
+                            // DISCONNECT (kill socket)
+                            wlog.error('Socket destroyed for IDclient=', socket.myObj.IDclient, 'because of out-of-sync!');
+                            socket.end();
+                            socket.destroy();
+                        });
                     }
                 });
             }
@@ -352,6 +367,8 @@ ClientSock.prototype.cmdAuthorize = function () {
 
     Database.authClient(cmd.username, cmd.password, socket.remoteAddress, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {
+            wlog.error('Unknown error in Database.authClient()!');
+
             socket.end();
             socket.destroy();
             return;
@@ -392,8 +409,9 @@ ClientSock.prototype.cmdAuthorize = function () {
             jsAns.setIsNotification(true);
             jsAns.setIsSystemMessage(true);
             var cmdRes = {};
-                cmdRes.result = 0;
-                cmdRes.description = 'Logged in.';
+            cmdRes.result = 0;
+            cmdRes.type = "authentication_response";
+            cmdRes.description = 'Logged in.';
             jsAns.setDataAsObject(cmdRes);
 
             // should we force other side to re-sync?
@@ -426,9 +444,11 @@ ClientSock.prototype.cmdAuthorize = function () {
             jsAns.setIsSystemMessage(true);
             var cmdRes = {};
 
+            cmdRes.type = "authentication_response";
+
             if (result[0][0].oTooMany == 1) {
                 cmdRes.result = 2;
-                cmdRes.description = 'Too many auth requests.';
+                cmdRes.description = 'Too many failed authentication requests.';
             }
             else {
                 cmdRes.result = 1;
@@ -463,8 +483,9 @@ ClientSock.prototype.sendBaseStatusNotification = function () {
     jsNotif.setIsSystemMessage(true);
 
     var ccm = {};
-        ccm.connected = foundConnected;
-        ccm.baseid = socket.myObj.baseid;
+    ccm.type = "base_connection_status";
+    ccm.connected = foundConnected;
+    ccm.baseid = socket.myObj.baseid;
     jsNotif.setDataAsObject(ccm);
 
     var jsonPackageAsString = JSON.stringify(jsNotif.buildMessage());
