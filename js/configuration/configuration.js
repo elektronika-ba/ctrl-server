@@ -2,7 +2,7 @@
 
 var Configuration = {
 
-    version: 4,                             // only whole numbers here! this increases the port number for both base and client sockets!
+    version: 0,                             // only whole numbers here! this increases the port number for both base and client sockets!
 
     // MySQL Database Connection
     //--------------------------
@@ -25,7 +25,7 @@ var Configuration = {
         // Socket Setup
         sock: {
             KEEPALIVE_MS: 5000,    			// keep-alive connection timeout
-            AUTH_TIMEOUT_MS: 5000,          // authorization timeout after connection establishment
+            AUTH_TIMEOUT_MS: 0,             // authorization timeout after connection establishment (0 disables timeout)
             SENDER_TASK_MS: 500,            // task that writes data to Base on socket (timer exists only because we don't want to flush Base with pending data all at once)
             ON_DATA_THROTTLING_MS: 50,      // throttling of received commands
 

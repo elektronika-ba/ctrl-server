@@ -36,17 +36,22 @@ function BaseSock(socket) {
         backoffMs: Configuration.base.sock.BACKOFF_MS / 2, // need this here, because it will change (*2) on each successive backof ack from Base
     };
 
-    socket.setKeepAlive(true, Configuration.base.sock.KEEP_ALIVE_MS);
+    // ESP8266 doesn't answer to keep alive messages so socket closes :(
+    //socket.setKeepAlive(true, Configuration.base.sock.KEEP_ALIVE_MS);
     socket.myObj.ip = socket.remoteAddress;
 
     connBases.push(socket);
     wlog.info("Connection with Base %s established.", socket.myObj.ip);
 
     // Start a timeout that will kill this socket in case other party doesn't authorize within Configuration.base.sock.AUTH_TIMEOUT_MS
-    socket.myObj.authTimer = setTimeout(function () {
-        wlog.info("Authorization timeout, killing connection with Base %s!", socket.myObj.ip);
-        socket.destroy();
-    }, Configuration.base.sock.AUTH_TIMEOUT_MS);
+    if(Configuration.base.sock.AUTH_TIMEOUT_MS > 0)
+    {
+        wlog.info("Authorization timeout set to", Configuration.base.sock.AUTH_TIMEOUT_MS/1000, "sec...");
+        socket.myObj.authTimer = setTimeout(function () {
+            wlog.info("Authorization timeout, killing connection with Base %s!", socket.myObj.ip);
+            socket.destroy();
+        }, Configuration.base.sock.AUTH_TIMEOUT_MS);
+    }
 
     // Remove the base from the list when it leaves
     socket.on('end', function () {

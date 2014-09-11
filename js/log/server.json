@@ -88,3 +88,143 @@
 {"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-08T06:42:57.856Z"}
 {"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-08T06:42:57.867Z"}
 {"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-08T06:42:57.870Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T16:47:04.468Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T16:47:04.478Z"}
+{"level":"info","message":"Base's Server listening on port: 8004.","timestamp":"2014-09-11T16:47:04.488Z"}
+{"level":"info","message":"Client's Server listening on port: 9004.","timestamp":"2014-09-11T16:47:04.488Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:52:50.188Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:52:53.518Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:52:55.188Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:53:00.835Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:53:05.182Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:53:05.852Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:53:07.992Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:53:11.301Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:53:13.002Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:54:17.773Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:54:22.162Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:54:22.786Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T16:55:03.187Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T16:55:03.202Z"}
+{"level":"info","message":"Base's Server listening on port: 8004.","timestamp":"2014-09-11T16:55:03.202Z"}
+{"level":"info","message":"Client's Server listening on port: 9004.","timestamp":"2014-09-11T16:55:03.202Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:55:05.730Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:55:09.052Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:55:20.752Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:55:33.342Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:55:37.678Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T16:55:48.349Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T16:56:04.869Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T16:56:08.176Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:00:39.391Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:00:39.406Z"}
+{"level":"info","message":"Base's Server listening on port: 8004.","timestamp":"2014-09-11T17:00:39.406Z"}
+{"level":"info","message":"Client's Server listening on port: 9004.","timestamp":"2014-09-11T17:00:39.406Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:00:59.932Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:00:59.948Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:00:59.963Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:00:59.963Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-11T17:01:02.444Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-11T17:01:17.451Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:33:21.024Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:33:21.034Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:33:21.044Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:33:21.044Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:36:24.524Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T17:36:28.824Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:36:39.536Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:36:40.996Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T17:36:46.287Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:36:56.010Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:37:41.112Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T17:37:45.382Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:37:56.113Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:38:28.486Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:38:28.506Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:38:28.516Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:38:28.516Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:38:31.126Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:40:09.415Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:40:09.435Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:40:09.445Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:40:09.445Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:40:13.905Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:41:32.565Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:41:32.575Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:41:32.585Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:41:32.585Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:42:46.125Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T17:42:50.428Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:43:17.959Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T17:43:22.238Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:44:06.797Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:44:06.813Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:44:06.820Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:44:06.820Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:44:09.637Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 closed.","timestamp":"2014-09-11T17:44:26.783Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:45:21.760Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:45:21.780Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:45:21.790Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:45:21.790Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:45:23.780Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:45:38.781Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:45:48.433Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:46:03.435Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:48:00.291Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:48:00.301Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:48:00.311Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:48:00.311Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:48:04.201Z"}
+{"level":"info","message":"Authorization timeout set to 15000 sec...","timestamp":"2014-09-11T17:48:04.201Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:48:19.203Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T17:48:25.520Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T17:48:25.540Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T17:48:25.550Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T17:48:25.550Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T17:48:32.080Z"}
+{"level":"info","message":"Authorization timeout set to 15 sec...","timestamp":"2014-09-11T17:48:32.080Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 closed.","timestamp":"2014-09-11T17:48:37.741Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T17:48:47.082Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:00:53.893Z"}
+{"level":"info","message":"Authorization timeout set to 15 sec...","timestamp":"2014-09-11T18:00:53.893Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 closed.","timestamp":"2014-09-11T18:00:55.687Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T18:01:08.900Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T18:03:18.845Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T18:03:18.860Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T18:03:18.876Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T18:03:18.876Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:07:33.913Z"}
+{"level":"info","message":"Authorization timeout set to 15 sec...","timestamp":"2014-09-11T18:07:33.913Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 192.168.1.3!","timestamp":"2014-09-11T18:07:48.928Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T18:08:30.104Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T18:08:30.119Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T18:08:30.119Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T18:08:30.119Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:08:51.476Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:11:23.950Z"}
+{"level":"error","message":"Unknown error in Database.authBase()!","timestamp":"2014-09-11T18:11:30.226Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T18:12:31.664Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T18:12:31.682Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T18:12:31.692Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T18:12:31.692Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:12:35.197Z"}
+{"level":"info","message":"Base 17171717171717171717171717171717 authorization error.","timestamp":"2014-09-11T18:12:40.965Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:15:35.709Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-11T18:15:38.907Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T18:26:30.956Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T18:26:30.973Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T18:26:30.983Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T18:26:30.983Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:26:35.773Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T18:26:40.183Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:26:45.274Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T18:26:49.654Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:26:57.207Z"}
+{"level":"info","message":"Connection to Base 192.168.1.3 dropped.","timestamp":"2014-09-11T18:27:01.518Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-11T18:27:17.395Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-11T18:27:17.415Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-11T18:27:17.425Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-11T18:27:17.425Z"}
+{"level":"info","message":"Connection with Base 192.168.1.3 established.","timestamp":"2014-09-11T18:27:20.215Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-09-11T18:27:28.966Z"}
