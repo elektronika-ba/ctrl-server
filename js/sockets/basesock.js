@@ -34,19 +34,17 @@ function BaseSock(socket) {
 
         tmrBackoff: null, // backoff timer
         backoffMs: Configuration.base.sock.BACKOFF_MS / 2, // need this here, because it will change (*2) on each successive backof ack from Base
+        outOfSyncCnt: 0, // out-of-sync counter
     };
 
-    // ESP8266 doesn't answer to keep alive messages so socket closes :(
-    //socket.setKeepAlive(true, Configuration.base.sock.KEEP_ALIVE_MS);
     socket.myObj.ip = socket.remoteAddress;
 
     connBases.push(socket);
     wlog.info("Connection with Base %s established.", socket.myObj.ip);
 
     // Start a timeout that will kill this socket in case other party doesn't authorize within Configuration.base.sock.AUTH_TIMEOUT_MS
-    if(Configuration.base.sock.AUTH_TIMEOUT_MS > 0)
-    {
-        wlog.info("Authorization timeout set to", Configuration.base.sock.AUTH_TIMEOUT_MS/1000, "sec...");
+    if (Configuration.base.sock.AUTH_TIMEOUT_MS > 0) {
+        wlog.info("Authorization timeout set to", Configuration.base.sock.AUTH_TIMEOUT_MS / 1000, "sec...");
         socket.myObj.authTimer = setTimeout(function () {
             wlog.info("Authorization timeout, killing connection with Base %s!", socket.myObj.ip);
             socket.destroy();
@@ -266,23 +264,36 @@ BaseSock.prototype.onData = function () {
                         }
 
                         if (bp.getOutOfSync()) {
-                            wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC! Will flush queue and destroy socket...');
+                            wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC!');
 
-                            // STOP SENDING
-                            clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
-                            socket.myObj.tmrSenderTask = null; // don't forget this!
+                            if (socket.myObj.outOfSyncCnt >= Configuration.base.sock.OUT_OF_SYNC_CNT_MAX) {
+                                wlog.error('  ...Will flush queue and destroy socket...');
 
-                            // FLUSH PENDING MESSAGES QUEUE
-                            Database.flushBaseQueue(socket.myObj.IDbase, function (err) {
-                                if (err) {
-                                    wlog.error('Unknown error in Database.flushBaseQueue()!');
-                                }
+                                // STOP SENDING
+                                clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
+                                socket.myObj.tmrSenderTask = null; // don't forget this!
 
-                                // DISCONNECT (kill socket)
-                                wlog.error('Socket destroyed for IDbase=', socket.myObj.IDbase, 'because of out-of-sync!');
-                                socket.end();
-                                socket.destroy();
-                            });
+                                // FLUSH PENDING MESSAGES QUEUE
+                                Database.flushBaseQueue(socket.myObj.IDbase, function (err) {
+                                    if (err) {
+                                        wlog.error('Unknown error in Database.flushBaseQueue()!');
+                                    }
+
+                                    // DISCONNECT (kill socket)
+                                    wlog.error('Socket destroyed for IDbase=', socket.myObj.IDbase, 'because of out-of-sync!');
+                                    socket.end();
+                                    socket.destroy();
+                                });
+                            }
+                            else {
+                                socket.myObj.outOfSyncCnt++;
+                                wlog.info('  ...will re-send unacknowledged queue items. Increased flush-counter to:', socket.myObj.outOfSyncCnt, '/', Configuration.base.sock.OUT_OF_SYNC_CNT_MAX, '!');
+
+                                self.resendUnackedItems();
+                            }
+                        }
+                        else {
+                            socket.myObj.outOfSyncCnt = 0;
                         }
                     });
                 }
@@ -302,7 +313,12 @@ BaseSock.prototype.onData = function () {
                         wlog.warn('  ...Warning: re-transmitted command, not processed!');
                     }
                     else if (bp.getTXsender().readUInt32BE(0) > (socket.myObj.TXbase + 1)) {
-                        bpAck.setOutOfSync(true); // SYNC PROBLEM! Base sent higher than we expected! This means we missed some previous Message! This part should be handled on Bases' side. Base should flush all data (NOT A VERY SMART IDEA) and re-connect. Re-sync should naturally occur then in auth procedure as there would be nothing pending in queue to send to Server.
+                        // SYNC PROBLEM! Base sent higher than we expected! This means we missed some previous Message!
+                        // This part should be handled on Bases' side.
+                        // Base should flush all data (NOT A VERY SMART IDEA) and re-connect. Re-sync should naturally occur
+                        // then in auth procedure as there would be nothing pending in queue to send to Server.
+
+                        bpAck.setOutOfSync(true);
                         bpAck.setIsProcessed(false);
                         wlog.error('  ...Error: Base sent out-of-sync data! Expected:', (socket.myObj.TXbase + 1), 'but I got:', bp.getTXsender().readUInt32BE(0));
                     }
@@ -322,7 +338,32 @@ BaseSock.prototype.onData = function () {
                 if (bpAck.getIsProcessed()) {
                     // system messages are not forwarded to our Clients
                     if (bp.getIsSystemMessage()) {
-                        wlog.info('  ...system message. Don\'t know what to do with it - ignoring...');
+                        wlog.info('  ...system message received, parsing...');
+
+                        // process system messages
+                        if (bp.getData().toString('hex') == '01') {
+                            wlog.info('  ...will re-start pending items sender for all unacknowledged items.');
+
+                            self.resendUnackedItems();
+                        }
+                        else if (bp.getData().toString('hex') == '02') {
+                            wlog.info('  ...enabling KEEP ALIVE.');
+
+                            socket.setKeepAlive(true, Configuration.base.sock.KEEP_ALIVE_MS);
+                        }
+                        else if (bp.getData().toString('hex') == '03') {
+                            wlog.info('  ...disabling KEEP ALIVE.');
+
+                            socket.setKeepAlive(false);
+                        }
+                            /*
+                            else if (bp.getData().toString('hex') == '03') {
+                                // something else...
+                            }
+                            */
+                        else {
+                            wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
+                        }
                     }
                     else {
                         wlog.info('  ...fresh data, will forward to my Clients...');
@@ -388,6 +429,28 @@ BaseSock.prototype.onData = function () {
         }, Configuration.base.sock.ON_DATA_THROTTLING_MS);
     }
 };
+
+BaseSock.prototype.resendUnackedItems = function () {
+    var self = this;
+    var socket = self.socket;
+
+    // stop sender for now
+    clearInterval(socket.myObj.tmrSenderTask);
+    socket.myObj.tmrSenderTask = null;
+
+    // mark unacknowledged items as unsent (unmark sent bit)
+    Database.markUnackedTxServer2Base(socket.myObj.IDbase, function (err) {
+        if (err) {
+            wlog.error('Unknown error in Database.markUnackedTxServer2Base!');
+            return;
+        }
+
+        wlog.info('  ...starting queued items sender of all unacknowledged items...');
+
+        // start pending items sender and we are done
+        self.startQueuedItemsSender();
+    });
+}
 
 BaseSock.prototype.cmdAuthorize = function () {
     var self = this;

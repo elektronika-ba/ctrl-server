@@ -33,6 +33,7 @@ function ClientSock(socket) {
         tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one and waiting for ACK after each transmission in order to send next one
         ip: null,
         ackCallbacks: [], // array of callback functions that will be triggered once "TXserver" gets ACKed or everything fails
+        outOfSyncCnt: 0, // out-of-sync counter
     };
 
     socket.setEncoding('ascii');
@@ -243,23 +244,36 @@ ClientSock.prototype.onData = function () {
                     }
 
                     if (cm.getIsOutOfSync()) {
-                        wlog.error('  ...ERROR: ACKed but Client told me OUT-OF-SYNC! Will flush queue and destroy socket...');
+                        wlog.error('  ...ERROR: ACKed but Client told me OUT-OF-SYNC!');
 
-                        // STOP SENDING
-                        clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
-                        socket.myObj.tmrSenderTask = null; // don't forget this!
+                        if (socket.myObj.outOfSyncCnt >= Configuration.client.sock.OUT_OF_SYNC_CNT_MAX) {
+                            wlog.error('  ...Will flush queue and destroy socket...');
 
-                        // FLUSH PENDING MESSAGES QUEUE
-                        Database.flushClientQueue(socket.myObj.IDclient, function (err) {
-                            if (err) {
-                                wlog.error('Unknown error in Database.flushClientQueue()!');
-                            }
+                            // STOP SENDING
+                            clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
+                            socket.myObj.tmrSenderTask = null; // don't forget this!
 
-                            // DISCONNECT (kill socket)
-                            wlog.error('Socket destroyed for IDclient=', socket.myObj.IDclient, 'because of out-of-sync!');
-                            socket.end();
-                            socket.destroy();
-                        });
+                            // FLUSH PENDING MESSAGES QUEUE
+                            Database.flushClientQueue(socket.myObj.IDclient, function (err) {
+                                if (err) {
+                                    wlog.error('Unknown error in Database.flushClientQueue()!');
+                                }
+
+                                // DISCONNECT (kill socket)
+                                wlog.error('Socket destroyed for IDclient=', socket.myObj.IDclient, 'because of out-of-sync!');
+                                socket.end();
+                                socket.destroy();
+                            });
+                        }
+                        else {
+                            socket.myObj.outOfSyncCnt++;
+                            wlog.info('  ...will re-send unacknowledged queue items. Increased flush-counter to:', socket.myObj.outOfSyncCnt, '/', Configuration.client.sock.OUT_OF_SYNC_CNT_MAX, '!');
+
+                            self.resendUnackedItems();
+                        }
+                    }
+                    else {
+                        socket.myObj.outOfSyncCnt = 0;
                     }
                 });
             }
@@ -297,7 +311,24 @@ ClientSock.prototype.onData = function () {
                 if (jsAck.getIsProcessed()) {
                     // system messages are not forwarded to our Base
                     if (cm.getIsSystemMessage()) {
-                        wlog.info('  ...system message. Don\'t know what to do with it - ignoring...');
+                        wlog.info('  ...system message received, parsing...');
+
+                        var d = cm.getData();
+
+                        // process system messages
+                        if (("type" in d) && d.type == 'pull_unacked') {
+                            wlog.info('  ...will re-start pending items sender for all unacknowledged items.');
+
+                            self.resendUnackedItems();
+                        }
+                            /*
+                            if (("type" in d) && d.type == 'something_else') {
+                                // something else...
+                            }
+                            */
+                        else {
+                            wlog.info('  ...unknown system message:', d, ', ignored.');
+                        }
                     }
                     else {
                         wlog.info('  ...fresh data, will forward to my Base...');
@@ -348,6 +379,28 @@ ClientSock.prototype.onData = function () {
         }, Configuration.client.sock.ON_DATA_THROTTLING_MS);
     }
 };
+
+ClientSock.prototype.resendUnackedItems = function () {
+    var self = this;
+    var socket = self.socket;
+
+    // stop sender for now
+    clearInterval(socket.myObj.tmrSenderTask);
+    socket.myObj.tmrSenderTask = null;
+
+    // mark unacknowledged items as unsent (unmark sent bit)
+    Database.markUnackedTxServer2Client(socket.myObj.IDclient, function (err) {
+        if (err) {
+            wlog.error('Unknown error in Database.markUnackedTxServer2Client!');
+            return;
+        }
+
+        wlog.info('  ...starting queued items sender of all unacknowledged items...');
+
+        // start pending items sender and we are done
+        self.startQueuedItemsSender();
+    });
+}
 
 ClientSock.prototype.cmdAuthorize = function () {
     var self = this;

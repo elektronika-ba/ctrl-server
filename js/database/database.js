@@ -48,6 +48,21 @@ exports.markUnsentTxServer2Base = function (IDbase, TXserver, callback) {
     });
 };
 
+exports.markUnackedTxServer2Base = function (IDbase, callback) {
+    var sql = "UPDATE txserver2base SET sent = 0 WHERE acked = 0 AND IDbase = CAST(? AS UNSIGNED)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDbase], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('markUnackedTxServer2Base() error:', err); callback(true); return; }
+            callback(false, result);
+        });
+    });
+};
+
 exports.getNextTxServer2Base = function (IDbase, callback) {
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
