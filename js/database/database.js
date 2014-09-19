@@ -147,6 +147,21 @@ exports.getClientsOfBase = function (IDbase, callback) {
 // For Client Socket
 //////////////////////////////////////////
 
+exports.markUnackedTxServer2Client = function (IDclient, callback) {
+    var sql = "UPDATE txserver2client SET sent = 0 WHERE acked = 0 AND IDclient = CAST(? AS UNSIGNED)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDclient], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('markUnackedTxServer2Client() error:', err); callback(true); return; }
+            callback(false, result);
+        });
+    });
+};
+
 exports.flushClientQueue = function (IDclient, callback) {
     var sql = "DELETE FROM txserver2client WHERE IDclient=CAST(? AS UNSIGNED)";
 
