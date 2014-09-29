@@ -165,7 +165,7 @@ ClientSock.prototype.onData = function () {
 
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDclient == null) {
-            self.cmdAuthorize();
+            self.doAuthorize();
         }
         else {
             // handle received ACK
@@ -273,16 +273,14 @@ ClientSock.prototype.onData = function () {
                     else {
                         wlog.info('  ...fresh data, will forward to my Base...');
 
-                        // todo: provjeri da li je doslo: payload i baseid u data objektu. baseid je opcion.
-
                         try {
-                            new Buffer(cm.getData().payload, 'hex');
+                            new Buffer(cm.getData(), 'hex');
                         } catch (err) {
                             wlog.warn('  ...Warning, data provided is not a HEX string!');
                         }
 
                         var bp = new baseMessage();
-                        bp.setData(cm.getData().payload);
+                        bp.setData(cm.getData());
                         var binaryPackageAsHexString = new Buffer(bp.buildPackage()).toString('hex');
 
                         // daj sve njegove baze
@@ -300,7 +298,7 @@ ClientSock.prototype.onData = function () {
                             for (var i = 0; i < rowsLength; i++) {
 
                                 // if baseid didn't arrive, or it was empty or it is the targetted one
-                                if (!("baseid" in cm.getData()) || cm.getData().baseid == '' || cm.getData().baseid == rows[i].baseid) {
+                                if (cm.getBaseId() == '' || cm.getBaseId() == rows[i].baseid) {
 
                                     (function (IDbase) {
                                         // insert message into database for this base and trigger sending if it is online
@@ -368,7 +366,7 @@ ClientSock.prototype.resendUnackedItems = function () {
     });
 }
 
-ClientSock.prototype.cmdAuthorize = function () {
+ClientSock.prototype.doAuthorize = function () {
     var self = this;
     var socket = self.socket;
     var cm = self.cm;
@@ -380,7 +378,7 @@ ClientSock.prototype.cmdAuthorize = function () {
     }
 
     if (!("auth_token" in cmd)) {
-        wlog.warn('Error in cmdAuthorize(), missing auth_token parameter!');
+        wlog.warn('Error in doAuthorize(), missing auth_token parameter!');
         return;
     }
 

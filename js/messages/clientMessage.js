@@ -18,6 +18,8 @@ function clientMessage() {
 
         "TXsender": 0,
 
+        "baseid": "",
+
         "data": null,
     };
 
@@ -50,6 +52,10 @@ clientMessage.prototype.extractFrom = function (jd) {
         }
         else {
             console.log('Warning in extractFrom(), extracted TXsender is not a number! Using default.');
+        }
+
+        if (("baseid" in jd) && (typeof jd.baseid == "string")) {
+            this.jsonData.baseid = jd.baseid;
         }
 
         if (("data" in jd) && ((typeof jd.data == "string") || (typeof jd.data == "object")) ) {
@@ -133,6 +139,19 @@ clientMessage.prototype.setTXsender = function (txs) {
 
 clientMessage.prototype.getTXsender = function () {
     return this.jsonData.TXsender;
+};
+
+clientMessage.prototype.setBaseId = function (baseid) {
+    if (typeof baseid == 'string') {
+        this.jsonData.baseid = baseid;
+    }
+    else {
+        console.log('Warning in clientMessage(), provided baseid is not a string!');
+    }
+};
+
+clientMessage.prototype.getBaseId = function () {
+    return this.jsonData.baseid;
 };
 
 clientMessage.prototype.setData = function (ct) {
