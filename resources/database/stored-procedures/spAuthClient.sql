@@ -1,14 +1,11 @@
 DELIMITER //
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spAuthClient`(IN `pUsername` VARCHAR(50), IN `pPassword` VARCHAR(50), IN pRemoteAddr VARCHAR(15), IN pLimit TINYINT, IN pMinutes TINYINT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAuthClient`(IN `pAuthToken` VARCHAR(50), IN pRemoteAddr VARCHAR(15), IN pLimit TINYINT, IN pMinutes TINYINT)
 BEGIN
 	DECLARE oAuthorized TINYINT;
 	DECLARE oTooMany TINYINT;
 	DECLARE oForceSync TINYINT;
-	DECLARE oIDbase BIGINT UNSIGNED;
-	DECLARE oTimezone SMALLINT;
 	DECLARE oTXclient INT UNSIGNED;
-	DECLARE oBaseid VARCHAR(32);
 	DECLARE oIDclient BIGINT UNSIGNED;
 
 	DECLARE vNr TINYINT;
@@ -26,7 +23,7 @@ BEGIN
 	ELSE
 		BEGIN
 			### Provjeri imal tog korisnika sistemu
-			SELECT c.IDclient, c.TXclient, b.IDbase, b.baseid, b.timezone INTO oIDclient, oTXclient, oIDbase, oBaseid, oTimezone FROM client c JOIN base b ON b.IDbase=c.IDbase WHERE c.username = pUsername AND c.password=MD5(CONCAT(c.IDclient,'-',pPassword)) LIMIT 1;
+			SELECT c.IDclient, c.TXclient INTO oIDclient, oTXclient FROM client c WHERE c.auth_token = pAuthToken LIMIT 1;
 			IF FOUND_ROWS() = 1 THEN
 				BEGIN
 					SET oAuthorized = 1;
@@ -54,13 +51,13 @@ BEGIN
 			ELSE
 				BEGIN
 					### Add auth fail attempt
-					INSERT INTO client_auth_fail (stamp_system, username, password, remote_ip) VALUES(NOW(), pUsername, pPassword, pRemoteAddr);
+					INSERT INTO client_auth_fail (stamp_system, auth_token, remote_ip) VALUES(NOW(), pAuthToken, pRemoteAddr);
 				END;
 			END IF;
 		END;
 	END IF;
 
-	SELECT oAuthorized, oTooMany, oForceSync, oIDbase, oBaseid, oTimezone, oTXclient, oIDclient;
+	SELECT oAuthorized, oTooMany, oForceSync, oTXclient, oIDclient;
 END//
 
 DELIMITER ;

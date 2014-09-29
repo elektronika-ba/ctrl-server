@@ -238,3 +238,128 @@
 {"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-19T08:06:53.740Z"}
 {"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-19T08:06:53.749Z"}
 {"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-19T08:06:53.750Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T11:47:43.091Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T11:47:43.104Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T11:47:43.114Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T11:47:43.114Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-29T11:47:52.947Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 closed.","timestamp":"2014-09-29T11:48:00.802Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T11:48:02.063Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T11:48:07.065Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T11:48:36.880Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T11:48:36.894Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T11:48:36.903Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T11:48:36.904Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-29T11:48:39.066Z"}
+{"level":"info","message":"Authorization timeout set to 0.005 sec...","timestamp":"2014-09-29T11:48:39.066Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-29T11:48:39.076Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T11:48:52.381Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T11:48:52.400Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T11:48:52.409Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T11:48:52.409Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-09-29T11:48:54.725Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T11:48:54.726Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-09-29T11:48:59.735Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T11:49:03.963Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-09-29T11:49:05.860Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T11:49:08.966Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T11:50:36.509Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T11:50:36.523Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T11:50:36.532Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T11:50:36.532Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T11:50:38.622Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T11:50:38.623Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T11:50:43.631Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T11:50:43.632Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T11:50:56.012Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T11:50:56.026Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T11:50:56.034Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T11:50:56.035Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T11:50:59.935Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T11:50:59.935Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T11:51:04.947Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T13:36:20.690Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T13:36:20.817Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T13:36:20.867Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T13:36:20.867Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T13:38:04.798Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T13:38:04.798Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: {  Error:","timestamp":"2014-09-29T13:38:06.340Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:         b\u0000\u001eheaderb\u0000\u001c: { \r Error:","timestamp":"2014-09-29T13:38:06.362Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001esyncb\u0000\u001c: true,  Error:","timestamp":"2014-09-29T13:38:06.363Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001eackb\u0000\u001c: false,  Error:","timestamp":"2014-09-29T13:38:06.392Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001eprocessedb\u0000\u001c: false,  Error:","timestamp":"2014-09-29T13:38:06.393Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001eout_of_syncb\u0000\u001c: false,  Error:","timestamp":"2014-09-29T13:38:06.424Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001enotificationb\u0000\u001c: false,   Error:","timestamp":"2014-09-29T13:38:06.455Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:   Error:","timestamp":"2014-09-29T13:38:06.487Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001esystem_messageb\u0000\u001c: false,  Error:","timestamp":"2014-09-29T13:38:06.517Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:             b\u0000\u001ebackoffb\u0000\u001c: false  Error:","timestamp":"2014-09-29T13:38:06.548Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:         },  Error:","timestamp":"2014-09-29T13:38:06.579Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:         b\u0000\u001eTXsenderb\u0000\u001c: 0,  Error:","timestamp":"2014-09-29T13:38:06.610Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:         b\u0000\u001edatab\u0000\u001c: {  Error:","timestamp":"2014-09-29T13:38:06.643Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:                 b\u0000\u001eauth_tokenb\u0000\u001c: b\u0000\u001e16b5bb101392fac8b6264c8382cfa278b\u0000\u001c  Error:","timestamp":"2014-09-29T13:38:06.672Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:         }  Error:","timestamp":"2014-09-29T13:38:06.707Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:     } Error:","timestamp":"2014-09-29T13:38:08.091Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T13:38:09.813Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T13:39:33.528Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T13:39:33.528Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: {  Error:","timestamp":"2014-09-29T13:39:34.541Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t\"header\": {  Error:","timestamp":"2014-09-29T13:39:34.541Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"sync\": true,  Error:","timestamp":"2014-09-29T13:39:34.558Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"ack\": false,  Error:","timestamp":"2014-09-29T13:39:34.589Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"processed\": false,  Error:","timestamp":"2014-09-29T13:39:34.621Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"out_of_sync\": false,  Error:","timestamp":"2014-09-29T13:39:34.653Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"notification\": false,   Error:","timestamp":"2014-09-29T13:39:34.685Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:  Error:","timestamp":"2014-09-29T13:39:34.715Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"system_message\": false,  Error:","timestamp":"2014-09-29T13:39:34.745Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t    \"backoff\": false  Error:","timestamp":"2014-09-29T13:39:34.777Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t}, Error:","timestamp":"2014-09-29T13:39:34.809Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t\"TXsender\": 0, Error:","timestamp":"2014-09-29T13:39:34.839Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t\"data\": { Error:","timestamp":"2014-09-29T13:39:34.874Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t\t\"auth_token\": \"16b5bb101392fac8b6264c8382cfa278\" Error:","timestamp":"2014-09-29T13:39:34.904Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: \t} Error:","timestamp":"2014-09-29T13:39:34.936Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON: } Error:","timestamp":"2014-09-29T13:39:34.964Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:  Error:","timestamp":"2014-09-29T13:39:35.926Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T13:39:38.537Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T13:39:59.837Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T13:39:59.837Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:02:57.773Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:02:57.787Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:02:57.796Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:02:57.796Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:03:45.733Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:03:45.747Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:03:45.755Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:03:45.756Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T14:03:51.248Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T14:03:51.248Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:04:11.480Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:04:11.494Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:04:11.503Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:04:11.504Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T14:04:18.224Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T14:04:18.225Z"}
+{"level":"warn","message":"Error in onData() while parsing JSON:  Error:","timestamp":"2014-09-29T14:04:19.053Z"}
+{"level":"error","message":"Unknown error in Database.authClient()!","timestamp":"2014-09-29T14:04:19.107Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2014-09-29T14:04:23.235Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:06:06.755Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:06:06.770Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:06:06.779Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:06:06.780Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T14:06:15.136Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T14:06:15.137Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-29T14:06:15.845Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:09:09.775Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:09:09.789Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:09:09.798Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:09:09.799Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T14:09:21.564Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T14:09:21.564Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-29T14:09:22.252Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-09-29T14:16:35.116Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-09-29T14:16:35.131Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-09-29T14:16:35.140Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-09-29T14:16:35.140Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-09-29T14:16:47.893Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-09-29T14:16:47.893Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-09-29T14:16:50.207Z"}

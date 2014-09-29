@@ -21,16 +21,16 @@ function BaseSock(socket) {
     self.socket = socket;
 
     socket.myObj = {
-        baseid: null, // once authorized this will hold Base ID
         IDbase: null, // once authorized this will hold IDbase
+        baseid: null, // once authorized this will hold Base ID
         timezome: 0, // once authorized this will hold TimeZone for this Base
         TXbase: 0, // once authorized this will hold last sequence id received from Base (integer - 4 bytes)
+
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
 
         tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one and waiting for ACK after each transmission in order to send next one
         ip: null,
-        ackCallbacks: [], // array of callback functions that will be triggered once "TXserver" gets ACKed or everything fails
 
         tmrBackoff: null, // backoff timer
         backoffMs: Configuration.base.sock.BACKOFF_MS / 2, // need this here, because it will change (*2) on each successive backof ack from Base
@@ -62,16 +62,6 @@ function BaseSock(socket) {
         clearTimeout(socket.myObj.tmrSenderTask);
         clearTimeout(socket.myObj.tmrBackoff);
 
-        while (socket.myObj.ackCallbacks.length > 0) {
-            var TXserver = socket.myObj.ackCallbacks[0].TXserver;
-            var callback = socket.myObj.ackCallbacks[0].callback;
-
-            callback(false, TXserver); // say we failed
-            wlog.info('  ...called failure ACK callback for TXserver:', TXserver);
-
-            socket.myObj.ackCallbacks.shift();
-        }
-
         connBases.splice(connBases.indexOf(socket), 1);
     });
 
@@ -87,16 +77,6 @@ function BaseSock(socket) {
             clearTimeout(socket.myObj.tmrSenderTask);
             clearTimeout(socket.myObj.tmrBackoff);
 
-            while (socket.myObj.ackCallbacks.length > 0) {
-                var TXserver = socket.myObj.ackCallbacks[0].TXserver;
-                var callback = socket.myObj.ackCallbacks[0].callback;
-
-                callback(false, TXserver); // say we failed
-                wlog.info('  ...called failure ACK callback for TXserver:', TXserver);
-
-                socket.myObj.ackCallbacks.shift();
-            }
-
             connBases.splice(connBases.indexOf(socket), 1);
         }
         else {
@@ -109,32 +89,6 @@ function BaseSock(socket) {
         socket.myObj.dataBuff = Buffer.concat([socket.myObj.dataBuff, data]);
         self.onData();
     });
-
-    // Add to queue and start tx job - parameter is of baseMessage() type
-    socket.writeQueued = function (bp, ackCallback) {
-        if (!bp) {
-            wlog.error("Error in socket.writeQueued(), no parameter provided!");
-            return;
-        }
-
-        // This will add data to queue and return TXserver assigned to this outgoing packet
-        var binaryPackageAsHexString = new Buffer(bp.buildPackage()).toString('hex');
-        Database.addTxServer2Base(socket.myObj.IDbase, binaryPackageAsHexString, function (err, result) {
-            if (err) {
-                wlog.error("Unknown error in Database.addTxServer2Base()!");
-                return;
-            }
-
-            wlog.info('Added to TX Server2Base queue, TXserver:', result[0][0].oTXserver, 'starting sender...');
-
-            if (ackCallback) {
-                socket.myObj.ackCallbacks.push({ "TXserver": result[0][0].oTXserver, "callback": ackCallback });
-                wlog.info('  ...added callback to array.');
-            }
-
-            self.startQueuedItemsSender();
-        });
-    };
 
     // This will send oldest item which is waiting in queue
     socket.startQueuedItemsSender = function () {
@@ -185,7 +139,6 @@ function BaseSock(socket) {
             }
         }
     };
-
 };
 
 BaseSock.prototype.onData = function () {
@@ -249,18 +202,6 @@ BaseSock.prototype.onData = function () {
                         }
                         else {
                             wlog.warn('  ...couldn\'t not ACK on TXserver:', bp.getTXsender().readUInt32BE(0), ', strange! Hm...');
-                        }
-
-                        var fAckCallbacks = socket.myObj.ackCallbacks.filter(function (item) {
-                            return (item.TXserver == bp.getTXsender().readUInt32BE(0));
-                        });
-
-                        if (fAckCallbacks.length == 1) {
-                            wlog.info('  ...calling ACK callback function.');
-                            fAckCallbacks[0].callback(true, fAckCallbacks[0].TXserver); // call it and say it is ACKed, and pass TXserver in case callback needs it...
-                        }
-                        else if (fAckCallbacks.length > 1) {
-                            wlog.error('  ...not calling ACK callback function because there is more than one. DEVELOPER ERROR? CHECK ME!.');
                         }
 
                         if (bp.getOutOfSync()) {
@@ -413,9 +354,8 @@ BaseSock.prototype.onData = function () {
                                     });
                                 })(rows[i].IDclient);
 
-                            }
-                        });
-
+                            } // for each client...
+                        }); // Database.getClientsOfBase()
                     } // forwarding data to clients, not a system message
                 } // yes, is processed
             } // processing received data, this is not an ACK
@@ -562,9 +502,9 @@ BaseSock.prototype.informMyClients = function (connected) {
         cm.setIsNotification(true);
         cm.setIsSystemMessage(true);
         var ccm = {
+            "baseid": socket.myObj.baseid,
             "type": "base_connection_status",
             "connected": connected,
-            "baseid": socket.myObj.baseid,
         };
         cm.setDataAsObject(ccm);
 

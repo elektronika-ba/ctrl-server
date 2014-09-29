@@ -130,7 +130,7 @@ exports.saveTXbase = function (IDbase, TXbase) {
 };
 
 exports.getClientsOfBase = function (IDbase, callback) {
-    var sql = "SELECT c.IDclient FROM client c JOIN base b ON b.IDbase=c.IDbase WHERE b.IDbase=CAST(? AS UNSIGNED)";
+    var sql = "SELECT bc.IDclient FROM base_client bc WHERE b.IDbase=CAST(? AS UNSIGNED)";
 
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
@@ -177,11 +177,11 @@ exports.flushClientQueue = function (IDclient, callback) {
     });
 };
 
-exports.authClient = function (username, password, remoteAddress, limit, minutes, callback) {
+exports.authClient = function (authToken, remoteAddress, limit, minutes, callback) {
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
 
-        connection.query("CALL spAuthClient(?,?,?,?,?)", [username, password, remoteAddress, limit, minutes], function (err, result) {
+        connection.query("CALL spAuthClient(?,?,?,?)", [authToken, remoteAddress, limit, minutes], function (err, result) {
             connection.release();
 
             if (err) { console.log('authClient() error:', err); callback(true); return; }
@@ -239,6 +239,21 @@ exports.saveTXclient = function (IDclient, TXclient) {
             connection.release();
 
             if (err) { console.log('saveTXclient() error:', err); return; }
+        });
+    });
+};
+
+exports.getBasesOfClient = function (IDclient, callback) {
+    var sql = "SELECT b.IDbase, b.baseid FROM base_client bc JOIN base b ON b.IDbase=bc.IDbase WHERE bc.IDclient=CAST(? AS UNSIGNED)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDclient], function (err, rows, columns) {
+            connection.release();
+
+            if (err) { console.log('getBasesOfClient() error:', err); callback(true); return; }
+            callback(false, rows, columns);
         });
     });
 };

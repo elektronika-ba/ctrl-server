@@ -25,7 +25,7 @@ var Configuration = {
         // Socket Setup
         sock: {
             KEEPALIVE_MS: 5000,    			// keep-alive connection timeout
-            AUTH_TIMEOUT_MS: 0,             // authorization timeout after connection establishment (0 disables timeout)
+            AUTH_TIMEOUT_MS: 5000,          // authorization timeout after connection establishment (0 disables timeout)
             SENDER_TASK_MS: 500,            // task that writes data to Base on socket (timer exists only because we don't want to flush Base with pending data all at once)
             ON_DATA_THROTTLING_MS: 50,      // throttling of received commands
 
@@ -50,7 +50,7 @@ var Configuration = {
         // Socket Setup
         sock: {
             KEEPALIVE_MS: 10000,   			// keep-alive connection timeout
-            AUTH_TIMEOUT_MS: 5000,          // authorization timeout after connection establishment
+            AUTH_TIMEOUT_MS: 5000,          // authorization timeout after connection establishment (0 disables timeout)
             SENDER_TASK_MS: 500,            // task that writes data to Client on socket (timer exists only because we don't want to flush Client with pending data all at once)
             ON_DATA_THROTTLING_MS: 100,     // throttling of received commands
 

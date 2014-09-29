@@ -22,17 +22,14 @@ function ClientSock(socket) {
 
     socket.myObj = {
         IDclient: null, // once authorized this will hold IDclient as String object! (JavaScript can't handle MySQL's BIGINT numbers, so we use them as Strings)
-        IDbase: null, // once authorized this will hold IDbase of the Base this client is associated to. This is just to speed up some functions in code, so that we don't need to execute query and ask for IDbase on some requests
-        baseid: null, // once authorized this will hold baseID of the Base this client is associated to. This is just to speed up some functions in code, so that we don't need to execute query and ask for baseID on some requests
-        timezone: 0, // once authorized this will hold timezone of the Base this client is associated to. This is just to speed up some functions in code, so that we don't need to execute query and ask for timezone on some requests
         TXclient: 0, // once authorized this will hold last sequence id received from Client (integer - 4 bytes)
+
         dataBuff: '', // because encoding is ascii, this is not a Buffer object, but simply a String-buffer
         onDataTimer: null, // is timer that will call self.onData() currently active?
         authTimer: null, // auth timer - connection killer
 
         tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one and waiting for ACK after each transmission in order to send next one
         ip: null,
-        ackCallbacks: [], // array of callback functions that will be triggered once "TXserver" gets ACKed or everything fails
         outOfSyncCnt: 0, // out-of-sync counter
     };
 
@@ -44,11 +41,14 @@ function ClientSock(socket) {
     connClients.push(socket);
     wlog.info('Connection with Client %s established.', socket.myObj.ip);
 
-    // Start a timeout that will kill this socket in case other party doesn't authorize within Configuration.client.sock.AUTH_TIMEOUT_MS
-    socket.myObj.authTimer = setTimeout(function () {
-        wlog.info('Authorization timeout, killing connection with Client %s!', socket.myObj.ip);
-        socket.destroy();
-    }, Configuration.client.sock.AUTH_TIMEOUT_MS);
+    // Start a timeout that will kill this socket in case other party doesn't authorize within Configuration.base.sock.AUTH_TIMEOUT_MS
+    if (Configuration.client.sock.AUTH_TIMEOUT_MS > 0) {
+        wlog.info("Authorization timeout set to", Configuration.client.sock.AUTH_TIMEOUT_MS / 1000, "sec...");
+        socket.myObj.authTimer = setTimeout(function () {
+            wlog.info("Authorization timeout, killing connection with Client %s!", socket.myObj.ip);
+            socket.destroy();
+        }, Configuration.client.sock.AUTH_TIMEOUT_MS);
+    }
 
     // Handle incoming messages from base.
     socket.on('data', function (data) {
@@ -65,16 +65,6 @@ function ClientSock(socket) {
         }
         clearTimeout(socket.myObj.tmrSenderTask);
 
-        while (socket.myObj.ackCallbacks.length > 0) {
-            var TXserver = socket.myObj.ackCallbacks[0].TXserver;
-            var callback = socket.myObj.ackCallbacks[0].callback;
-
-            callback(false, TXserver); // say we failed
-            wlog.info('  ...called failure ACK callback for TXserver:', TXserver);
-
-            socket.myObj.ackCallbacks.shift();
-        }
-
         connClients.splice(connClients.indexOf(socket), 1);
     });
 
@@ -88,49 +78,12 @@ function ClientSock(socket) {
             }
             clearTimeout(socket.myObj.tmrSenderTask);
 
-            while (socket.myObj.ackCallbacks.length > 0) {
-                var TXserver = socket.myObj.ackCallbacks[0].TXserver;
-                var callback = socket.myObj.ackCallbacks[0].callback;
-
-                callback(false, TXserver); // say we failed
-                wlog.info('  ...called failure ACK callback for TXserver:', TXserver);
-
-                socket.myObj.ackCallbacks.shift();
-            }
-
             connClients.splice(connClients.indexOf(socket), 1);
         }
         else {
             wlog.error("Error on socket with Client %s", socket.myObj.ip, "error:", e);
         }
     });
-
-    // Add to queue and start tx job - parameter is JSON object
-    socket.writeQueued = function (js, ackCallback) {
-        if (!js) {
-            wlog.error("Error in socket.writeQueued(), no parameter provided!");
-            return;
-        }
-
-        var jsonPackageAsString = JSON.stringify(js.buildMessage());
-
-        // This will add data to queue and return TXserver assigned to this outgoing packet
-        Database.addTxServer2Client(socket.myObj.IDclient, jsonPackageAsString, function (err, result) {
-            if (err) {
-                wlog.error("Unknown error in Database.addTxServer2Client()!");
-                return;
-            }
-
-            wlog.info('Added to TX Server2Client queue, TXserver:', result[0][0].oTXserver, 'starting sender...');
-
-            if (ackCallback) {
-                socket.myObj.ackCallbacks.push({ "TXserver": result[0][0].oTXserver, "callback": ackCallback });
-                wlog.info('  ...added callback to array.');
-            }
-
-            self.startQueuedItemsSender();
-        });
-    };
 
     // This will send oldest item which is waiting in queue
     socket.startQueuedItemsSender = function () {
@@ -179,7 +132,6 @@ function ClientSock(socket) {
             wlog.info('Server2Client sender already running...');
         }
     };
-
 };
 
 ClientSock.prototype.onData = function () {
@@ -229,18 +181,6 @@ ClientSock.prototype.onData = function () {
                     }
                     else {
                         wlog.warn('  ...couldn\'t not ACK on TXserver:', cm.getTXsender(), ', strange! Hm...');
-                    }
-
-                    var fAckCallbacks = socket.myObj.ackCallbacks.filter(function (item) {
-                        return (item.TXserver == cm.getTXsender());
-                    });
-
-                    if (fAckCallbacks.length == 1) {
-                        wlog.info('  ...calling ACK callback function.');
-                        fAckCallbacks[0].callback(true, fAckCallbacks[0].TXserver); // call it and say it is ACKed, and pass TXserver in case callback needs it...
-                    }
-                    else if (fAckCallbacks.length > 1) {
-                        wlog.error('  ...not calling ACK callback function because there is more than one. DEVELOPER ERROR? CHECK ME!.');
                     }
 
                     if (cm.getIsOutOfSync()) {
@@ -333,40 +273,66 @@ ClientSock.prototype.onData = function () {
                     else {
                         wlog.info('  ...fresh data, will forward to my Base...');
 
+                        // todo: provjeri da li je doslo: payload i baseid u data objektu. baseid je opcion.
+
                         try {
-                            new Buffer(cm.getData(), 'hex');
+                            new Buffer(cm.getData().payload, 'hex');
                         } catch (err) {
                             wlog.warn('  ...Warning, data provided is not a HEX string!');
                         }
 
                         var bp = new baseMessage();
-                        bp.setData(cm.getData());
-
-                        // insert message into database for this base and trigger sending if it is online
+                        bp.setData(cm.getData().payload);
                         var binaryPackageAsHexString = new Buffer(bp.buildPackage()).toString('hex');
-                        Database.addTxServer2Base(socket.myObj.IDbase, binaryPackageAsHexString, function (err, result) {
+
+                        // daj sve njegove baze
+                        Database.getBasesOfClient(socket.myObj.IDclient, function (err, rows, columns) {
                             if (err) {
-                                wlog.info('Error in Database.addTxServer2Base, for IDbase=', socket.myObj.IDbase);
                                 return;
                             }
 
-                            wlog.info('  ...added to IDbase=', socket.myObj.IDbase, ' queue...');
-
-                            // pronadji njegov socket (ako je online) i pokreni mu slanje
-                            var fBaseSockets = connBases.filter(function (item) {
-                                return (item.myObj.IDbase == socket.myObj.IDbase);
-                            });
-
-                            if (fBaseSockets.length == 1) {
-                                wlog.info('  ...triggering queued items sender for IDbase=', socket.myObj.IDbase, '...');
-                                fBaseSockets[0].startQueuedItemsSender();
-                            }
-                            else if (fBaseSockets.length > 1) {
-                                wlog.info('  ...found more than one socket for IDbase=', socket.myObj.IDbase, 'which is a pretty improbable situation!');
+                            if (rows.length <= 0) {
+                                return;
                             }
 
-                        });
-                    }
+                            var rowsLength = rows.length;
+                            var basesLength = connBases.length;
+                            for (var i = 0; i < rowsLength; i++) {
+
+                                // if baseid didn't arrive, or it was empty or it is the targetted one
+                                if (!("baseid" in cm.getData()) || cm.getData().baseid == '' || cm.getData().baseid == rows[i].baseid) {
+
+                                    (function (IDbase) {
+                                        // insert message into database for this base and trigger sending if it is online
+                                        Database.addTxServer2Base(IDbase, binaryPackageAsHexString, function (err, result) {
+                                            if (err) {
+                                                wlog.info('Error in Database.addTxServer2Base, for IDbase=', IDbase);
+                                                return;
+                                            }
+
+                                            wlog.info('  ...added to IDbase=', IDbase, ' queue...');
+
+                                            // pronadji njegov socket (ako je online) i pokreni mu slanje
+                                            var fBaseSockets = connBases.filter(function (item) {
+                                                return (item.myObj.IDbase == IDbase);
+                                            });
+
+                                            if (fBaseSockets.length == 1) {
+                                                wlog.info('  ...triggering queued items sender for IDbase=', IDbase, '...');
+                                                fBaseSockets[0].startQueuedItemsSender();
+                                            }
+                                            else if (fBaseSockets.length > 1) {
+                                                wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+                                            }
+
+                                        });
+                                    })(rows[i].IDbase);
+
+                                } // if baseid is targetted one
+
+                            } // for each IDbase...
+                        }); // Database.getBasesOfClient()
+                    } // not system message
                 } // processed
             } // not an ACK
         } // authorized
@@ -413,12 +379,12 @@ ClientSock.prototype.cmdAuthorize = function () {
         return;
     }
 
-    if (!("username" in cmd) || !("password" in cmd)) {
-        wlog.warn('Error in cmdAuthorize(), missing username/password parameters!');
+    if (!("auth_token" in cmd)) {
+        wlog.warn('Error in cmdAuthorize(), missing auth_token parameter!');
         return;
     }
 
-    Database.authClient(cmd.username, cmd.password, socket.remoteAddress, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
+    Database.authClient(cmd.auth_token, socket.remoteAddress, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {
             wlog.error('Unknown error in Database.authClient()!');
 
@@ -440,13 +406,10 @@ ClientSock.prototype.cmdAuthorize = function () {
                 ]
             });
 
-            socket.myObj.IDbase = result[0][0].oIDbase;
             socket.myObj.IDclient = result[0][0].oIDclient;
-            socket.myObj.baseid = result[0][0].oBaseid;
-            socket.myObj.timezone = result[0][0].oTimezone;
             socket.myObj.TXclient = result[0][0].oTXclient;
 
-            wlog.info('Client', cmd.username.toString(), 'authorized, his IDbase is:', socket.myObj.IDbase, '.');
+            wlog.info('Client', cmd.auth_token.toString(), 'authorized.');
 
             // is other side forcing us to re-sync?
             if (cm.getIsSync() == true) {
@@ -475,7 +438,7 @@ ClientSock.prototype.cmdAuthorize = function () {
 
             socket.write(JSON.stringify(jsAns.buildMessage()) + '\n', 'ascii');
 
-            self.sendBaseStatusNotification();
+            self.sendBasesStatusNotification();
 
             // something pending for Client? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {
@@ -486,10 +449,7 @@ ClientSock.prototype.cmdAuthorize = function () {
         else {
             wlog.warn('Client (', socket.myObj.ip, ') failed to authorize.');
 
-            socket.myObj.IDbase = null;
             socket.myObj.IDclient = null;
-            socket.myObj.baseid = null;
-            socket.myObj.timezone = 0;
             socket.myObj.TXclient = 0;
 
             var jsAns = new clientMessage();
@@ -505,7 +465,7 @@ ClientSock.prototype.cmdAuthorize = function () {
             }
             else {
                 cmdRes.result = 1;
-                cmdRes.description = 'Wrong username/password.';
+                cmdRes.description = 'Wrong auth_token.';
             }
 
             wlog.warn('  ...reason:', cmdRes.description);
@@ -517,33 +477,52 @@ ClientSock.prototype.cmdAuthorize = function () {
     });
 };
 
-ClientSock.prototype.sendBaseStatusNotification = function () {
+ClientSock.prototype.sendBasesStatusNotification = function () {
     var self = this;
     var socket = self.socket;
 
-    var foundConnected = false;
+    if (socket.myObj.IDclient == null) return;
 
-    var fBaseSockets = connBases.filter(function (item) {
-        return (item.myObj.IDbase == socket.myObj.IDbase);
+    Database.getBasesOfClient(socket.myObj.IDclient, function (err, rows, columns) {
+        if (err) {
+            return;
+        }
+
+        if (rows.length <= 0) {
+            return;
+        }
+
+        var rowsLength = rows.length;
+        var basesLength = connBases.length;
+        for (var i = 0; i < rowsLength; i++) {
+            var IDbase = rows[i].IDbase;
+            var baseid = rows[i].baseid;
+
+            var foundConnected = false;
+
+            var fBaseSockets = connBases.filter(function (item) {
+                return (item.myObj.IDbase == socket.myObj.IDbase);
+            });
+
+            if (fBaseSockets.length > 0) {
+                foundConnected = true;
+            }
+
+            var jsNotif = new clientMessage();
+            jsNotif.setIsNotification(true);
+            jsNotif.setIsSystemMessage(true);
+
+            var ccm = {};
+            ccm.type = "base_connection_status";
+            ccm.connected = foundConnected;
+            ccm.baseid = baseid;
+            jsNotif.setDataAsObject(ccm);
+
+            var jsonPackageAsString = JSON.stringify(jsNotif.buildMessage());
+
+            socket.write(jsonPackageAsString + '\n', 'ascii'); // send right away
+        }
     });
-
-    if (fBaseSockets.length > 0) {
-        foundConnected = true;
-    }
-
-    var jsNotif = new clientMessage();
-    jsNotif.setIsNotification(true);
-    jsNotif.setIsSystemMessage(true);
-
-    var ccm = {};
-    ccm.type = "base_connection_status";
-    ccm.connected = foundConnected;
-    ccm.baseid = socket.myObj.baseid;
-    jsNotif.setDataAsObject(ccm);
-
-    var jsonPackageAsString = JSON.stringify(jsNotif.buildMessage());
-
-    socket.write(jsonPackageAsString + '\n', 'ascii'); // send right away
 };
 
 module.exports = function (socket) {
