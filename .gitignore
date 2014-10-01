@@ -2,6 +2,7 @@
 resources/misc/
 resources/doc/client_jsons.txt
 js/node_modules/
+resources/*.docx
 
 # Windows image file caches
 Thumbs.db
