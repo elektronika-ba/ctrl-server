@@ -426,3 +426,11 @@
 {"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-10-01T07:58:35.039Z"}
 {"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-10-01T07:58:35.040Z"}
 {"level":"info","message":"  ...authorized as IDclient = 1 , stopping logging in this file.","timestamp":"2014-10-01T07:58:35.633Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-10-01T17:11:40.056Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-10-01T17:11:40.075Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-10-01T17:11:40.088Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-10-01T17:11:40.088Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-10-01T17:23:16.385Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-10-01T17:23:16.395Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-10-01T17:23:16.405Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-10-01T17:23:16.405Z"}
