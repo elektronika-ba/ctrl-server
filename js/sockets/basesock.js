@@ -7,7 +7,7 @@ var Configuration = require('../configuration/configuration');
 var moment = require('moment');
 var winston = require('winston');
 
-var Database = require('../database/database');
+var Database = require('../database/basedb');
 
 var connBases = require('../server').connBases;
 var connClients = require('../server').connClients;
@@ -158,7 +158,7 @@ BaseSock.prototype.onData = function () {
 
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDbase == null) {
-            self.cmdAuthorize();
+            self.doAuthorize();
         }
         else {
             // handle received ACK
@@ -392,7 +392,7 @@ BaseSock.prototype.resendUnackedItems = function () {
     });
 }
 
-BaseSock.prototype.cmdAuthorize = function () {
+BaseSock.prototype.doAuthorize = function () {
     var self = this;
     var socket = self.socket;
     var bp = self.bp;
@@ -404,7 +404,7 @@ BaseSock.prototype.cmdAuthorize = function () {
     }
 
     if (baseid.length != 16) {
-        wlog.info("Error in cmdAuthorize(), didn't get required 16 bytes of command to continue.");
+        wlog.info("Error in doAuthorize(), didn't get required 16 bytes of command to continue.");
         return;
     }
 

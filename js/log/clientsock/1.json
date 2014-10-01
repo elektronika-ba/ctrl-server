@@ -72,3 +72,60 @@
 {"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-09-29T14:16:50.211Z"}
 {"level":"info","message":"Processing Client's data...","timestamp":"2014-09-29T14:16:56.653Z"}
 {"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-09-29T14:16:56.653Z"}
+{"level":"info","message":"Client 16b5bb101392fac8b6264c8382cfa278 authorized.","timestamp":"2014-10-01T06:29:26.916Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-10-01T06:29:26.919Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-10-01T06:29:26.919Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:29:54.232Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-10-01T06:29:54.233Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-10-01T06:29:54.233Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2014-10-01T06:29:54.289Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:29:57.736Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-10-01T06:29:57.736Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-10-01T06:29:57.737Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:30:45.107Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 2 but I got: 3","timestamp":"2014-10-01T06:30:45.107Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:30:45.108Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:31:47.338Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 2 but I got: 3","timestamp":"2014-10-01T06:31:47.339Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:31:47.339Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:31:50.122Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 2 but I got: 3","timestamp":"2014-10-01T06:31:50.123Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:31:50.123Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:31:50.826Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 2 but I got: 3","timestamp":"2014-10-01T06:31:50.826Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:31:50.827Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:31:52.570Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 2 but I got: 3","timestamp":"2014-10-01T06:31:52.570Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:31:52.571Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:32:37.850Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-10-01T06:32:37.850Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-10-01T06:32:37.850Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2014-10-01T06:32:37.882Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T06:33:05.198Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-10-01T06:33:05.199Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-10-01T06:33:05.199Z"}
+{"level":"info","message":"Client 16b5bb101392fac8b6264c8382cfa278 authorized.","timestamp":"2014-10-01T07:01:34.086Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-10-01T07:01:34.089Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-10-01T07:01:34.090Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T07:01:51.008Z"}
+{"level":"error","message":"  ...Error: Client sent out-of-sync data! Expected: 1 but I got: 4","timestamp":"2014-10-01T07:01:51.008Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2014-10-01T07:01:51.009Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T07:02:02.464Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-10-01T07:02:02.464Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-10-01T07:02:02.465Z"}
+{"level":"info","message":"Client targeted 1 illegal BaseIDs: 17171717171717171717171717171717","timestamp":"2014-10-01T07:02:02.469Z"}
+{"level":"info","message":"Client 16b5bb101392fac8b6264c8382cfa278 authorized.","timestamp":"2014-10-01T07:11:01.151Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-10-01T07:11:01.154Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-10-01T07:11:01.154Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T07:11:05.048Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-10-01T07:11:05.049Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-10-01T07:11:05.049Z"}
+{"level":"info","message":"Client targeted 1 illegal BaseIDs: 27171717171717171717171717171717","timestamp":"2014-10-01T07:11:05.052Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2014-10-01T07:11:12.232Z"}
+{"level":"warn","message":"  ...Warning: re-transmitted command, not processed!","timestamp":"2014-10-01T07:11:12.233Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-10-01T07:11:12.233Z"}
+{"level":"info","message":"Client 16b5bb101392fac8b6264c8382cfa278 authorized.","timestamp":"2014-10-01T07:58:35.634Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2014-10-01T07:58:35.634Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-10-01T07:58:35.635Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-10-01T07:58:39.430Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) to database.","timestamp":"2014-10-01T07:58:39.430Z"}

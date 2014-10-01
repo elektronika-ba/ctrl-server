@@ -7,7 +7,7 @@ var Configuration = require('../configuration/configuration');
 var moment = require('moment');
 var winston = require('winston');
 
-var Database = require('../database/database');
+var Database = require('../database/clientdb');
 
 var connBases = require('../server').connBases;
 var connClients = require('../server').connClients;
@@ -231,7 +231,12 @@ ClientSock.prototype.onData = function () {
                         wlog.warn('  ...Warning: re-transmitted command, not processed!');
                     }
                     else if (cm.getTXsender() > (socket.myObj.TXclient + 1)) {
-                        jsAck.setIsOutOfSync(true); // SYNC PROBLEM! Client sent higher than we expected! This means we missed some previous Message! This part should be handled on Client's side. Client should flush all data (NOT A VERY SMART IDEA) and re-connect. Re-sync should naturally occur then in auth procedure as there would be nothing pending in queue to send to Server.
+                        // SYNC PROBLEM! Client sent higher than we expected! This means we missed some previous Message!
+                        // This part should be handled on Clients side.
+                        // Client should flush all data (NOT A VERY SMART IDEA) and re-connect. Re-sync should naturally occur
+                        // then in auth procedure as there would be nothing pending in queue to send to Server.
+
+                        jsAck.setIsOutOfSync(true);
                         jsAck.setIsProcessed(false);
                         wlog.error('  ...Error: Client sent out-of-sync data! Expected:', (socket.myObj.TXclient + 1), 'but I got:', cm.getTXsender());
                     }
@@ -293,12 +298,16 @@ ClientSock.prototype.onData = function () {
                                 return;
                             }
 
+                            var targetedBaseIds = cm.getBaseId();
+                            var notFoundBaseIds = targetedBaseIds.slice(0, targetedBaseIds.length); // copy array
                             var rowsLength = rows.length;
                             var basesLength = connBases.length;
                             for (var i = 0; i < rowsLength; i++) {
 
                                 // if baseid didn't arrive, or it was empty or it is the targetted one
-                                if (cm.getBaseId() == '' || cm.getBaseId() == rows[i].baseid) {
+                                if (targetedBaseIds.length <= 0 || targetedBaseIds.indexOf(rows[i].baseid) >= 0) {
+
+                                    notFoundBaseIds.splice(rows[i].baseid, 1);
 
                                     (function (IDbase) {
                                         // insert message into database for this base and trigger sending if it is online
@@ -329,6 +338,11 @@ ClientSock.prototype.onData = function () {
                                 } // if baseid is targetted one
 
                             } // for each IDbase...
+
+                            if (notFoundBaseIds.length > 0) {
+                                wlog.info('Client targeted', notFoundBaseIds.length, 'illegal BaseIDs:', notFoundBaseIds.join(','));
+                            }
+
                         }); // Database.getBasesOfClient()
                     } // not system message
                 } // processed

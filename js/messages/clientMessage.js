@@ -18,7 +18,7 @@ function clientMessage() {
 
         "TXsender": 0,
 
-        "baseid": "",
+        "baseid": [],
 
         "data": null,
     };
@@ -55,10 +55,13 @@ clientMessage.prototype.extractFrom = function (jd) {
         }
 
         if (("baseid" in jd) && (typeof jd.baseid == "string")) {
+            this.jsonData.baseid = [jd.baseid];
+        }
+        else if (("baseid" in jd) && (Array.isArray(jd.baseid))) {
             this.jsonData.baseid = jd.baseid;
         }
 
-        if (("data" in jd) && ((typeof jd.data == "string") || (typeof jd.data == "object")) ) {
+        if (("data" in jd) && ((typeof jd.data == "string") || (typeof jd.data == "object"))) {
             this.jsonData.data = jd.data;
         }
         else {
@@ -143,6 +146,9 @@ clientMessage.prototype.getTXsender = function () {
 
 clientMessage.prototype.setBaseId = function (baseid) {
     if (typeof baseid == 'string') {
+        this.jsonData.baseid = [baseid];
+    }
+    else if (Array.isArray(baseid)) {
         this.jsonData.baseid = baseid;
     }
     else {

@@ -15,7 +15,7 @@ client.connect(PORT, HOST, function () {
         // login
         var msg = new baseMessage();
         msg.setHasSync(true);
-        msg.setData(new Buffer([17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17]));
+        msg.setData(new Buffer([0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17]));
         client.write(msg.buildPackage(), 'hex');
         console.log('< Sent auth request');
     }, 500);
