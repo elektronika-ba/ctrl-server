@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 01, 2014 at 05:05 PM
+-- Generation Time: Oct 05, 2014 at 03:41 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -297,7 +297,9 @@ CREATE TABLE IF NOT EXISTS `account` (
   `IDaccount` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `stamp_system` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `email` varchar(100) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `active` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `recovery_started` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`IDaccount`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -305,8 +307,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`IDaccount`, `stamp_system`, `email`, `password`) VALUES
-(1, '2014-10-01 17:04:30', 'trax@elektronika.ba', 'trax');
+INSERT INTO `account` (`IDaccount`, `stamp_system`, `email`, `password`, `active`, `recovery_started`) VALUES
+(1, '2014-10-03 15:21:37', 'trax@elektronika.ba', 'sha256:1000:5iiuuYbKvekF76fbJtYKADBzczwR4tbW:FKD4TU1v4H68uX3HLiH6ekvR5nQier5o', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -337,16 +339,19 @@ CREATE TABLE IF NOT EXISTS `base` (
   `baseid` varchar(32) NOT NULL,
   `timezone` smallint(5) NOT NULL DEFAULT '0',
   `TXbase` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sequence No - Base to Server for binary protocol',
+  `crypt_key` varchar(32) NOT NULL COMMENT 'NOT IMPLEMENTED YET',
+  `basename` varchar(100) NOT NULL,
   PRIMARY KEY (`IDbase`),
   UNIQUE KEY `baseid` (`baseid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `base`
 --
 
-INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `TXbase`) VALUES
-(1, 1, '17171717171717171717171717171717', -120, 0);
+INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `TXbase`, `crypt_key`, `basename`) VALUES
+(1, 1, '17171717171717171717171717171717', -120, 0, '206aadf27bfeb331d8cbb270d37e458a', 'Beehive monitoring'),
+(3, 1, '3987a63009795be81fc93ed32852f8ed', 0, 0, '4822dba3a7d7a7954cfa8fdbd3464020', 'AAAAAaaaaaaaaaaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -376,14 +381,16 @@ CREATE TABLE IF NOT EXISTS `base_client` (
   `IDbase` bigint(20) unsigned NOT NULL,
   `IDclient` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`IDbase_client`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `base_client`
 --
 
 INSERT INTO `base_client` (`IDbase_client`, `stamp_system`, `IDbase`, `IDclient`) VALUES
-(1, '2014-09-29 14:11:23', 1, 1);
+(25, '2014-10-05 15:26:46', 3, 1),
+(22, '2014-10-05 15:26:35', 1, 3),
+(21, '2014-10-05 15:26:35', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -397,16 +404,19 @@ CREATE TABLE IF NOT EXISTS `client` (
   `IDaccount` bigint(20) unsigned NOT NULL,
   `auth_token` varchar(50) NOT NULL,
   `TXclient` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sequence No - Client to Server for JSON protocol',
+  `clientname` varchar(100) NOT NULL,
   PRIMARY KEY (`IDclient`),
-  UNIQUE KEY `username` (`auth_token`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  UNIQUE KEY `auth_token` (`auth_token`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`) VALUES
-(1, 1, '16b5bb101392fac8b6264c8382cfa278', 0);
+INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`, `clientname`) VALUES
+(1, 1, '16b5bb101392fac8b6264c8382cfa278', 0, 'Glavni account'),
+(2, 1, '34534534534354', 0, 'Samac'),
+(3, 1, 'ztrdfgdfgegdfg', 0, 'Dodatni account');
 
 -- --------------------------------------------------------
 
