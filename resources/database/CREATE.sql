@@ -135,7 +135,15 @@ BEGIN
 					SET oAuthorized = 1;
 					
 					### Flush acked transmissions
-					DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked=1;
+					# DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked=1;
+					### NEW: Flush only those until we get to unacked ones. This prevents re-using TXserver values in case Base acks on newer transmission instead of oldest one!!!
+					DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked = 1
+					AND IDpk < ALL (
+						SELECT IDpk FROM
+						(
+							SELECT IDpk FROM txserver2base WHERE IDbase = oIDbase AND acked = 0
+						) AS weMustDoItLikeThis
+					);
 
 					### We must mark all pending items as unsent for this connection session!
 					UPDATE txserver2base SET sent=0 WHERE IDbase=oIDbase AND sent=1;
