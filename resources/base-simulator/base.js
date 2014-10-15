@@ -3,7 +3,7 @@
 var net = require('net');
 var baseMessage = require('../../js/messages/baseMessage');
 
-var HOST = '127.0.0.1';
+var HOST = '78.47.48.138';
 var PORT = 8000;
 
 var client = new net.Socket();
@@ -15,7 +15,7 @@ client.connect(PORT, HOST, function () {
         // login
         var msg = new baseMessage();
         msg.setHasSync(true);
-        msg.setData(new Buffer([0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17]));
+        msg.setData(new Buffer([0xaa, 0xcc, 0xa5, 0x39, 0xd1, 0x59, 0xa7, 0xca, 0x30, 0x0a, 0xee, 0x98, 0xde, 0xda, 0x7e, 0x92]));
         client.write(msg.buildPackage(), 'hex');
         console.log('< Sent auth request');
     }, 500);
