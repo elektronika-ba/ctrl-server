@@ -422,6 +422,19 @@ BaseSock.prototype.doAuthorize = function () {
 
             wlog.info('  ...authorized as IDbase =', result[0][0].oIDbase, ', stopping logging in this file.');
 
+            // kill all potentially already existing connections of this Base
+            // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
+            var oIDbase = result[0][0].oIDbase;
+            var fMyConns = connBases.filter(function (item) {
+                return (oIDbase == IDbase);
+            });
+            for(var b = 0; b < fMyConns.length; b++) {
+                wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, '. Destroying it now!');
+                fMyConns[b].myObj.baseid = null;
+                fMyConns[b].myObj.IDbase = null;
+                fMyConns[b].destroy();
+            }
+
             // instantiate logger for this IDbase
             wlog = new (winston.Logger)({
                 transports: [

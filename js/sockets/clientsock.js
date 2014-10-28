@@ -396,7 +396,7 @@ ClientSock.prototype.doAuthorize = function () {
         return;
     }
 
-    Database.authClient(cmd.auth_token, socket.remoteAddress, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
+    Database.authClient(cmd.auth_token, socket.myObj.ip, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {
             wlog.error('Unknown error in Database.authClient()!');
 
@@ -409,6 +409,18 @@ ClientSock.prototype.doAuthorize = function () {
             clearTimeout(socket.myObj.authTimer);
 
             wlog.info('  ...authorized as IDclient =', result[0][0].oIDclient, ', stopping logging in this file.');
+
+            // kill all potentially already existing connections of this Client
+            // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
+            var oIDclient = result[0][0].oIDclient;
+            var fMyConns = connClients.filter(function (item) {
+                return (oIDclient == IDclient);
+            });
+            for(var b = 0; b < fMyConns.length; b++) {
+                wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, '. Destroying it now!');
+                fMyConns[b].myObj.IDclient = null;
+                fMyConns[b].destroy();
+            }
 
             // instantiate logger for this IDclient
             wlog = new (winston.Logger)({
