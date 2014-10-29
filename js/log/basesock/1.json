@@ -84,3 +84,65 @@
 {"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-01T07:46:06.229Z"}
 {"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-10-01T07:46:54.554Z"}
 {"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-10-01T07:46:54.554Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-10-29T19:58:06.506Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-10-29T19:58:06.507Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender...","timestamp":"2014-10-29T19:58:06.508Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2014-10-29T19:58:06.509Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:58:07.064Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:58:07.066Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:58:07.591Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:58:07.591Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:58:07.592Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-10-29T19:58:33.057Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-10-29T19:58:33.057Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-10-29T19:58:33.614Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-10-29T19:58:33.615Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-10-29T19:58:33.615Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender...","timestamp":"2014-10-29T19:58:33.617Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2014-10-29T19:58:33.617Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:58:34.182Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:58:34.183Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:58:34.658Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:58:34.659Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:58:34.659Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-10-29T19:58:45.238Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-10-29T19:58:45.238Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-10-29T19:58:46.165Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-10-29T19:58:46.165Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-10-29T19:59:43.637Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-10-29T19:59:43.638Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender...","timestamp":"2014-10-29T19:59:43.639Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2014-10-29T19:59:43.640Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:44.205Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:44.207Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:44.721Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:44.722Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:59:44.722Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-10-29T19:59:46.211Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-10-29T19:59:46.211Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-10-29T19:59:46.795Z"}
+{"level":"info","message":"  ...found already existing connection to  127.0.0.1 . Destroying it now!","timestamp":"2014-10-29T19:59:46.795Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-10-29T19:59:46.797Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-10-29T19:59:46.797Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender...","timestamp":"2014-10-29T19:59:46.798Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2014-10-29T19:59:46.798Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:47.371Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:47.372Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:47.855Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:47.856Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:59:47.856Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-10-29T19:59:52.947Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-10-29T19:59:52.947Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-10-29T19:59:53.522Z"}
+{"level":"info","message":"  ...found already existing connection to  127.0.0.1 . Destroying it now!","timestamp":"2014-10-29T19:59:53.522Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-10-29T19:59:53.527Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-10-29T19:59:53.528Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender...","timestamp":"2014-10-29T19:59:53.528Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2014-10-29T19:59:53.529Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:54.105Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:54.105Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2014-10-29T19:59:54.583Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2014-10-29T19:59:54.583Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:59:54.583Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-10-29T19:59:55.311Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-10-29T19:59:55.312Z"}

@@ -388,7 +388,7 @@ BaseSock.prototype.resendUnackedItems = function () {
         wlog.info('  ...starting queued items sender of all unacknowledged items...');
 
         // start pending items sender and we are done
-        self.startQueuedItemsSender();
+        socket.startQueuedItemsSender();
     });
 }
 
@@ -426,7 +426,7 @@ BaseSock.prototype.doAuthorize = function () {
             // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
             var oIDbase = result[0][0].oIDbase;
             var fMyConns = connBases.filter(function (item) {
-                return (oIDbase == IDbase);
+                return (oIDbase == item.myObj.IDbase);
             });
             for(var b = 0; b < fMyConns.length; b++) {
                 wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, '. Destroying it now!');

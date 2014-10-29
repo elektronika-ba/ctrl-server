@@ -5,6 +5,20 @@ var pool = require('./database').pool;
 // For Base Socket
 //////////////////////////////////////////
 
+exports.addTxServer2Client = function (IDclient, jsonPackageAsString, callback) {
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query("CALL spAddTxServer2Client(?,?)", [IDclient, jsonPackageAsString], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('addTxServer2Client() error:', err); callback(true); return; }
+            callback(false, result);
+        });
+    });
+};
+
+
 exports.flushBaseQueue = function (IDbase, callback) {
     var sql = "DELETE FROM txserver2base WHERE IDbase=CAST(? AS UNSIGNED)";
 
@@ -71,19 +85,6 @@ exports.authBase = function (baseid, remoteAddress, limit, minutes, callback) {
             connection.release();
 
             if (err) { console.log('authBase() error:', err); callback(true); return; }
-            callback(false, result);
-        });
-    });
-};
-
-exports.addTxServer2Base = function (IDbase, binaryPackageAsHexString, callback) {
-    pool.getConnection(function (err, connection) {
-        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
-
-        connection.query("CALL spAddTxServer2Base(?,?)", [IDbase, binaryPackageAsHexString], function (err, result) {
-            connection.release();
-
-            if (err) { console.log('addTxServer2Base() error:', err); callback(true); return; }
             callback(false, result);
         });
     });

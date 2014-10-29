@@ -4,12 +4,15 @@ var net = require('net');
 var baseMessage = require('../../js/messages/baseMessage');
 
 var HOST = '78.47.48.138';
+//var HOST = '127.0.0.1';
 var PORT = 8000;
 
 var client = new net.Socket();
 
 client.connect(PORT, HOST, function () {
     console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+
+    client.setKeepAlive(5000);
 
     setTimeout(function () {
         // login
@@ -71,6 +74,7 @@ client.on('data', function (data) {
             console.log('> Got ACK, header:', bp.getHeader(), 'TXsender:', bp.getTXsender());
         }
         else {
+            console.log('> Got DATA, header:', bp.getHeader(), 'TXsender:', bp.getTXsender());
             /*// send ACK
             var ack = new baseMessage();
             ack.setIsAck(true);
