@@ -297,11 +297,11 @@ BaseSock.prototype.onData = function () {
 
                             socket.setKeepAlive(false);
                         }
-                            /*
-                            else if (bp.getData().toString('hex') == '03') {
-                                // something else...
-                            }
-                            */
+                        /*
+                        else if (bp.getData().toString('hex') == '03') {
+                            // something else...
+                        }
+                        */
                         else {
                             wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
                         }
@@ -420,7 +420,7 @@ BaseSock.prototype.doAuthorize = function () {
         if (result[0][0].oAuthorized == 1) {
             clearTimeout(socket.myObj.authTimer);
 
-            wlog.info('  ...authorized as IDbase =', result[0][0].oIDbase, ', stopping logging in this file.');
+            wlog.info('  ...authorized as IDbase =', result[0][0].oIDbase);
 
             // kill all potentially already existing connections of this Base
             // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
@@ -434,6 +434,8 @@ BaseSock.prototype.doAuthorize = function () {
                 fMyConns[b].myObj.IDbase = null;
                 fMyConns[b].destroy();
             }
+
+            wlog.info('  ...stopping logging in this file.');
 
             // instantiate logger for this IDbase
             wlog = new (winston.Logger)({
@@ -461,7 +463,8 @@ BaseSock.prototype.doAuthorize = function () {
             var bpAns = new baseMessage();
             bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
             bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-            bpAns.setData(new Buffer([0x00], 'hex')); // OK!
+            //bpAns.setData(new Buffer([0x00], 'hex')); // OK!
+            bpAns.setData('00'); // OK!
 
             // should we force other side to re-sync?
             if (result[0][0].oForceSync == 1) {
@@ -489,7 +492,8 @@ BaseSock.prototype.doAuthorize = function () {
             var bpAns = new baseMessage();
             bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
             bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-            bpAns.setData(new Buffer([0x01], 'hex')); // ERROR!
+            //bpAns.setData(new Buffer([0x01], 'hex')); // ERROR!
+            bpAns.setData('01'); // ERROR!
 
             socket.write(bpAns.buildPackage(), 'hex');
         }

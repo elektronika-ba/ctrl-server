@@ -408,7 +408,7 @@ ClientSock.prototype.doAuthorize = function () {
         if (result[0][0].oAuthorized == 1) {
             clearTimeout(socket.myObj.authTimer);
 
-            wlog.info('  ...authorized as IDclient =', result[0][0].oIDclient, ', stopping logging in this file.');
+            wlog.info('  ...authorized as IDclient =', result[0][0].oIDclient);
 
             // kill all potentially already existing connections of this Client
             // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
@@ -421,6 +421,8 @@ ClientSock.prototype.doAuthorize = function () {
                 fMyConns[b].myObj.IDclient = null;
                 fMyConns[b].destroy();
             }
+
+            wlog.info('  ...stopping logging in this file.');
 
             // instantiate logger for this IDclient
             wlog = new (winston.Logger)({

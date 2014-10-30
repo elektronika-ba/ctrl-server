@@ -256,7 +256,7 @@ baseMessage.prototype.appendData = function (dataValue) {
 };
 
 baseMessage.prototype.setData = function (dataValue) {
-    this.data = new Buffer(dataValue);
+    this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" 30/11/2014
 };
 
 baseMessage.prototype.buildPackage = function () {
