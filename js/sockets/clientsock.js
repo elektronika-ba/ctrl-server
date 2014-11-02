@@ -243,6 +243,12 @@ ClientSock.prototype.onData = function () {
                     else {
                         jsAck.setIsProcessed(true);
                         socket.myObj.TXclient++; // next package we will receive should be +1 of current value, so lets ++
+
+                        // When Client looses connection and in case Server doesn't get a disconnect (timeout) event
+                        // it doesn't update TXclient in MySQL. So, we will do it right now! Would be best not to, but
+                        // we have no other choice.
+                        Database.saveTXclient(socket.myObj.IDbase, socket.myObj.TXclient);
+                        wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') to database.');
                     }
 
                     socket.write(JSON.stringify(jsAck.buildMessage()) + '\n', 'ascii');
@@ -432,45 +438,50 @@ ClientSock.prototype.doAuthorize = function () {
                 ]
             });
 
-            socket.myObj.IDclient = result[0][0].oIDclient;
-            socket.myObj.TXclient = result[0][0].oTXclient;
-
-            wlog.info('Client', cmd.auth_token.toString(), 'authorized.');
-
-            // is other side forcing us to re-sync?
-            if (cm.getIsSync() == true) {
-                socket.myObj.TXclient = 0;
-                wlog.info('  ...re-syncing TXclient to: 0.');
-            }
-            else {
+            // because we are changing the logging file now, we need to add the bellow
+            // code into a callback function that will be executed after the re-initialization
+            // of the winston logger from above
+            process.nextTick(function() {
+                socket.myObj.IDclient = result[0][0].oIDclient;
                 socket.myObj.TXclient = result[0][0].oTXclient;
-                wlog.info('  ...re-loading TXclient from DB:', socket.myObj.TXclient);
-            }
 
-            var jsAns = new clientMessage();
-            jsAns.setIsNotification(true);
-            jsAns.setIsSystemMessage(true);
-            var cmdRes = {};
-            cmdRes.result = 0;
-            cmdRes.type = "authentication_response";
-            cmdRes.description = 'Logged in.';
-            jsAns.setDataAsObject(cmdRes);
+                wlog.info('Client', cmd.auth_token.toString(), 'authorized.');
 
-            // should we force other side to re-sync?
-            if (result[0][0].oForceSync == 1) {
-                jsAns.setIsSync(true);
-                wlog.info('  ...forcing Client to re-sync because I don\'t have anything pending for him.');
-            }
+                // is other side forcing us to re-sync?
+                if (cm.getIsSync() == true) {
+                    socket.myObj.TXclient = 0;
+                    wlog.info('  ...re-syncing TXclient to: 0.');
+                }
+                else {
+                    socket.myObj.TXclient = result[0][0].oTXclient;
+                    wlog.info('  ...re-loading TXclient from DB:', socket.myObj.TXclient);
+                }
 
-            socket.write(JSON.stringify(jsAns.buildMessage()) + '\n', 'ascii');
+                var jsAns = new clientMessage();
+                jsAns.setIsNotification(true);
+                jsAns.setIsSystemMessage(true);
+                var cmdRes = {};
+                cmdRes.result = 0;
+                cmdRes.type = "authentication_response";
+                cmdRes.description = 'Logged in.';
+                jsAns.setDataAsObject(cmdRes);
 
-            self.sendBasesStatusNotification();
+                // should we force other side to re-sync?
+                if (result[0][0].oForceSync == 1) {
+                    jsAns.setIsSync(true);
+                    wlog.info('  ...forcing Client to re-sync because I don\'t have anything pending for him.');
+                }
 
-            // something pending for Client? (oForceSync is 0 if there is something pending in DB)
-            if (result[0][0].oForceSync == 0) {
-                wlog.info('  ...there is pending data for Client, starting sender...');
-                socket.startQueuedItemsSender();
-            }
+                socket.write(JSON.stringify(jsAns.buildMessage()) + '\n', 'ascii');
+
+                self.sendBasesStatusNotification();
+
+                // something pending for Client? (oForceSync is 0 if there is something pending in DB)
+                if (result[0][0].oForceSync == 0) {
+                    wlog.info('  ...there is pending data for Client, starting sender...');
+                    socket.startQueuedItemsSender();
+                }
+            });
         }
         else {
             wlog.warn('Client (', socket.myObj.ip, ') failed to authorize.');

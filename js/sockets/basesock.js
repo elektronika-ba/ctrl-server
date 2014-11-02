@@ -266,6 +266,12 @@ BaseSock.prototype.onData = function () {
                     else {
                         bpAck.setIsProcessed(true);
                         socket.myObj.TXbase++; // next package we will receive should be +1 of current value, so lets ++
+
+                        // When Base looses connection and in case Server doesn't get a disconnect (timeout) event
+                        // it doesn't update TXbase in MySQL. So, we will do it right now! Would be best not to, but
+                        // we have no other choice.
+                        Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
+                        wlog.info('  ...updated current TXbase (', socket.myObj.TXbase, ') to database.');
                     }
 
                     socket.write(bpAck.buildPackage(), 'hex');
@@ -445,6 +451,49 @@ BaseSock.prototype.doAuthorize = function () {
                 ]
             });
 
+            // because we are changing the logging file now, we need to add the bellow
+            // code into a callback function that will be executed after the re-initialization
+            // of the winston logger from above
+            process.nextTick(function() {
+                socket.myObj.baseid = baseid.toString('hex');
+                socket.myObj.IDbase = result[0][0].oIDbase;
+                socket.myObj.timezone = result[0][0].oTimezone;
+                wlog.info('Base', baseid.toString('hex'), 'authorized.');
+
+                // is other side forcing us to re-sync?
+                if (bp.getHasSync()) {
+                    socket.myObj.TXbase = 0;
+                    wlog.info('  ...re-syncing TXbase to: 0.');
+                }
+                else {
+                    socket.myObj.TXbase = result[0][0].oTXbase;
+                    wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
+                }
+
+                var bpAns = new baseMessage();
+                bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+                bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+                //bpAns.setData(new Buffer([0x00], 'hex')); // OK!
+                bpAns.setData('00'); // OK!
+
+                // should we force other side to re-sync?
+                if (result[0][0].oForceSync == 1) {
+                    bpAns.setHasSync(true);
+                    wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
+                }
+
+                socket.write(bpAns.buildPackage(), 'hex');
+
+                self.informMyClients(true);
+
+                // something pending for Base? (oForceSync is 0 if there is something pending in DB)
+                if (result[0][0].oForceSync == 0) {
+                    wlog.info('  ...there is pending data for Base, starting sender...');
+                    socket.startQueuedItemsSender();
+                }
+            });
+
+            /*
             socket.myObj.baseid = baseid.toString('hex');
             socket.myObj.IDbase = result[0][0].oIDbase;
             socket.myObj.timezone = result[0][0].oTimezone;
@@ -481,6 +530,7 @@ BaseSock.prototype.doAuthorize = function () {
                 wlog.info('  ...there is pending data for Base, starting sender...');
                 socket.startQueuedItemsSender();
             }
+            */
         }
         else {
             socket.myObj.baseid = null;
