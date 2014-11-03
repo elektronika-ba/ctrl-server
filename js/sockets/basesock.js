@@ -35,6 +35,8 @@ function BaseSock(socket) {
         tmrBackoff: null, // backoff timer
         backoffMs: Configuration.base.sock.BACKOFF_MS / 2, // need this here, because it will change (*2) on each successive backof ack from Base
         outOfSyncCnt: 0, // out-of-sync counter
+
+        wlog: null, // used for logging after logged-in :)
     };
 
     socket.myObj.ip = socket.remoteAddress;
@@ -56,7 +58,7 @@ function BaseSock(socket) {
         wlog.info("Connection to Base %s closed.", socket.myObj.ip);
         if (socket.myObj.IDbase != null) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-            wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
+            socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
         }
         self.informMyClients(false);
         clearTimeout(socket.myObj.tmrSenderTask);
@@ -67,11 +69,11 @@ function BaseSock(socket) {
 
     // Error occured on socket?
     socket.on('error', function (e) {
-        if (e.code == 'ECONNRESET') {
+        if (e.code == 'ECONNRESET' || e.code == 'ETIMEDOUT') {
             wlog.info("Connection to Base %s dropped.", socket.myObj.ip);
             if (socket.myObj.IDbase != null) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-                wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
+                socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
             }
             self.informMyClients(false);
             clearTimeout(socket.myObj.tmrSenderTask);
@@ -93,27 +95,27 @@ function BaseSock(socket) {
     // This will send oldest item which is waiting in queue
     socket.startQueuedItemsSender = function () {
         if (socket.myObj.tmrBackoff) {
-            wlog.info('Server2Base not executed, Backoff timer still running...');
+            socket.myObj.wlog.info('Server2Base not executed, Backoff timer still running...');
         }
         else {
             if (socket.myObj.tmrSenderTask == null) {
                 socket.myObj.tmrSenderTask = setInterval(function () {
                     Database.getNextTxServer2Base(socket.myObj.IDbase, function (err, result) {
                         if (err) {
-                            wlog.info('Server2Base executed, but DATABASE ERROR happened!');
+                            socket.myObj.wlog.info('Server2Base executed, but DATABASE ERROR happened!');
                             clearInterval(socket.myObj.tmrSenderTask);
                             socket.myObj.tmrSenderTask = null;
                             return;
                         }
 
                         if (result[0][0].oFetched == 0) {
-                            wlog.warn('Server2Base executed but no data from DB to send. Strange!');
+                            socket.socket.myObj.wlog.warn('Server2Base executed but no data from DB to send. Strange!');
                             clearInterval(socket.myObj.tmrSenderTask);
                             socket.myObj.tmrSenderTask = null;
                             return;
                         }
 
-                        wlog.info('Server2Base executed, assembling package and sending to Base...');
+                        socket.myObj.wlog.info('Server2Base executed, assembling package and sending to Base...');
 
                         var bp = new baseMessage();
                         bp.extractFrom(new Buffer(result[0][0].oBinaryPackage, 'hex'));
@@ -122,20 +124,20 @@ function BaseSock(socket) {
                         bp.setTXsender(TXserver);
 
                         socket.write(bp.buildPackage(), 'hex');
-                        wlog.info('  ...sent.');
+                        socket.myObj.wlog.info('  ...sent.');
 
                         // if nothing else unsent in queue, stop this interval
                         if (result[0][0].oMoreInQueue == 0) {
-                            wlog.info('Server2Base sender stopped, nothing more to send...');
+                            socket.myObj.wlog.info('Server2Base sender stopped, nothing more to send...');
                             clearInterval(socket.myObj.tmrSenderTask);
                             socket.myObj.tmrSenderTask = null;
                         }
                     });
                 }, Configuration.base.sock.SENDER_TASK_MS);
-                wlog.info('Server2Base interval-timer started.');
+                socket.myObj.wlog.info('Server2Base interval-timer started.');
             }
             else {
-                wlog.info('Server2Base sender already running...');
+                socket.myObj.wlog.info('Server2Base sender already running...');
             }
         }
     };
@@ -163,14 +165,14 @@ BaseSock.prototype.onData = function () {
         else {
             // handle received ACK
             if (bp.getIsAck()) {
-                wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender().readUInt32BE(0));
+                socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender().readUInt32BE(0));
 
                 if (bp.getBackoff()) {
                     clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
                     socket.myObj.tmrSenderTask = null; // don't forget this!
 
                     socket.myObj.backoffMs = socket.myObj.backoffMs * 2;
-                    wlog.info('  ...didn\'t ACK on TXserver', bp.getTXsender().readUInt32BE(0), ', Base wants me to Backoff! (Delay:', socket.myObj.backoffMs, 'ms).');
+                    socket.myObj.wlog.info('  ...didn\'t ACK on TXserver', bp.getTXsender().readUInt32BE(0), ', Base wants me to Backoff! (Delay:', socket.myObj.backoffMs, 'ms).');
 
                     // mark this TXserver from txserver2base as NOT sent (sent = 0) so that we can take it again after backoff expires!!!
                     Database.markUnsentTxServer2Base(socket.myObj.IDbase, bp.getTXsender().readUInt32BE(0), function (err) {
@@ -178,13 +180,13 @@ BaseSock.prototype.onData = function () {
                             return;
                         }
 
-                        wlog.info('Marked our Server2Base TXserver', bp.getTXsender().readUInt32BE(0), ', as unsent, started Backoff timer...');
+                        socket.myObj.wlog.info('Marked our Server2Base TXserver', bp.getTXsender().readUInt32BE(0), ', as unsent, started Backoff timer...');
 
                         // set backoff timer, and when it executes it will resume sender. in case we get additional ACK before it triggers, it will be restarted but with double time
                         clearTimeout(socket.myObj.tmrBackoff);
                         socket.myObj.tmrBackoff = setTimeout(function () {
                             socket.myObj.tmrBackoff = null;
-                            wlog.info('Backoff timer expired, starting sender again...');
+                            socket.myObj.wlog.info('Backoff timer expired, starting sender again...');
                             socket.startQueuedItemsSender(); // resume sender
                         }, socket.myObj.backoffMs);
                     });
@@ -198,17 +200,17 @@ BaseSock.prototype.onData = function () {
                         socket.myObj.backoffMs = Configuration.base.sock.BACKOFF_MS / 2; // reload default/initial backoff duration
 
                         if (result[0][0].oAcked) {
-                            wlog.info('  ...ACKed on TXserver:', bp.getTXsender().readUInt32BE(0));
+                            socket.myObj.wlog.info('  ...ACKed on TXserver:', bp.getTXsender().readUInt32BE(0));
                         }
                         else {
-                            wlog.warn('  ...couldn\'t not ACK on TXserver:', bp.getTXsender().readUInt32BE(0), ', strange! Hm...');
+                            socket.myObj.wlog.warn('  ...couldn\'t not ACK on TXserver:', bp.getTXsender().readUInt32BE(0), ', strange! Hm...');
                         }
 
                         if (bp.getOutOfSync()) {
-                            wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC!');
+                            socket.myObj.wlog.error('  ...ERROR: ACKed but Base told me OUT-OF-SYNC!');
 
                             if (socket.myObj.outOfSyncCnt >= Configuration.base.sock.OUT_OF_SYNC_CNT_MAX) {
-                                wlog.error('  ...Will flush queue and destroy socket...');
+                                socket.myObj.wlog.error('  ...Will flush queue and destroy socket...');
 
                                 // STOP SENDING
                                 clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
@@ -217,18 +219,18 @@ BaseSock.prototype.onData = function () {
                                 // FLUSH PENDING MESSAGES QUEUE
                                 Database.flushBaseQueue(socket.myObj.IDbase, function (err) {
                                     if (err) {
-                                        wlog.error('Unknown error in Database.flushBaseQueue()!');
+                                        socket.myObj.wlog.error('Unknown error in Database.flushBaseQueue()!');
                                     }
 
                                     // DISCONNECT (kill socket)
-                                    wlog.error('Socket destroyed for IDbase=', socket.myObj.IDbase, 'because of out-of-sync!');
+                                    socket.myObj.wlog.error('Socket destroyed because of out-of-sync!');
                                     socket.end();
                                     socket.destroy();
                                 });
                             }
                             else {
                                 socket.myObj.outOfSyncCnt++;
-                                wlog.info('  ...will re-send unacknowledged queue items. Increased flush-counter to:', socket.myObj.outOfSyncCnt, '/', Configuration.base.sock.OUT_OF_SYNC_CNT_MAX, '!');
+                                socket.myObj.wlog.info('  ...will re-send unacknowledged queue items. Increased flush-counter to:', socket.myObj.outOfSyncCnt, '/', Configuration.base.sock.OUT_OF_SYNC_CNT_MAX, '!');
 
                                 self.resendUnackedItems();
                             }
@@ -241,7 +243,7 @@ BaseSock.prototype.onData = function () {
             }
                 // not an ACK
             else {
-                wlog.info('Processing Base\'s data...');
+                socket.myObj.wlog.info('Processing Base\'s data...');
 
                 // acknowledge immediatelly (but only if base is authorized and if this is not a notification)
                 var bpAck = new baseMessage();
@@ -251,7 +253,7 @@ BaseSock.prototype.onData = function () {
                 if (!bp.getIsNotification()) {
                     if (bp.getTXsender().readUInt32BE(0) <= socket.myObj.TXbase) {
                         bpAck.setIsProcessed(false);
-                        wlog.warn('  ...Warning: re-transmitted command, not processed!');
+                        socket.myObj.wlog.warn('  ...Warning: re-transmitted command, not processed!');
                     }
                     else if (bp.getTXsender().readUInt32BE(0) > (socket.myObj.TXbase + 1)) {
                         // SYNC PROBLEM! Base sent higher than we expected! This means we missed some previous Message!
@@ -261,7 +263,7 @@ BaseSock.prototype.onData = function () {
 
                         bpAck.setOutOfSync(true);
                         bpAck.setIsProcessed(false);
-                        wlog.error('  ...Error: Base sent out-of-sync data! Expected:', (socket.myObj.TXbase + 1), 'but I got:', bp.getTXsender().readUInt32BE(0));
+                        socket.myObj.wlog.error('  ...Error: Base sent out-of-sync data! Expected:', (socket.myObj.TXbase + 1), 'but I got:', bp.getTXsender().readUInt32BE(0));
                     }
                     else {
                         bpAck.setIsProcessed(true);
@@ -271,49 +273,49 @@ BaseSock.prototype.onData = function () {
                         // it doesn't update TXbase in MySQL. So, we will do it right now! Would be best not to, but
                         // we have no other choice.
                         Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-                        wlog.info('  ...updated current TXbase (', socket.myObj.TXbase, ') to database.');
+                        socket.myObj.wlog.info('  ...updated current TXbase (', socket.myObj.TXbase, ') to database.');
                     }
 
                     socket.write(bpAck.buildPackage(), 'hex');
-                    wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender().readUInt32BE(0));
+                    socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender().readUInt32BE(0));
                 }
                 else {
                     bpAck.setIsProcessed(true); // we need this for bellow code to execute
-                    wlog.info('  ...didn\'t ACK because this was a low-priority message (notification).');
+                    socket.myObj.wlog.info('  ...didn\'t ACK because this was a low-priority message (notification).');
                 }
 
                 if (bpAck.getIsProcessed()) {
                     // system messages are not forwarded to our Clients
                     if (bp.getIsSystemMessage()) {
-                        wlog.info('  ...system message received, parsing...');
+                        socket.myObj.wlog.info('  ...system message received, parsing...');
 
                         // process system messages
                         if (bp.getData().toString('hex') == '01') {
-                            wlog.info('  ...will re-start pending items sender for all unacknowledged items.');
+                            socket.myObj.wlog.info('  ...will re-start pending items sender for all unacknowledged items.');
 
                             self.resendUnackedItems();
                         }
                         else if (bp.getData().toString('hex') == '02') {
-                            wlog.info('  ...enabling KEEP ALIVE.');
+                            socket.myObj.wlog.info('  ...enabling KEEP ALIVE.');
 
                             socket.setKeepAlive(true, Configuration.base.sock.KEEP_ALIVE_MS);
                         }
                         else if (bp.getData().toString('hex') == '03') {
-                            wlog.info('  ...disabling KEEP ALIVE.');
+                            socket.myObj.wlog.info('  ...disabling KEEP ALIVE.');
 
                             socket.setKeepAlive(false);
                         }
-                        /*
-                        else if (bp.getData().toString('hex') == '03') {
-                            // something else...
-                        }
-                        */
+                            /*
+                            else if (bp.getData().toString('hex') == '03') {
+                                // something else...
+                            }
+                            */
                         else {
-                            wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
+                            socket.myObj.wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
                         }
                     }
                     else {
-                        wlog.info('  ...fresh data, will forward to my Clients...');
+                        socket.myObj.wlog.info('  ...fresh data, will forward to my Clients...');
 
                         // forward message to all Clients of this Base
                         Database.getClientsOfBase(socket.myObj.IDbase, function (err, rows, columns) {
@@ -322,7 +324,7 @@ BaseSock.prototype.onData = function () {
                             }
 
                             if (rows.length <= 0) {
-                                wlog.info('No Clients associated with Base (', socket.myObj.IDbase, ') yet! Strange...');
+                                socket.myObj.wlog.info('No Clients associated with Base (', socket.myObj.IDbase, ') yet! Strange...');
                                 return;
                             }
 
@@ -339,11 +341,11 @@ BaseSock.prototype.onData = function () {
                                 (function (IDclient) {
                                     Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
                                         if (err) {
-                                            wlog.info('Error in Database.addTxServer2Client, for IDclient=', IDclient);
+                                            socket.myObj.wlog.info('Error in Database.addTxServer2Client, for IDclient=', IDclient);
                                             return;
                                         }
 
-                                        wlog.info('  ...added to IDclient=', IDclient, ' queue...');
+                                        socket.myObj.wlog.info('  ...added to IDclient=', IDclient, ' queue...');
 
                                         // pronadji njegov socket (ako je online) i pokreni mu slanje
                                         var fClientSockets = connClients.filter(function (item) {
@@ -351,11 +353,11 @@ BaseSock.prototype.onData = function () {
                                         });
 
                                         if (fClientSockets.length == 1) {
-                                            wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
+                                            socket.myObj.wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
                                             fClientSockets[0].startQueuedItemsSender();
                                         }
                                         else if (fClientSockets.length > 1) {
-                                            wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+                                            socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
                                         }
                                     });
                                 })(rows[i].IDclient);
@@ -387,11 +389,11 @@ BaseSock.prototype.resendUnackedItems = function () {
     // mark unacknowledged items as unsent (unmark sent bit)
     Database.markUnackedTxServer2Base(socket.myObj.IDbase, function (err) {
         if (err) {
-            wlog.error('Unknown error in Database.markUnackedTxServer2Base!');
+            socket.myObj.wlog.error('Unknown error in Database.markUnackedTxServer2Base!');
             return;
         }
 
-        wlog.info('  ...starting queued items sender of all unacknowledged items...');
+        socket.myObj.wlog.info('  ...starting queued items sender of all unacknowledged items...');
 
         // start pending items sender and we are done
         socket.startQueuedItemsSender();
@@ -405,7 +407,7 @@ BaseSock.prototype.doAuthorize = function () {
     var baseid = bp.getData();
 
     if (socket.myObj.IDbase != null) {
-        wlog.warn('Base attempted to re-authorize, request ignored!');
+        socket.myObj.wlog.warn('Base attempted to re-authorize, request ignored!');
         return;
     }
 
@@ -434,7 +436,7 @@ BaseSock.prototype.doAuthorize = function () {
             var fMyConns = connBases.filter(function (item) {
                 return (oIDbase == item.myObj.IDbase);
             });
-            for(var b = 0; b < fMyConns.length; b++) {
+            for (var b = 0; b < fMyConns.length; b++) {
                 wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, '. Destroying it now!');
                 fMyConns[b].myObj.baseid = null;
                 fMyConns[b].myObj.IDbase = null;
@@ -444,7 +446,7 @@ BaseSock.prototype.doAuthorize = function () {
             wlog.info('  ...stopping logging in this file.');
 
             // instantiate logger for this IDbase
-            wlog = new (winston.Logger)({
+            socket.myObj.wlog = new (winston.Logger)({
                 transports: [
 			      new (winston.transports.Console)(),
 			      new (winston.transports.File)({ filename: './log/basesock/' + result[0][0].oIDbase + '.json' })
@@ -454,59 +456,20 @@ BaseSock.prototype.doAuthorize = function () {
             // because we are changing the logging file now, we need to add the bellow
             // code into a callback function that will be executed after the re-initialization
             // of the winston logger from above
-            process.nextTick(function() {
-                socket.myObj.baseid = baseid.toString('hex');
-                socket.myObj.IDbase = result[0][0].oIDbase;
-                socket.myObj.timezone = result[0][0].oTimezone;
-                wlog.info('Base', baseid.toString('hex'), 'authorized.');
-
-                // is other side forcing us to re-sync?
-                if (bp.getHasSync()) {
-                    socket.myObj.TXbase = 0;
-                    wlog.info('  ...re-syncing TXbase to: 0.');
-                }
-                else {
-                    socket.myObj.TXbase = result[0][0].oTXbase;
-                    wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
-                }
-
-                var bpAns = new baseMessage();
-                bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
-                bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-                //bpAns.setData(new Buffer([0x00], 'hex')); // OK!
-                bpAns.setData('00'); // OK!
-
-                // should we force other side to re-sync?
-                if (result[0][0].oForceSync == 1) {
-                    bpAns.setHasSync(true);
-                    wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
-                }
-
-                socket.write(bpAns.buildPackage(), 'hex');
-
-                self.informMyClients(true);
-
-                // something pending for Base? (oForceSync is 0 if there is something pending in DB)
-                if (result[0][0].oForceSync == 0) {
-                    wlog.info('  ...there is pending data for Base, starting sender...');
-                    socket.startQueuedItemsSender();
-                }
-            });
-
-            /*
+            //process.nextTick(function() {
             socket.myObj.baseid = baseid.toString('hex');
             socket.myObj.IDbase = result[0][0].oIDbase;
             socket.myObj.timezone = result[0][0].oTimezone;
-            wlog.info('Base', baseid.toString('hex'), 'authorized.');
+            socket.myObj.wlog.info('Base', baseid.toString('hex'), 'authorized.');
 
             // is other side forcing us to re-sync?
             if (bp.getHasSync()) {
                 socket.myObj.TXbase = 0;
-                wlog.info('  ...re-syncing TXbase to: 0.');
+                socket.myObj.wlog.info('  ...re-syncing TXbase to: 0.');
             }
             else {
                 socket.myObj.TXbase = result[0][0].oTXbase;
-                wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
+                socket.myObj.wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
             }
 
             var bpAns = new baseMessage();
@@ -518,7 +481,7 @@ BaseSock.prototype.doAuthorize = function () {
             // should we force other side to re-sync?
             if (result[0][0].oForceSync == 1) {
                 bpAns.setHasSync(true);
-                wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
+                socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
             }
 
             socket.write(bpAns.buildPackage(), 'hex');
@@ -527,10 +490,10 @@ BaseSock.prototype.doAuthorize = function () {
 
             // something pending for Base? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {
-                wlog.info('  ...there is pending data for Base, starting sender...');
+                socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
                 socket.startQueuedItemsSender();
             }
-            */
+            //});
         }
         else {
             socket.myObj.baseid = null;
@@ -588,11 +551,11 @@ BaseSock.prototype.informMyClients = function (connected) {
             });
 
             if (fClientSockets.length == 1) {
-                wlog.info('  ...sending Base connection status notification to IDclient=', IDclient, '...');
+                socket.myObj.wlog.info('  ...sending Base connection status notification to IDclient=', IDclient, '...');
                 fClientSockets[0].write(jsonPackageAsString + '\n', 'ascii'); // send right away
             }
             else if (fClientSockets.length > 1) {
-                wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+                socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
             }
 
         }

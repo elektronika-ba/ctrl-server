@@ -146,3 +146,11 @@
 {"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2014-10-29T19:59:54.583Z"}
 {"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-10-29T19:59:55.311Z"}
 {"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-10-29T19:59:55.312Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-11-03T08:59:45.932Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-11-03T08:59:45.932Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-11-03T08:59:45.932Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-11-03T08:59:56.885Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorized.","timestamp":"2014-11-03T09:01:21.331Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-11-03T09:01:21.332Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-11-03T09:01:21.332Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) to database.","timestamp":"2014-11-03T09:03:11.662Z"}

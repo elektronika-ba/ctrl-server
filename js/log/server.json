@@ -471,3 +471,63 @@
 {"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-10-29T19:59:42.567Z"}
 {"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-10-29T19:59:42.567Z"}
 {"level":"info","message":"  ...authorized as IDbase = 1 , stopping logging in this file.","timestamp":"2014-10-29T19:59:43.636Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-11-03T08:58:35.391Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-11-03T08:58:35.415Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-11-03T08:58:35.430Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-11-03T08:58:35.430Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T08:59:06.077Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T08:59:06.077Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 authorization error.","timestamp":"2014-11-03T08:59:06.884Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2014-11-03T08:59:11.089Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T08:59:45.391Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T08:59:45.392Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2014-11-03T08:59:45.931Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T08:59:45.931Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-11-03T08:59:56.885Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:01:20.815Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:01:20.815Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2014-11-03T09:01:21.331Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:01:21.331Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:02:55.775Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:02:55.775Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:02:56.292Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:02:56.292Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-11-03T09:03:11.661Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:03:12.511Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:03:12.511Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:03:13.021Z"}
+{"level":"info","message":"  ...found already existing connection to  127.0.0.1 . Destroying it now!","timestamp":"2014-11-03T09:03:13.021Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:03:13.021Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-11-03T09:03:20.174Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:03:21.037Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:03:21.037Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:03:21.551Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:03:21.551Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:03:27.142Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:03:27.142Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:03:27.668Z"}
+{"level":"info","message":"  ...found already existing connection to  127.0.0.1 . Destroying it now!","timestamp":"2014-11-03T09:03:27.669Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:03:27.670Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-11-03T09:03:36.750Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:03:37.366Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:03:37.366Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:03:37.887Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:03:37.888Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2014-11-03T09:03:41.918Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:03:42.606Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:03:42.606Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:03:43.126Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:03:43.127Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2014-11-03T09:05:34.584Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:05:34.584Z"}
+{"level":"info","message":"  ...authorized as IDbase = 3","timestamp":"2014-11-03T09:05:35.110Z"}
+{"level":"info","message":"  ...found already existing connection to  127.0.0.1 . Destroying it now!","timestamp":"2014-11-03T09:05:35.110Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:05:35.110Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2014-11-03T09:11:43.142Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2014-11-03T09:11:43.157Z"}
+{"level":"info","message":"Base's Server listening on port: 8000.","timestamp":"2014-11-03T09:11:43.166Z"}
+{"level":"info","message":"Client's Server listening on port: 9000.","timestamp":"2014-11-03T09:11:43.166Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2014-11-03T09:13:45.122Z"}
+{"level":"info","message":"Authorization timeout set to 5 sec...","timestamp":"2014-11-03T09:13:45.122Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2014-11-03T09:13:45.881Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2014-11-03T09:13:45.881Z"}

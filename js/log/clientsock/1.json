@@ -129,3 +129,6 @@
 {"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-10-01T07:58:35.635Z"}
 {"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2014-10-01T07:58:39.430Z"}
 {"level":"info","message":"  ...saved current TXclient ( 0 ) to database.","timestamp":"2014-10-01T07:58:39.430Z"}
+{"level":"info","message":"Client wG4wtfRHCbj7iXxSkw7K5m7YmtaczijHuPedwtXUsg5wFDHh1z authorized.","timestamp":"2014-11-03T09:13:45.882Z"}
+{"level":"info","message":"  ...re-loading TXclient from DB: 0","timestamp":"2014-11-03T09:13:45.882Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2014-11-03T09:13:45.883Z"}
