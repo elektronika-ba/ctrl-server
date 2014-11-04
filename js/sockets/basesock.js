@@ -269,11 +269,13 @@ BaseSock.prototype.onData = function () {
                         bpAck.setIsProcessed(true);
                         socket.myObj.TXbase++; // next package we will receive should be +1 of current value, so lets ++
 
+                        /* // Figured it out, it can be moved to doAuthorize()
                         // When Base looses connection and in case Server doesn't get a disconnect (timeout) event
                         // it doesn't update TXbase in MySQL. So, we will do it right now! Would be best not to, but
                         // we have no other choice.
                         Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
                         socket.myObj.wlog.info('  ...updated current TXbase (', socket.myObj.TXbase, ') to database.');
+                        */
                     }
 
                     socket.write(bpAck.buildPackage(), 'hex');
@@ -436,8 +438,10 @@ BaseSock.prototype.doAuthorize = function () {
             var fMyConns = connBases.filter(function (item) {
                 return (oIDbase == item.myObj.IDbase);
             });
+            // there should be maximum one existing connection here, but lets loop it just to make sure we close them all
             for (var b = 0; b < fMyConns.length; b++) {
-                wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, '. Destroying it now!');
+                wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, ', continuing its TXbase (', socket.myObj.TXbase, '). Destroying it now!');
+                result[0][0].oTXbase = socket.myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
                 fMyConns[b].myObj.baseid = null;
                 fMyConns[b].myObj.IDbase = null;
                 fMyConns[b].destroy();
