@@ -28,7 +28,7 @@ function ClientSock(socket) {
         onDataTimer: null, // is timer that will call self.onData() currently active?
         authTimer: null, // auth timer - connection killer
 
-        tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one and waiting for ACK after each transmission in order to send next one
+        tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one
         ip: null,
         outOfSyncCnt: 0, // out-of-sync counter
 
@@ -63,7 +63,8 @@ function ClientSock(socket) {
         wlog.info('Connection to Client %s closed.', socket.myObj.ip);
         if (socket.myObj.IDclient != null) {
             Database.saveTXclient(socket.myObj.IDbase, socket.myObj.TXclient);
-            socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') to database.');
+            Database.clientOnlineStatus(socket.myObj.IDclient, 0);
+            socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
         }
         clearTimeout(socket.myObj.tmrSenderTask);
 
@@ -76,7 +77,8 @@ function ClientSock(socket) {
             wlog.info("Connection to Client %s dropped.", socket.myObj.ip);
             if (socket.myObj.IDclient != null) {
                 Database.saveTXclient(socket.myObj.IDbase, socket.myObj.TXclient);
-                socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') to database.');
+                Database.clientOnlineStatus(socket.myObj.IDclient, 0);
+                socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
             }
             clearTimeout(socket.myObj.tmrSenderTask);
 
@@ -173,6 +175,8 @@ ClientSock.prototype.onData = function () {
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDclient == null) {
             self.doAuthorize();
+
+            Database.clientOnlineStatus(socket.myObj.IDclient, 1);
         }
         else {
             // handle received ACK
@@ -455,7 +459,7 @@ ClientSock.prototype.doAuthorize = function () {
             //process.nextTick(function () {
             socket.myObj.IDclient = result[0][0].oIDclient;
 
-            socket.myObj.wlog.info('Client', cmd.auth_token.toString(), 'authorized.');
+            socket.myObj.wlog.info('Client', cmd.auth_token.toString(), ' (', socket.myObj.ip, ') authorized.');
 
             // is other side forcing us to re-sync?
             if (cm.getIsSync() == true) {

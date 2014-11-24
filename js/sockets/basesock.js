@@ -29,7 +29,7 @@ function BaseSock(socket) {
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
 
-        tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one and waiting for ACK after each transmission in order to send next one
+        tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one
         ip: null,
 
         tmrBackoff: null, // backoff timer
@@ -58,7 +58,8 @@ function BaseSock(socket) {
         wlog.info("Connection to Base %s closed.", socket.myObj.ip);
         if (socket.myObj.IDbase != null) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-            socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
+            Database.baseOnlineStatus(socket.myObj.IDbase, 0);
+            socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
         }
         self.informMyClients(false);
         clearTimeout(socket.myObj.tmrSenderTask);
@@ -73,7 +74,8 @@ function BaseSock(socket) {
             wlog.info("Connection to Base %s dropped.", socket.myObj.ip);
             if (socket.myObj.IDbase != null) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-                socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') to database.');
+                Database.baseOnlineStatus(socket.myObj.IDbase, 0);
+                socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
             }
             self.informMyClients(false);
             clearTimeout(socket.myObj.tmrSenderTask);
@@ -161,6 +163,8 @@ BaseSock.prototype.onData = function () {
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDbase == null) {
             self.doAuthorize();
+
+            Database.baseOnlineStatus(socket.myObj.IDbase, 1);
         }
         else {
             // handle received ACK
@@ -464,7 +468,8 @@ BaseSock.prototype.doAuthorize = function () {
             socket.myObj.baseid = baseid.toString('hex');
             socket.myObj.IDbase = result[0][0].oIDbase;
             socket.myObj.timezone = result[0][0].oTimezone;
-            socket.myObj.wlog.info('Base', baseid.toString('hex'), 'authorized.');
+
+            socket.myObj.wlog.info('Base', baseid.toString('hex'), ' (', socket.myObj.ip, ') authorized.');
 
             // is other side forcing us to re-sync?
             if (bp.getHasSync()) {
