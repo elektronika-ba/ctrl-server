@@ -175,8 +175,6 @@ ClientSock.prototype.onData = function () {
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDclient == null) {
             self.doAuthorize();
-
-            Database.clientOnlineStatus(socket.myObj.IDclient, 1);
         }
         else {
             // handle received ACK
@@ -489,6 +487,7 @@ ClientSock.prototype.doAuthorize = function () {
             socket.write(JSON.stringify(jsAns.buildMessage()) + '\n', 'ascii');
 
             self.sendBasesStatusNotification();
+            Database.clientOnlineStatus(socket.myObj.IDclient, 1);
 
             // something pending for Client? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {

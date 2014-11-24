@@ -163,8 +163,6 @@ BaseSock.prototype.onData = function () {
         // if unauthorized try authorizing with this received message!
         if (socket.myObj.IDbase == null) {
             self.doAuthorize();
-
-            Database.baseOnlineStatus(socket.myObj.IDbase, 1);
         }
         else {
             // handle received ACK
@@ -496,6 +494,7 @@ BaseSock.prototype.doAuthorize = function () {
             socket.write(bpAns.buildPackage(), 'hex');
 
             self.informMyClients(true);
+            Database.baseOnlineStatus(socket.myObj.IDbase, 1);
 
             // something pending for Base? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {

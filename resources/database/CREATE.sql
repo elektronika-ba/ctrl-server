@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 05, 2014 at 03:41 PM
+-- Generation Time: Nov 24, 2014 at 06:30 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -135,15 +135,7 @@ BEGIN
 					SET oAuthorized = 1;
 					
 					### Flush acked transmissions
-					# DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked=1;
-					### NEW: Flush only those until we get to unacked ones. This prevents re-using TXserver values in case Base acks on newer transmission instead of oldest one!!!
-					DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked = 1
-					AND IDpk < ALL (
-						SELECT IDpk FROM
-						(
-							SELECT IDpk FROM txserver2base WHERE IDbase = oIDbase AND acked = 0
-						) AS weMustDoItLikeThis
-					);
+					DELETE FROM txserver2base WHERE IDbase = oIDbase AND acked=1;
 
 					### We must mark all pending items as unsent for this connection session!
 					UPDATE txserver2base SET sent=0 WHERE IDbase=oIDbase AND sent=1;
@@ -316,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 --
 
 INSERT INTO `account` (`IDaccount`, `stamp_system`, `email`, `password`, `active`, `recovery_started`) VALUES
-(1, '2014-10-03 15:21:37', 'trax@elektronika.ba', 'sha256:1000:5iiuuYbKvekF76fbJtYKADBzczwR4tbW:FKD4TU1v4H68uX3HLiH6ekvR5nQier5o', 1, NULL);
+(1, '2014-10-19 11:53:41', 'trax@elektronika.ba', 'sha256:1000:29sznbn7w0wR/Tj1KyNb3Hku4RRPxvYm:oggMvX+AE42xEF57Y1Fjb6oH5HGD6TH9', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -349,6 +341,8 @@ CREATE TABLE IF NOT EXISTS `base` (
   `TXbase` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sequence No - Base to Server for binary protocol',
   `crypt_key` varchar(32) NOT NULL COMMENT 'NOT IMPLEMENTED YET',
   `basename` varchar(100) NOT NULL,
+  `last_online` datetime DEFAULT NULL,
+  `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDbase`),
   UNIQUE KEY `baseid` (`baseid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
@@ -357,9 +351,8 @@ CREATE TABLE IF NOT EXISTS `base` (
 -- Dumping data for table `base`
 --
 
-INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `TXbase`, `crypt_key`, `basename`) VALUES
-(1, 1, '17171717171717171717171717171717', -120, 0, '206aadf27bfeb331d8cbb270d37e458a', 'Beehive monitoring'),
-(3, 1, '3987a63009795be81fc93ed32852f8ed', 0, 0, '4822dba3a7d7a7954cfa8fdbd3464020', 'AAAAAaaaaaaaaaaaaaaa');
+INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `TXbase`, `crypt_key`, `basename`, `last_online`, `online`) VALUES
+(1, 1, 'aacca539d159a7ca300aee98deda7e92', -120, 0, '206aadf27bfeb331d8cbb270d37e458a', 'Beehive monitoring', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +367,14 @@ CREATE TABLE IF NOT EXISTS `base_auth_fail` (
   `baseid` varchar(32) NOT NULL,
   `remote_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`IDpk`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Keeps only failed auth attempts' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Keeps only failed auth attempts' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `base_auth_fail`
+--
+
+INSERT INTO `base_auth_fail` (`IDpk`, `stamp_system`, `baseid`, `remote_ip`) VALUES
+(1, '2014-10-29 19:55:30', 'aacca539d159a7ca300aee98deda7e92', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -396,8 +396,6 @@ CREATE TABLE IF NOT EXISTS `base_client` (
 --
 
 INSERT INTO `base_client` (`IDbase_client`, `stamp_system`, `IDbase`, `IDclient`) VALUES
-(25, '2014-10-05 15:26:46', 3, 1),
-(22, '2014-10-05 15:26:35', 1, 3),
 (21, '2014-10-05 15:26:35', 1, 1);
 
 -- --------------------------------------------------------
@@ -413,6 +411,8 @@ CREATE TABLE IF NOT EXISTS `client` (
   `auth_token` varchar(50) NOT NULL,
   `TXclient` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sequence No - Client to Server for JSON protocol',
   `clientname` varchar(100) NOT NULL,
+  `last_online` datetime DEFAULT NULL,
+  `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDclient`),
   UNIQUE KEY `auth_token` (`auth_token`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
@@ -421,10 +421,8 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`, `clientname`) VALUES
-(1, 1, '16b5bb101392fac8b6264c8382cfa278', 0, 'Glavni account'),
-(2, 1, '34534534534354', 0, 'Samac'),
-(3, 1, 'ztrdfgdfgegdfg', 0, 'Dodatni account');
+INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`, `clientname`, `last_online`, `online`) VALUES
+(1, 1, 'fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4', 0, 'Glavni account', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -458,15 +456,7 @@ CREATE TABLE IF NOT EXISTS `txserver2base` (
   `acked` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDpk`),
   UNIQUE KEY `IDbase` (`IDbase`,`TXserver`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='FIFO queue Server -> Base. This table must be of InnoDB type' AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `txserver2base`
---
-
-INSERT INTO `txserver2base` (`IDpk`, `stamp_system`, `IDbase`, `TXserver`, `binary_package`, `sent`, `acked`) VALUES
-(1, '2014-10-01 06:29:54', 1, 1, 0x3030316430303030303030303030333633383336333533363633333636333336363633323330333733373336363633373332333636333336333433323331, 0, 0),
-(2, '2014-10-01 06:32:37', 1, 2, 0x3030316430303030303030303030333633383336333533363633333636333336363633323330333733373336363633373332333636333336333433323331, 0, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='FIFO queue Server -> Base. This table must be of InnoDB type' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
