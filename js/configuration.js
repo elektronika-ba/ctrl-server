@@ -8,8 +8,8 @@ var Configuration = {
     //--------------------------
     mySQL: {
         HOST: '127.0.0.1',
-        USER: 'root',
-        PASS: '',
+        USER: 'ctrlba',
+        PASS: 'ctrlba',
         DB: 'ctrl_1v0',
     },
 

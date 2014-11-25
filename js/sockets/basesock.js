@@ -113,7 +113,7 @@ function BaseSock(socket) {
                         }
 
                         if (result[0][0].oFetched == 0) {
-                            socket.socket.myObj.wlog.warn('Server2Base executed but no data from DB to send. Strange!');
+                            socket.myObj.wlog.warn('Server2Base executed but no data from DB to send. Strange!');
                             clearInterval(socket.myObj.tmrSenderTask);
                             socket.myObj.tmrSenderTask = null;
                             return;

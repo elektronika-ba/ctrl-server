@@ -8,7 +8,7 @@ var net = require('net');
 var clientMessage = require('../../js/messages/clientMessage');
 
 var connectToVersion = 1;
-var authToken = '3z88DuLGMYNuyc6syUX7Rjel6ahGjDY79sB3FS3ttzCSFMcdQe';
+var authToken = 'gln42XbaSAWBQlc9f2lGqHzX2SAsaE9gRnbHbcJTDulkHpkNgx';
 var TXserver = 0;
 var TXclient = 1;
 var dataBuff = '';
@@ -24,11 +24,14 @@ var sslOptions = {
 var client = this;
 
 // Connect to TLS CTRL Server
-client.socket = tls.connect(9000 + connectToVersion, 'www.ctrl.ba', sslOptions, function() {
+client.socket = tls.connect(9000 + connectToVersion, 'ctrl.ba', sslOptions, function() {
+    client.socket.setKeepAlive(true, 1000);
+
     if (client.socket.authorized) {
         console.log("Connected to TLS CTRL Server!");
 
         client.socket.setEncoding('ascii');
+
         doAuthorize(client.socket);
     }
     else {
@@ -130,6 +133,9 @@ function onData(socket) {
                             // start a simulator that will send some stuff to Base
                             tmrSimulator = setInterval(simulator, 5000);
                         }
+                        else {
+							console.log('  ...Wrong auth code :(');
+						}
                     }
                     // this is a system message we got since now we are logged in
                     else {
