@@ -20,7 +20,7 @@ function clientMessage() {
 
         "baseid": [],
 
-        "data": null,
+        "data": {}, // changed from null to {} on 25-11-2014
     };
 
     this.isExtracted = false;

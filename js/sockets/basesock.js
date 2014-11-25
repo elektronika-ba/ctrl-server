@@ -64,6 +64,7 @@ function BaseSock(socket) {
         self.informMyClients(false);
         clearTimeout(socket.myObj.tmrSenderTask);
         clearTimeout(socket.myObj.tmrBackoff);
+        clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
 
         connBases.splice(connBases.indexOf(socket), 1);
     });
@@ -80,6 +81,7 @@ function BaseSock(socket) {
             self.informMyClients(false);
             clearTimeout(socket.myObj.tmrSenderTask);
             clearTimeout(socket.myObj.tmrBackoff);
+            clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
 
             connBases.splice(connBases.indexOf(socket), 1);
         }

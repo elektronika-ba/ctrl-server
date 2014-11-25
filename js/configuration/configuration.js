@@ -2,7 +2,7 @@
 
 var Configuration = {
 
-    version: 0,                             // only whole numbers here! this increases the port number for both base and client sockets!
+    version: 1,                             // only whole numbers here! this increases the port number for both base and client sockets!
 
     // MySQL Database Connection
     //--------------------------
@@ -10,7 +10,7 @@ var Configuration = {
         HOST: '127.0.0.1',
         USER: 'root',
         PASS: '',
-        DB: 'ctrl_0v4',
+        DB: 'ctrl_1v0',
     },
 
     // Base Socket Server related
@@ -29,7 +29,7 @@ var Configuration = {
             SENDER_TASK_MS: 500,            // task that writes data to Base on socket (timer exists only because we don't want to flush Base with pending data all at once)
             ON_DATA_THROTTLING_MS: 50,      // throttling of received commands
 
-            MAX_AUTH_ATTEMPTS: 5,			// how many failed auth attempts are allowed?
+            MAX_AUTH_ATTEMPTS: 10,			// how many failed auth attempts are allowed?
             MAX_AUTH_ATTEMPTS_MINUTES: 5,	// ...in this duration (minutes)?
 
             BACKOFF_MS: 3000,				// initial backoff period (milliseconds) - will increment by *2 on each successive backoff reply from Base
@@ -54,7 +54,7 @@ var Configuration = {
             SENDER_TASK_MS: 500,            // task that writes data to Client on socket (timer exists only because we don't want to flush Client with pending data all at once)
             ON_DATA_THROTTLING_MS: 100,     // throttling of received commands
 
-            MAX_AUTH_ATTEMPTS: 10,			// how many failed auth attempts are allowed?
+            MAX_AUTH_ATTEMPTS: 5,			// how many failed auth attempts are allowed?
             MAX_AUTH_ATTEMPTS_MINUTES: 5,	// ...in this duration (minutes)?
 
             OUT_OF_SYNC_CNT_MAX: 5,         // how many out of sync messages should we receive before flushing the txserver2client queue and dropping the connection?

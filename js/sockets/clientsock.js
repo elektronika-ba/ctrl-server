@@ -67,6 +67,7 @@ function ClientSock(socket) {
             socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
         }
         clearTimeout(socket.myObj.tmrSenderTask);
+        clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
 
         connClients.splice(connClients.indexOf(socket), 1);
     });
@@ -81,6 +82,7 @@ function ClientSock(socket) {
                 socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
             }
             clearTimeout(socket.myObj.tmrSenderTask);
+            clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
 
             connClients.splice(connClients.indexOf(socket), 1);
         }

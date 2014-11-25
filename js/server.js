@@ -4,6 +4,8 @@
 
 var Configuration = require('./configuration/configuration');
 
+var tls = require('tls');
+var fs = require('fs');
 var net = require('net');
 var winston = require('winston');
 
@@ -46,7 +48,13 @@ wl.info("Base's Server is starting...");
 srvBase.listen(Configuration.base.srv.PORT + Configuration.version); // GO!
 
 // Client's server
-var srvClient = net.createServer(ClientSock)
+var sslOptions = {
+    key: fs.readFileSync('./sockets/server.key'),
+    cert: fs.readFileSync('./sockets/cert.pem'),
+    rejectUnauthorized: false
+};
+
+var srvClient = tls.createServer(sslOptions, ClientSock)
 	.on('listening', function () {
         wl.info("Client's Server listening on port: %d.", Configuration.client.srv.PORT + Configuration.version);
 	})
