@@ -3,7 +3,7 @@ ctrl-server
 
 CTRL server for the IoT. (Real-time, with sockets)
 
-**This is beta version, still under active development**
+**This is the unencrypted version, check version >v0 for encryption (coming soon)**
 
 The idea is to connect the Base Station (internet connected hardware) to the Server and forward incoming message to all connected Clients (REST API, Android app, socket connection...) associated to that Base and vice versa. There can be multiple Clients associated to one Base, but any 
 one Client can only be associated to just one Base. 
