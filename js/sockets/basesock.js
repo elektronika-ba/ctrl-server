@@ -272,14 +272,6 @@ BaseSock.prototype.onData = function () {
                     else {
                         bpAck.setIsProcessed(true);
                         socket.myObj.TXbase++; // next package we will receive should be +1 of current value, so lets ++
-
-                        /* // Figured it out, it can be moved to doAuthorize()
-                        // When Base looses connection and in case Server doesn't get a disconnect (timeout) event
-                        // it doesn't update TXbase in MySQL. So, we will do it right now! Would be best not to, but
-                        // we have no other choice.
-                        Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
-                        socket.myObj.wlog.info('  ...updated current TXbase (', socket.myObj.TXbase, ') to database.');
-                        */
                     }
 
                     socket.write(bpAck.buildPackage(), 'hex');
@@ -287,7 +279,7 @@ BaseSock.prototype.onData = function () {
                 }
                 else {
                     bpAck.setIsProcessed(true); // we need this for bellow code to execute
-                    socket.myObj.wlog.info('  ...didn\'t ACK because this was a low-priority message (notification).');
+                    socket.myObj.wlog.info('  ...didn\'t ACK because this was a notification.');
                 }
 
                 if (bpAck.getIsProcessed()) {
@@ -335,6 +327,7 @@ BaseSock.prototype.onData = function () {
                             }
 
                             var cm = new clientMessage();
+                            cm.setIsNotification(bp.getIsNotification());
                             cm.setData(bp.getData().toString('hex'));
                             var jsonPackageAsString = JSON.stringify(cm.buildMessage());
 
@@ -345,27 +338,50 @@ BaseSock.prototype.onData = function () {
 
                                 // insert message into database for this client and trigger sending if he is online
                                 (function (IDclient) {
-                                    Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
-                                        if (err) {
-                                            socket.myObj.wlog.info('Error in Database.addTxServer2Client, for IDclient=', IDclient);
-                                            return;
-                                        }
+									// no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to the "other side"
+                                    if(cm.getIsNotification()) {
+										socket.myObj.wlog.info('  ...this is a Notification, sending right now on Client\'s (', IDclient, ') socket...');
 
-                                        socket.myObj.wlog.info('  ...added to IDclient=', IDclient, ' queue...');
+										// pronadji njegov socket
+										var fClientSockets = connClients.filter(function (item) {
+											return (item.myObj.IDclient == IDclient);
+										});
 
-                                        // pronadji njegov socket (ako je online) i pokreni mu slanje
-                                        var fClientSockets = connClients.filter(function (item) {
-                                            return (item.myObj.IDclient == IDclient);
-                                        });
+										if (fClientSockets.length == 1) {
+											fClientSockets[0].write(jsonPackageAsString + '\n', 'ascii');
+											fClientSockets[0].myObj.wlog.info('  ...sent (piped).');
+										}
+										else if (fClientSockets.length > 1) {
+											socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+										}
+										else {
+											socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will not get this Notification.');
+										}
+									}
+									// not a notification, lets insert into database and trigger senging
+									else {
+										Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
+											if (err) {
+												socket.myObj.wlog.info('Error in Database.addTxServer2Client, for IDclient=', IDclient);
+												return;
+											}
 
-                                        if (fClientSockets.length == 1) {
-                                            socket.myObj.wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
-                                            fClientSockets[0].startQueuedItemsSender();
-                                        }
-                                        else if (fClientSockets.length > 1) {
-                                            socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
-                                        }
-                                    });
+											socket.myObj.wlog.info('  ...added to IDclient=', IDclient, ' queue...');
+
+											// pronadji njegov socket (ako je online) i pokreni mu slanje
+											var fClientSockets = connClients.filter(function (item) {
+												return (item.myObj.IDclient == IDclient);
+											});
+
+											if (fClientSockets.length == 1) {
+												socket.myObj.wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
+												fClientSockets[0].startQueuedItemsSender();
+											}
+											else if (fClientSockets.length > 1) {
+												socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+											}
+										});
+									}
                                 })(rows[i].IDclient);
 
                             } // for each client...

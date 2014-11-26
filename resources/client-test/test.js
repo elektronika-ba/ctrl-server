@@ -188,8 +188,14 @@ function simulator() {
 
     // Note: we can send data to a targeted Base, but lets send to all for this example...
 
-    var authCommand = { "TXsender": TXclient, "data": "010203040506070809" };
+	// synchronized message example
+	/*
+    var authCommand = { "header": {"notification": true}, "TXsender": TXclient, "data": "010203040506070809" };
     client.socket.write(JSON.stringify(authCommand) + '\n', 'ascii');
-
     TXclient++;
+    */
+
+    // notification message example
+    var authCommand = { "header": {"notification": true}, "TXsender": 0, "data": "010203040506070809" };
+    client.socket.write(JSON.stringify(authCommand) + '\n', 'ascii');
 }
