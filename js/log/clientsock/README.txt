@@ -1,0 +1,1 @@
+This directory holds logs for all Clients ever connected to the Server.
