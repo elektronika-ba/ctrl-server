@@ -1,1 +1,1 @@
-This script will create entire MySQL database "ctrl" for this project.
+This script will create entire MySQL database for this project.
