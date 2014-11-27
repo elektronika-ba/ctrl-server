@@ -15,6 +15,19 @@ var dataBuff = '';
 var authorized = false; // not to be confused with tls authorization. this is CTRL authorization
 var tmrSimulator = null;
 
+// read TXserver from file to continue from where we stopped last time
+// lets hope it reads before we connect bellow :)
+fs.readFile('./TXserver.txt', function(err, data) {
+	if(err) {
+		console.log('No TXserver.txt file, will start from 0.');
+		TXserver = 0;
+	}
+	else {
+		TXserver = parseInt(data);
+		console.log('Continuing TXserver:', TXserver);
+	}
+});
+
 var sslOptions = {
     cert: fs.readFileSync('./ctrlba_cert.pem'),
     ca: fs.readFileSync('./ctrlba_cert.pem'),
@@ -100,6 +113,12 @@ function onData(socket) {
                 else {
                     jsAck.setIsProcessed(true);
                     TXserver++; // next package we will receive should be +1 of current value, so lets ++
+
+					fs.writeFile('TXserver.txt', TXserver, {'encoding': 'ascii'}, function (err) {
+						if(err) {
+							console.log('Local error: Could not save TXserver to file...');
+						}
+					});
                 }
 
                 client.socket.write(JSON.stringify(jsAck.buildMessage()) + '\n', 'ascii');

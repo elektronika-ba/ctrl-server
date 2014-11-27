@@ -91,7 +91,7 @@ baseMessage.prototype.getIsAck = function () {
         return false;
     }
 
-    return (this.header & HEADER_ACK);
+    return ((this.header & HEADER_ACK) > 0);
 };
 
 baseMessage.prototype.getIsSystemMessage = function () {
@@ -99,7 +99,7 @@ baseMessage.prototype.getIsSystemMessage = function () {
         return false;
     }
 
-    return (this.header & HEADER_SYSTEM_MESSAGE);
+    return ((this.header & HEADER_SYSTEM_MESSAGE) > 0);
 };
 
 baseMessage.prototype.getBackoff = function () {
@@ -107,7 +107,7 @@ baseMessage.prototype.getBackoff = function () {
         return false;
     }
 
-    return (this.header & HEADER_BACKOFF);
+    return ((this.header & HEADER_BACKOFF) > 0);
 };
 
 baseMessage.prototype.getIsNotification = function () {
@@ -115,7 +115,7 @@ baseMessage.prototype.getIsNotification = function () {
         return false;
     }
 
-    return (this.header & HEADER_NOTIFICATION);
+    return ((this.header & HEADER_NOTIFICATION) > 0);
 };
 
 baseMessage.prototype.getHasSync = function () {
@@ -123,7 +123,7 @@ baseMessage.prototype.getHasSync = function () {
         return false;
     }
 
-    return (this.header & HEADER_SYNC);
+    return ((this.header & HEADER_SYNC) > 0);
 };
 
 baseMessage.prototype.getOutOfSync = function () {
@@ -131,7 +131,7 @@ baseMessage.prototype.getOutOfSync = function () {
         return false;
     }
 
-    return (this.header & HEADER_OUT_OF_SYNC);
+    return ((this.header & HEADER_OUT_OF_SYNC) > 0);
 };
 
 baseMessage.prototype.getIsProcessed = function () {
@@ -139,7 +139,7 @@ baseMessage.prototype.getIsProcessed = function () {
         return false;
     }
 
-    return (this.header & HEADER_PROCESSED);
+    return ((this.header & HEADER_PROCESSED) > 0);
 };
 
 // setters
