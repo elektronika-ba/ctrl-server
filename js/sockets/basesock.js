@@ -25,6 +25,7 @@ function BaseSock(socket) {
         baseid: null, // once authorized this will hold Base ID
         timezome: 0, // once authorized this will hold TimeZone for this Base
         TXbase: 0, // once authorized this will hold last sequence id received from Base (integer - 4 bytes)
+        aes128Key: new Buffer(16), // crypt key used to talk to Base
 
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer

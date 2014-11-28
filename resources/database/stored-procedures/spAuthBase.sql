@@ -1,6 +1,16 @@
 DELIMITER //
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spAuthBase`(IN `pBaseid` VARCHAR(32), IN pRemoteAddr VARCHAR(15), IN pLimit TINYINT, IN pMinutes TINYINT)
+######
+# CURRENTLY WORKED ON! DO NOT USE.
+# 28-11-2014
+#
+# 1. baza se konektuje na socket server
+# 2. baza salje BASEID+ENCRYPT(BASEID+16randomBytes) na server (to bude 16+16+16 bajta)
+# 3. server uzme kljuc od BASEID koju je dobio, DEKRIPTUJE ovo drugo sto je dobio od baze.
+#    ukoliko je prvih 16 bajta isto kao i BASEID on autorizuje bazu. drugih 16 random bajta moze da odbaci.
+######
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAuthBase`(IN `pBaseid` VARCHAR(32), IN `pEncryptedBaseidWithRandom` VARCHAR(64), IN pRemoteAddr VARCHAR(15), IN pLimit TINYINT, IN pMinutes TINYINT)
 BEGIN
 	DECLARE oAuthorized TINYINT;
 	DECLARE oTooMany TINYINT;
@@ -8,6 +18,7 @@ BEGIN
 	DECLARE oIDbase BIGINT UNSIGNED;
 	DECLARE oTimezone SMALLINT;
 	DECLARE oTXbase INT UNSIGNED;
+	DECLARE oDecryptedBaseidWithRandom VARCHAR(64);
 
 	DECLARE vNr TINYINT;
 
@@ -24,8 +35,8 @@ BEGIN
 	ELSE
 		BEGIN
 			### Provjeri imal te baze u sistemu
-			SELECT IDbase, timezone, TXbase INTO oIDbase, oTimezone, oTXbase FROM base WHERE baseid = pBaseid LIMIT 1;
-			IF FOUND_ROWS() = 1 THEN
+			SELECT IDbase, timezone, TXbase, HEX(AES_DECRYPT(UNHEX(pEncryptedBaseidWithRandom), UNHEX(crypt_key))) INTO oIDbase, oTimezone, oTXbase, oDecryptedBaseidWithRandom FROM base WHERE LOWER(baseid) = LOWER(pBaseid) LIMIT 1;
+			IF FOUND_ROWS() = 1 AND LOWER(LEFT(oDecryptedBaseidWithRandom,32)) = LOWER(pBaseId) THEN
 				BEGIN
 					SET oAuthorized = 1;
 
