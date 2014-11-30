@@ -1,8 +1,11 @@
 'use strict';
 
+var crypto = require('crypto');
+
 /*
     Binary message for communication between "Base <-> Server"
-    <MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA>
+    	    <MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA> for raw, or:
+    <LENGTH><MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA><optional:DATA_PADDING><CMAC> for encrypted
 */
 
 var HEADER_SYNC = 0x01; // should other side sync to 0?
@@ -21,6 +24,7 @@ function baseMessage() {
     this.data = new Buffer(0);
 
     this.isExtracted = false;
+    this.isCmacValid = false;
 }
 
 baseMessage.prototype.extractFrom = function (binaryPackage) {
@@ -42,26 +46,111 @@ baseMessage.prototype.extractFrom = function (binaryPackage) {
         return;
     }
 
-    // minimum length of entire package is <MSG_LEN_2bytes>+<HEADER_1byte>+<TX_of_whoever_sends_4bytes>
-    if (binaryPackage.length < 7) {
-        console.log('Warning in baseMessage(), attempt to extract from incomplete binary package.');
+    this.isExtracted = true;
+};
+
+/*
+baseMessage.prototype.unpackRaw = function () {
+    // minimum length of entire package is <MSG_LEN_2bytes>+<HEADER_1byte>+<TX_of_whoever_sends_4bytes> = 7 bytes
+    if (this.binaryPackage.length < 7) {
+        console.log('Warning in baseMessage(), attempt to unpackRaw from incomplete binary package.');
         return;
     }
 
-    this.header = binaryPackage.readUInt8(2);
-    this.TXsender = new Buffer(4);
-    binaryPackage.copy(this.TXsender, 0, 3, 7);
+	//[MSG_LENGTH] [HEADER] [TXSENDER] [optional:DATA]
+	//[MSG_LENGTH] contains length of Header+TXsender+Data
 
-    this.isExtracted = true;
+	var msgLength = this.binaryPackage.readUInt16BE(0);
+    this.header = this.binaryPackage.readUInt8(2);
+    this.TXsender = new Buffer(4);
+    this.binaryPackage.copy(this.TXsender, 0, 3, 7);
 
     // has data?
     if (binaryPackage.length > 7) {
         this.data = new Buffer(packageLength - 5);
-        binaryPackage.copy(this.data, 0, 7);
+        binaryPackage.copy(this.data, 0, 7, msgLength-7);
     }
-};
+}
+*/
+
+baseMessage.prototype.unpack = function (aes128Key) {
+	// unpacking encrypted message?
+	if(aes128Key != null) {
+
+		// minimum length of entire package is <LENGTH_2bytes>+<MSG_LEN_2bytes>+<HEADER_1byte>+<TX_of_whoever_sends_4bytes>+<optional:DATA_0bytes>+<CMAC_16bytes> = 25 bytes
+		if (this.binaryPackage.length < 25) {
+			console.log('Warning in baseMessage.unpackEncrypted(), incomplete binary package (got ',this.binaryPackage.length,'/25)!');
+			return;
+		}
+
+		//[LENGTH] [MSG_LENGTH] [HEADER] [TXSENDER] [optional:DATA] [when-required:PADDING_TO_16_MODULO] [CMAC]
+		//[LENGTH] contains length of MsgLength+Header+TXsender+Data+Padding+Cmac
+		//[MSG_LENGTH] contains length of Header+TXsender+Data so that we can extract all three parts
+		//[CMAC] is the last 16 bytes of the binaryPackage
+
+		var len = this.binaryPackage.readUInt16BE(0);
+		var cmac = new Buffer(16);
+		this.binaryPackage.copy(cmac, 0, this.binaryPackage.length-16);
+		var msg = new Buffer(len - 16); // message is surrounded by 2 bytes of LENGTH and 16 bytes of CMAC
+		this.binaryPackage.copy(msg, 0, 2);
+
+		console.log('len:', len);
+		console.log('msg:', msg);
+		console.log('binaryPackage:', this.binaryPackage);
+		console.log('cmac:', cmac);
+		return;
+
+		// Validate CMAC first: TODO
+		this.isCmacValid = true; // for now lets not validate it
+		/*
+			encrypted message to is in: msg
+			key is in: aes128Key
+			expected CMAC is in: cmac
+		*/
+		if(!this.isCmacValid) {
+			console.log('Warning in baseMessage.unpackEncrypted(), CMAC not valid!');
+			return;
+		}
+
+		// Decrypt
+		var decipher = crypto.createDecipheriv('aes-128-cbc', pass, iv);
+		decipher.setAutoPadding(false);
+		var decrypted = decipher.update(msg, 'hex', 'hex'); //.final('hex') not required!
+		//new Buffer(decrypted, 'hex');
+	}
+
+	// Unpack
+	var msgLength = this.binaryPackage.readUInt16BE(2);
+    this.header = this.binaryPackage.readUInt8(4);
+    this.TXsender = new Buffer(4);
+    this.binaryPackage.copy(this.TXsender, 0, 5, 9);
+
+    // has data?
+    if (msgLength.length > 5) {
+        this.data = new Buffer(msgLength - 7);
+        binaryPackage.copy(this.data, 0, 9, msgLength);
+    }
+}
+
+
+// TEST
+var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
+var bp = new baseMessage();
+bp.extractFrom(new Buffer([
+0x00, 0x20,
+
+0x00, 0x10, 0xBB, 0x12, 0x34, 0x56, 0x78, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA,
+
+0xCC, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa ]));
+bp.unpack(ke);
+//--
+
 
 // getters
+baseMessage.prototype.isCmacValid = function () {
+	return this.isCmacValid;
+}
+
 baseMessage.prototype.getBinaryPackage = function () {
     return this.binaryPackage;
 };

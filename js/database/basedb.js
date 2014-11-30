@@ -91,11 +91,11 @@ exports.getNextTxServer2Base = function (IDbase, callback) {
     });
 };
 
-exports.authBase = function (baseid, remoteAddress, limit, minutes, callback) {
+exports.authBase = function (baseid, encryptedBaseid, remoteAddress, limit, minutes, callback) {
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
 
-        connection.query("CALL spAuthBase(?,?,?,?)", [baseid, remoteAddress, limit, minutes], function (err, result) {
+        connection.query("CALL spAuthBase(?,?,?,?,?)", [baseid, encryptedBaseid, remoteAddress, limit, minutes], function (err, result) {
             connection.release();
 
             if (err) { console.log('authBase() error:', err); callback(true); return; }
