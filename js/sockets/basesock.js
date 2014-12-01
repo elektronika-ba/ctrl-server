@@ -30,6 +30,7 @@ function BaseSock(socket) {
 
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
+        previous16bytes: new Buffer(16), // NOT YET IMPLEMENTED. TODO!
 
         tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one
         ip: null,
@@ -127,7 +128,7 @@ function BaseSock(socket) {
                         bp.extractFrom(new Buffer(result[0][0].oBinaryPackage, 'hex'));
                         bp.setTXsender(result[0][0].oTXserver);
 
-                        socket.write(bp.buildPackage(), 'hex');
+                        socket.write(bp.buildPackage(socket.myObj.aes128Key), 'hex');
                         socket.myObj.wlog.info('  ...sent.');
 
                         // if nothing else unsent in queue, stop this interval
@@ -171,7 +172,7 @@ BaseSock.prototype.onData = function () {
         }
         else {
             // CMAC must be valid for message to be processed
-			if(bp.isCmacValid())
+			if(bp.getIsCmacValid())
 			{
 				// handle received ACK
 				if (bp.getIsAck()) {
@@ -280,7 +281,7 @@ BaseSock.prototype.onData = function () {
 							socket.myObj.TXbase++; // next package we will receive should be +1 of current value, so lets ++
 						}
 
-						socket.write(bpAck.buildPackage(), 'hex');
+						socket.write(bpAck.buildPackage(socket.myObj.aes128Key), 'hex');
 						socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender());
 					}
 					else {
@@ -456,92 +457,136 @@ BaseSock.prototype.doAuthorize = function () {
     var baseid = new Buffer(16);
     authBytes.copy(baseid, 0, 0, 16);
 
-    // TODO: NAPRAVI AUTORIZACIJU
-    // daj iz mysql-a crypt podatke od ove Baze
-
     var encryptedBaseId = new Buffer(32);
     authBytes.copy(encryptedBaseId, 0, 16);
 
-    Database.authBase(baseid.toString('hex'), encryptedBaseId.toString('hex'), socket.myObj.ip, Configuration.base.sock.MAX_AUTH_ATTEMPTS, Configuration.base.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
+	// izvadi iz baze baseid njegov (potvrdi), i uzmi crypt_key, a provjeri da li je pretjerao sa pokusajima logiranja istovremeno
+		// ako nema tog baseid-a ili je pretjerao sa logiranjem reci ERROR i LOGIRAJ neuspjesni pokusaj
+		// else: ako ima taj baseid uzmi crypt_key i uporedi kriptovani podatak
+			// ako je OK onda odradi trecu fazu autentifikacije i zavrsio si
+			// else: reci ERROR i LOGIRAJ neuspjesni pokusaj
+
+    Database.authBasePhase1(baseid.toString('hex'), socket.myObj.ip, Configuration.base.sock.MAX_AUTH_ATTEMPTS, Configuration.base.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {
-            wlog.error('Unknown error in Database.authBase()!');
+            wlog.error('Unknown error in Database.authBasePhase1()!');
 
             socket.end();
             socket.destroy();
             return;
         }
 
-        if (result[0][0].oAuthorized == 1) {
-            clearTimeout(socket.myObj.authTimer);
+		socket.myObj.timezone = result[0][0].oTimezone;
+		socket.myObj.aes128Key = new Buffer(result[0][0].oCryptKey, 'hex');
+		var dbTXbase = result[0][0].oTXbase;
+		var dbBaseid = baseid.toString('hex');
+		var dbIDbase = result[0][0].oIDbase;
 
-            wlog.info('  ...authorized as IDbase =', result[0][0].oIDbase);
+        if (result[0][0].oOK == 1) {
+			// Decrypt and compare if last 16 bytes are in fact "baseid" we expect
+			var decipher = crypto.createDecipheriv('aes-128-cbc', socket.myObj.aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
+			decipher.setAutoPadding(false);
+			var decrypted = decipher.update(encryptedBaseId, 'hex', 'hex'); //.final('hex') not required?
 
-            // kill all potentially already existing connections of this Base
-            // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
-            var oIDbase = result[0][0].oIDbase;
-            var fMyConns = connBases.filter(function (item) {
-                return (oIDbase == item.myObj.IDbase);
-            });
-            // there should be maximum one existing connection here, but lets loop it just to make sure we close them all
-            for (var b = 0; b < fMyConns.length; b++) {
-                wlog.info('  ...found already existing connection to', fMyConns[b].myObj.ip, ',continuing its TXbase (', socket.myObj.TXbase, '). Destroying it now!');
-                result[0][0].oTXbase = socket.myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
-                fMyConns[b].myObj.baseid = null;
-                fMyConns[b].myObj.IDbase = null;
-                fMyConns[b].destroy();
-            }
+			//new Buffer(decrypted, 'hex').copy(previous16bytes, 0, 0, 16); // lets use decrypted random value as IV for our very next transmission
 
-            wlog.info('  ...stopping logging in this file.');
+			// compare/verify
+			var unpackedBaseid = new Buffer(16);
+			new Buffer(decrypted, 'hex').copy(unpackedBaseid, 0, 16);
+			if( unpackedBaseid.toString('hex') != baseid.toString('hex') ) {
+				socket.myObj.baseid = null;
+				socket.myObj.IDbase = null;
+				socket.myObj.timezone = 0;
+				socket.myObj.aes128Key = null;
 
-            // instantiate logger for this IDbase
-            socket.myObj.wlog = new (winston.Logger)({
-                transports: [
-			      new (winston.transports.Console)(),
-			      new (winston.transports.File)({ filename: './log/basesock/' + result[0][0].oIDbase + '.json' })
-                ]
-            });
+				wlog.info('Base', baseid.toString('hex'), 'authorization error, decrypted BaseID does not match!');
 
-            // because we are changing the logging file now, we need to add the bellow
-            // code into a callback function that will be executed after the re-initialization
-            // of the winston logger from above
-            socket.myObj.baseid = baseid.toString('hex');
-            socket.myObj.IDbase = result[0][0].oIDbase;
-            socket.myObj.timezone = result[0][0].oTimezone;
-            socket.myObj.aes128Key = result[0][0].oCryptKey;
+				// log auth attempt
+				Database.authBaseError(baseid.toString('hex'), socket.myObj.ip);
 
-            socket.myObj.wlog.info('Base', baseid.toString('hex'), ' (', socket.myObj.ip, ') authorized.');
+				var bpAns = new baseMessage();
+				bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+				bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+				bpAns.setData('01'); // ERROR!
 
-            // is other side forcing us to re-sync?
-            if (bp.getHasSync()) {
-                socket.myObj.TXbase = 0;
-                socket.myObj.wlog.info('  ...re-syncing TXbase to: 0.');
-            }
-            else {
-                socket.myObj.TXbase = result[0][0].oTXbase;
-                socket.myObj.wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
-            }
+				socket.write(bpAns.buildPackage(), 'hex');
+			}
+			else {
+				Database.authBasePhase2(dbIDbase, function (err, result) {
+					if (err) {
+						wlog.error('Unknown error in Database.authBasePhase2()!');
 
-            var bpAns = new baseMessage();
-            bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
-            bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-            bpAns.setData('00'); // OK!
+						socket.end();
+						socket.destroy();
+						return;
+					}
 
-            // should we force other side to re-sync?
-            if (result[0][0].oForceSync == 1) {
-                bpAns.setHasSync(true);
-                socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
-            }
+					clearTimeout(socket.myObj.authTimer);
 
-            socket.write(bpAns.buildPackage(), 'hex');
+					wlog.info('  ...authorized as IDbase =', dbIDbase);
 
-            self.informMyClients(true);
-            Database.baseOnlineStatus(socket.myObj.IDbase, 1);
+					// kill all potentially already existing connections of this Base
+					// (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
+					var fMyConns = connBases.filter(function (item) {
+						return (dbIDbase == item.myObj.IDbase);
+					});
+					// there should be maximum one existing connection here, but lets loop it just to make sure we close them all
+					for (var b = 0; b < fMyConns.length; b++) {
+						wlog.info('  ...found already existing connection at', fMyConns[b].myObj.ip, ', continuing its TXbase (', socket.myObj.TXbase, '). Destroying it now!');
+						dbTXbase = socket.myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
+						fMyConns[b].myObj.baseid = null;
+						fMyConns[b].myObj.IDbase = null;
+ 						fMyConns[b].destroy(); // NOTE: this will trigger an error on socket error listener...
+					}
 
-            // something pending for Base? (oForceSync is 0 if there is something pending in DB)
-            if (result[0][0].oForceSync == 0) {
-                socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
-                socket.startQueuedItemsSender();
-            }
+					wlog.info('  ...stopping logging in this file.');
+
+					// !
+					socket.myObj.baseid = dbBaseid;
+					socket.myObj.IDbase = dbIDbase;
+
+					// instantiate logger for this IDbase
+					socket.myObj.wlog = new (winston.Logger)({
+						transports: [
+						  new (winston.transports.Console)(),
+						  new (winston.transports.File)({ filename: './log/basesock/' + socket.myObj.IDbase + '.json' })
+						]
+					});
+
+					socket.myObj.wlog.info('Base', baseid.toString('hex'), ' (', socket.myObj.ip, ') authorized.');
+
+					// is other side forcing us to re-sync?
+					if (bp.getHasSync()) {
+						socket.myObj.TXbase = 0;
+						socket.myObj.wlog.info('  ...re-syncing TXbase to: 0.');
+					}
+					else {
+						socket.myObj.TXbase = dbTXbase;
+						socket.myObj.wlog.info('  ...re-loading TXbase from DB:', socket.myObj.TXbase);
+					}
+
+					var bpAns = new baseMessage();
+					bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+					bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+					bpAns.setData('00'); // OK!
+
+					// should we force other side to re-sync?
+					if (result[0][0].oForceSync == 1) {
+						bpAns.setHasSync(true);
+						socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
+					}
+
+					socket.write(bpAns.buildPackage(), 'hex');
+
+					self.informMyClients(true);
+					Database.baseOnlineStatus(socket.myObj.IDbase, 1);
+
+					// something pending for Base? (oForceSync is 0 if there is something pending in DB)
+					if (result[0][0].oForceSync == 0) {
+						socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
+						socket.startQueuedItemsSender();
+					}
+				});
+			}
         }
         else {
             socket.myObj.baseid = null;
@@ -549,7 +594,10 @@ BaseSock.prototype.doAuthorize = function () {
             socket.myObj.timezone = 0;
             socket.myObj.aes128Key = null;
 
-            wlog.info('Base', baseid.toString('hex'), 'authorization error.');
+            wlog.info('Base', baseid.toString('hex'), 'authorization error, non-existing BaseID!');
+
+            // log auth attempt
+            Database.authBaseError(baseid.toString('hex'), socket.myObj.ip);
 
             var bpAns = new baseMessage();
             bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad

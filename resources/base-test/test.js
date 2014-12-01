@@ -11,6 +11,7 @@ var authorized = false;
 var TXserver = 0;
 var TXbase = 1;
 var tmrSimulator = null;
+var aes128Key = new Buffer([0x20 , 0x6a , 0xad , 0xf2 , 0x7b , 0xfe , 0xb3 , 0x31 , 0xd8 , 0xcb , 0xb2 , 0x70 , 0xd3 , 0x7e , 0x45 , 0x8a]);
 
 var client = new net.Socket();
 
@@ -42,8 +43,16 @@ client.connect(PORT, HOST, function () {
 client.on('data', function (data) {
     var bp = new baseMessage();
     bp.extractFrom(data);
-
-    if (bp.getIsExtracted()) {
+    if (!bp.getIsExtracted()) {
+		console.log('%% nije extraktovan paket.');
+	}
+	else {
+		if(!authorized) {
+        	bp.unpack();
+		}
+		else {
+        	bp.unpack(aes128Key);
+		}
 
         if (bp.getIsAck()) {
             console.log('> Got ACK, header:', bp.getHeader(), 'TXsender:', bp.getTXsender());
@@ -127,9 +136,6 @@ client.on('data', function (data) {
             } // processed
         }
     }
-    else {
-        console.log('%% nije extraktovan paket.');
-    }
 
     // Close the client socket completely
     //client.destroy();
@@ -148,14 +154,13 @@ function simulator() {
     console.log('Sending data to all associated Clients on my CTRL account. TXsender:', TXbase);
 
     var bp = new baseMessage();
-
-    var TXsender = new Buffer(4);
-    TXsender.writeUInt32LE(TXbase, 0);
-    bp.setTXsender(TXsender);
-
+    bp.setTXsender(TXbase);
     bp.setData(new Buffer('ABCDEF','hex'));
 
-    client.write(bp.buildPackage(), 'hex');
+	var aaa = bp.buildPackage(aes128Key);
+
+	console.log(aaa);
+    client.write(aaa, 'hex');
 
     TXbase++;
 }

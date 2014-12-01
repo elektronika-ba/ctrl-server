@@ -91,17 +91,46 @@ exports.getNextTxServer2Base = function (IDbase, callback) {
     });
 };
 
-exports.authBase = function (baseid, encryptedBaseid, remoteAddress, limit, minutes, callback) {
+exports.authBasePhase1 = function (baseid, remoteAddress, limit, minutes, callback) {
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
 
-        connection.query("CALL spAuthBase(?,?,?,?,?)", [baseid, encryptedBaseid, remoteAddress, limit, minutes], function (err, result) {
+        connection.query("CALL spAuthBasePhase1(?,?,?,?)", [baseid, remoteAddress, limit, minutes], function (err, result) {
             connection.release();
 
-            if (err) { console.log('authBase() error:', err); callback(true); return; }
+            if (err) { console.log('authBasePhase1() error:', err); callback(true); return; }
             callback(false, result);
         });
     });
+};
+
+exports.authBasePhase2 = function (IDbase, callback) {
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query("CALL spAuthBasePhase2(?)", [IDbase], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('authBasePhase2() error:', err); callback(true); return; }
+            callback(false, result);
+        });
+    });
+};
+
+exports.authBaseError = function (baseid, remoteAddress, callback) {
+    var sql = "INSERT INTO base_auth_fail (stamp_system, baseid, remote_ip) VALUES(NOW(), ?, ?)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [baseid, remoteAddress], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('authBaseError() error:', err); callback(true); return; }
+            callback(false);
+        });
+    });
+
 };
 
 exports.ackTxServer2Base = function (IDbase, TXserver, callback) {

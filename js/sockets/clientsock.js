@@ -335,7 +335,7 @@ ClientSock.prototype.onData = function () {
 											});
 
 											if (fBaseSockets.length == 1) {
-												fBaseSockets[0].write(bp.buildPackage(), 'hex');
+												fBaseSockets[0].write(bp.buildPackage(fBaseSockets[0].myObj.aes128Key), 'hex');
 												fBaseSockets[0].myObj.wlog.info('  ...sent (piped).');
 											}
 											else if (fBaseSockets.length > 1) {

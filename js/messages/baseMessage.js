@@ -3,8 +3,8 @@
 /*
     Binary message for communication between "Base <-> Server"
 
-    [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
-                          [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
+    [ALL_LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
+                              [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
 
     CMAC is calculated over entire cipertext: Encrypt-then-MAC.
 
@@ -122,7 +122,7 @@ baseMessage.prototype.unpack = function (aes128Key) {
 }
 
 // getters
-baseMessage.prototype.isCmacValid = function () {
+baseMessage.prototype.getIsCmacValid = function () {
 	return this.isCmacValid;
 }
 
@@ -146,6 +146,7 @@ baseMessage.prototype.getData = function () {
     return this.data;
 };
 
+/*
 // TEST
 var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
 var bp = new baseMessage();
@@ -165,6 +166,7 @@ console.log(bp.getHeader());
 console.log(bp.getTXsender());
 console.log(bp.getData());
 //--
+*/
 
 baseMessage.prototype.getIsAck = function () {
     return ((this.header & HEADER_ACK) > 0);
@@ -278,7 +280,7 @@ baseMessage.prototype.setData = function (dataValue) {
     this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" on 30/11/2014
 };
 
-baseMessage.prototype.buildPackage = function (aes128Key) {
+baseMessage.prototype.buildPackage = function (aes128Key, random16bytes) {
     /*
     [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
                           [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
@@ -292,69 +294,71 @@ baseMessage.prototype.buildPackage = function (aes128Key) {
 
     var htx = Buffer.concat([header, TXsender]);
 
-    var htxd;
     if (this.data.length > 0) {
-        htxd = Buffer.concat([htx, this.data]);
+        htx = Buffer.concat([htx, this.data]);
     }
 
     var messageLength = new Buffer(2);
-    messageLength.writeUInt16LE(htxd.length, 0);
+    messageLength.writeUInt16LE(htx.length, 0);
 
-    var userPayload = new Buffer.concat([messageLength, htxd]);
+    var userPayload = new Buffer.concat([messageLength, htx]);
 
-    if(aes128Key == null) {
+    if(!aes128Key || aes128Key == null) {
+		if (userPayload.length > (65535)) {
+			console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
+			return null;
+		}
+
         this.binaryPackage = new Buffer.concat([userPayload]); // we might need it in this.binaryPackage...
         return userPayload;
     }
 
-    var randomIv = crypto.randomBytes(16); // THIS IS SLOW - CHANGE THIS
+    var randomIv = random16bytes; // we will use provided 16 bytes as randomness
+    if(!random16bytes || random16bytes == null) {
+		var randomIv = crypto.randomBytes(16); // THIS IS SLOW. Even though it might be the best way to go, we shouldn't slow things down.
+	}
 
     var toEncrypt = new Buffer.concat([randomIv, userPayload]);
 
     // add padding if required
     if(toEncrypt.length % 16) {
         var addThisMuch = 16 - (toEncrypt.length % 16);
-        var appendStuff = crypto.randomBytes(addThisMuch);  // THIS IS SLOW - CHANGE THIS
+        var appendStuff = new Buffer(addThisMuch);
+        randomIv.copy(appendStuff, 0, 0, addThisMuch);
+
         var toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
     }
 
+	var cipher = crypto.createCipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
+	cipher.setAutoPadding(false);
+	var encrypted = cipher.update(toEncrypt, 'hex', 'hex'); // .final('hex') not required?
 
+	var cmac = new Buffer(16);
+	// TODO: Calculate CMAC over "encrypted" now and put into "cmac"
 
-console.log(toEncrypt);
-return;
+	var toSend = new Buffer.concat([new Buffer(encrypted,'hex'), cmac]);
 
-    if (this.data.length > (65535 - 5)) {
-        console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
-        return null;
-    }
+    var allLength = new Buffer(2);
+    allLength.writeUInt16LE(toSend.length, 0);
 
-    var bh = new Buffer(1);
-    bh.writeUInt8(this.header, 0);
+	if (toSend.length > (65535-2)) {
+		console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
+		return null;
+	}
 
-    var bts = new Buffer(4);
-    bts.writeUInt32LE(this.TXsender, 0);
-
-    var l2 = Buffer.concat([bh, bts]);
-
-    if (this.data.length !== 0) {
-        l2 = Buffer.concat([l2, this.data]);
-    }
-
-    var l2Length = new Buffer(2);
-    l2Length.writeUInt16LE(l2.length, 0);
-
-    return new Buffer.concat([l2Length, l2]);
+	return new Buffer.concat([allLength, toSend]);
 };
 
+/*
 // TEST 2
 var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
 var bp = new baseMessage();
 bp.setHeader(150);
 bp.setTXsender(3);
 bp.setData(new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xbb, 0xff]));
-var xxx = bp.buildPackage(ke);
-//console.log(xxx);
-
+var xxx = bp.buildPackage(ke, new Buffer([12,0,45,45,45,45,45,45,45,45,45,45,45,4,5,6,7,8,8,9,0]));
+console.log(xxx);
 //--
+*/
 
 module.exports = baseMessage;
