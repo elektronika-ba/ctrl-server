@@ -1,14 +1,20 @@
 'use strict';
 
-var crypto = require('crypto');
-
 /*
     Binary message for communication between "Base <-> Server"
-    	    <MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA> for raw, or:
-    <LENGTH><MESSAGE_LEN_2bytes><HEADER_1byte><TX_of_whoever_sends_4bytes><DATA><optional:DATA_PADDING><CMAC> for encrypted
+
+    [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
+                          [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
+
+    CMAC is calculated over entire cipertext: Encrypt-then-MAC.
+
+    Encrypted is:
+    [RANDOM IV] + [MESSAGE_LEN] + [HEADER] + [TX_SENDER] + [DATA] + [padding when needed]
 */
 
-var HEADER_SYNC = 0x01; // should other side sync to 0?
+var crypto = require('crypto');
+
+var HEADER_SYNC = 0x01; // if other side should sync to 0?
 var HEADER_ACK = 0x02; // this packet IS ack
 var HEADER_PROCESSED = 0x04; // this packet is processed on the other side (not ignored because ID is the same as the previous one received)
 var HEADER_OUT_OF_SYNC = 0x08; // if the originator of this package is out of sync?
@@ -19,8 +25,8 @@ var HEADER_BACKOFF = 0x40; // if receiver can't buffer anymore data (including t
 function baseMessage() {
     this.binaryPackage = null;
 
-    this.header = null;
-    this.TXsender = null;
+    this.header = 0;
+    this.TXsender = 0;
     this.data = new Buffer(0);
 
     this.isExtracted = false;
@@ -40,7 +46,7 @@ baseMessage.prototype.extractFrom = function (binaryPackage) {
         return;
     }
 
-    var packageLength = binaryPackage.readUInt16BE(0);
+    var packageLength = binaryPackage.readUInt16LE(0);
 
     if (binaryPackage.length < (packageLength + 2)) {
         return;
@@ -49,102 +55,71 @@ baseMessage.prototype.extractFrom = function (binaryPackage) {
     this.isExtracted = true;
 };
 
-/*
-baseMessage.prototype.unpackRaw = function () {
-    // minimum length of entire package is <MSG_LEN_2bytes>+<HEADER_1byte>+<TX_of_whoever_sends_4bytes> = 7 bytes
-    if (this.binaryPackage.length < 7) {
-        console.log('Warning in baseMessage(), attempt to unpackRaw from incomplete binary package.');
-        return;
-    }
-
-	//[MSG_LENGTH] [HEADER] [TXSENDER] [optional:DATA]
-	//[MSG_LENGTH] contains length of Header+TXsender+Data
-
-	var msgLength = this.binaryPackage.readUInt16BE(0);
-    this.header = this.binaryPackage.readUInt8(2);
-    this.TXsender = new Buffer(4);
-    this.binaryPackage.copy(this.TXsender, 0, 3, 7);
-
-    // has data?
-    if (binaryPackage.length > 7) {
-        this.data = new Buffer(packageLength - 5);
-        binaryPackage.copy(this.data, 0, 7, msgLength-7);
-    }
-}
-*/
-
 baseMessage.prototype.unpack = function (aes128Key) {
 	// unpacking encrypted message?
 	if(aes128Key != null) {
 
-		// minimum length of entire package is <LENGTH_2bytes>+<MSG_LEN_2bytes>+<HEADER_1byte>+<TX_of_whoever_sends_4bytes>+<optional:DATA_0bytes>+<CMAC_16bytes> = 25 bytes
-		if (this.binaryPackage.length < 25) {
-			console.log('Warning in baseMessage.unpackEncrypted(), incomplete binary package (got ',this.binaryPackage.length,'/25)!');
+		// minimum encrypted data we should receive is: length (2 bytes) + original encrypted message (at least 32 bytes) + cmac (16 bytes) = 50 bytes
+		if (this.binaryPackage.length < 50) {
+			console.log('Warning in baseMessage.unpack(), incomplete encrypted binary package (got ',this.binaryPackage.length,'/minimum 50)!');
 			return;
 		}
 
-		//[LENGTH] [MSG_LENGTH] [HEADER] [TXSENDER] [optional:DATA] [when-required:PADDING_TO_16_MODULO] [CMAC]
-		//[LENGTH] contains length of MsgLength+Header+TXsender+Data+Padding+Cmac
-		//[MSG_LENGTH] contains length of Header+TXsender+Data so that we can extract all three parts
-		//[CMAC] is the last 16 bytes of the binaryPackage
+        // [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
+		// [LENGTH] contains length of binary stream RandomIV+MsgLength+Header+TXsender+Data+PaddingWhenNeeded+Cmac
+		// [CMAC] is the last 16 bytes of the binaryPackage
 
-		var len = this.binaryPackage.readUInt16BE(0);
+		var len = this.binaryPackage.readUInt16LE(0);
 		var cmac = new Buffer(16);
 		this.binaryPackage.copy(cmac, 0, this.binaryPackage.length-16);
 		var msg = new Buffer(len - 16); // message is surrounded by 2 bytes of LENGTH and 16 bytes of CMAC
 		this.binaryPackage.copy(msg, 0, 2);
 
-		console.log('len:', len);
-		console.log('msg:', msg);
-		console.log('binaryPackage:', this.binaryPackage);
-		console.log('cmac:', cmac);
-		return;
-
 		// Validate CMAC first: TODO
 		this.isCmacValid = true; // for now lets not validate it
 		/*
-			encrypted message to is in: msg
+			encrypted message is in: msg
 			key is in: aes128Key
 			expected CMAC is in: cmac
 		*/
 		if(!this.isCmacValid) {
-			console.log('Warning in baseMessage.unpackEncrypted(), CMAC not valid!');
+			console.log('Warning in baseMessage.unpack(), CMAC not valid!');
 			return;
 		}
 
 		// Decrypt
-		var decipher = crypto.createDecipheriv('aes-128-cbc', pass, iv);
+        var decipher = crypto.createDecipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
 		decipher.setAutoPadding(false);
-		var decrypted = decipher.update(msg, 'hex', 'hex'); //.final('hex') not required!
-		//new Buffer(decrypted, 'hex');
+		var decrypted = decipher.update(msg, 'hex', 'hex'); //.final('hex') not required?
+
+        // we must discard fist 16 bytes of random IV from the decrypted message
+        new Buffer(decrypted, 'hex').copy(this.binaryPackage, 0, 16);
 	}
 
-	// Unpack
-	var msgLength = this.binaryPackage.readUInt16BE(2);
-    this.header = this.binaryPackage.readUInt8(4);
-    this.TXsender = new Buffer(4);
-    this.binaryPackage.copy(this.TXsender, 0, 5, 9);
+    if (this.binaryPackage.length < 7) {
+        console.log('Warning in baseMessage.unpack(), incomplete binary package (got ',this.binaryPackage.length,'/minimum 7)!');
+        return;
+    }
+
+	// Unpack. Now in binaryPackage we have:
+    //[MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA] [padding when required]}
+
+    // How many bytes follow in this message? Note: there is a posibillity that
+    // there is a padding that we need to discard, so this msgLength is very important.
+	var msgLength = this.binaryPackage.readUInt16LE(0);
+    if (this.binaryPackage.length < (msgLength + 2)) {
+        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
+        return;
+    }
+    this.header = this.binaryPackage.readUInt8(2);
+    this.TXsender = this.binaryPackage.readInt32LE(3);
 
     // has data?
-    if (msgLength.length > 5) {
-        this.data = new Buffer(msgLength - 7);
-        binaryPackage.copy(this.data, 0, 9, msgLength);
+    if (msgLength > 5) {
+        this.data = new Buffer(msgLength - 5);
+        this.binaryPackage.copy(this.data, 0, 2+1+4, msgLength+1+4); // discard data padding here
     }
 }
-
-
-// TEST
-var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
-var bp = new baseMessage();
-bp.extractFrom(new Buffer([
-0x00, 0x20,
-
-0x00, 0x10, 0xBB, 0x12, 0x34, 0x56, 0x78, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA, 0xBA,
-
-0xCC, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa ]));
-bp.unpack(ke);
-//--
-
 
 // getters
 baseMessage.prototype.isCmacValid = function () {
@@ -155,96 +130,76 @@ baseMessage.prototype.getBinaryPackage = function () {
     return this.binaryPackage;
 };
 
-baseMessage.prototype.getIsExtracted = function () {
-    return this.isExtracted;
-};
-
 baseMessage.prototype.getHeader = function () {
     return this.header;
 };
 
 baseMessage.prototype.getTXsender = function () {
-    if (this.TXsender === null) {
-        return new Buffer(4);
-    }
-
     return this.TXsender;
+};
+
+baseMessage.prototype.getIsExtracted = function () {
+    return this.isExtracted;
 };
 
 baseMessage.prototype.getData = function () {
     return this.data;
 };
 
-baseMessage.prototype.getIsAck = function () {
-    if (this.header === null) {
-        return false;
-    }
+// TEST
+var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
+var bp = new baseMessage();
+bp.extractFrom(new Buffer([
+    //6, 0, 150, 0x3,0,0,0, 0xAA
 
+    0x40, 0x00,
+
+    0xcc, 0x4f, 0x9e, 0x20, 0xd1, 0x39, 0x54, 0xdb, 0x5e, 0x74, 0x40, 0x7d, 0x9e, 0x52, 0x35, 0x9d,
+    0x82, 0x63, 0xcf, 0x53, 0x8a, 0x0b, 0x6d, 0x8d, 0x8b, 0xa9, 0x2e, 0x8e, 0xde, 0xb3, 0x61, 0xad,
+    0x8e, 0xb9, 0x46, 0xcc, 0x19, 0x68, 0xfa, 0x33, 0x6e, 0xff, 0x36, 0x5a, 0x0a, 0x23, 0x1a, 0x08,
+
+    0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC
+]));
+bp.unpack(ke);
+console.log(bp.getHeader());
+console.log(bp.getTXsender());
+console.log(bp.getData());
+//--
+
+baseMessage.prototype.getIsAck = function () {
     return ((this.header & HEADER_ACK) > 0);
 };
 
 baseMessage.prototype.getIsSystemMessage = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_SYSTEM_MESSAGE) > 0);
 };
 
 baseMessage.prototype.getBackoff = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_BACKOFF) > 0);
 };
 
 baseMessage.prototype.getIsNotification = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_NOTIFICATION) > 0);
 };
 
 baseMessage.prototype.getHasSync = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_SYNC) > 0);
 };
 
 baseMessage.prototype.getOutOfSync = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_OUT_OF_SYNC) > 0);
 };
 
 baseMessage.prototype.getIsProcessed = function () {
-    if (this.header === null) {
-        return false;
-    }
-
     return ((this.header & HEADER_PROCESSED) > 0);
 };
 
 // setters
-baseMessage.prototype.setHeader = function (headerValue) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
-    this.header = headerValue;
+baseMessage.prototype.setHeader = function (header) {
+    this.header = header;
 };
 
 baseMessage.prototype.setIsAck = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_ACK;
     }
@@ -254,10 +209,6 @@ baseMessage.prototype.setIsAck = function (is) {
 };
 
 baseMessage.prototype.setIsSystemMessage = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_SYSTEM_MESSAGE;
     }
@@ -267,10 +218,6 @@ baseMessage.prototype.setIsSystemMessage = function (is) {
 };
 
 baseMessage.prototype.setBackoff = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_BACKOFF;
     }
@@ -280,10 +227,6 @@ baseMessage.prototype.setBackoff = function (is) {
 };
 
 baseMessage.prototype.setIsNotification = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_NOTIFICATION;
     }
@@ -293,10 +236,6 @@ baseMessage.prototype.setIsNotification = function (is) {
 };
 
 baseMessage.prototype.setHasSync = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_SYNC;
     }
@@ -306,10 +245,6 @@ baseMessage.prototype.setHasSync = function (is) {
 };
 
 baseMessage.prototype.setOutOfSync = function (is) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (is) {
         this.header = this.header | HEADER_OUT_OF_SYNC;
     }
@@ -319,10 +254,6 @@ baseMessage.prototype.setOutOfSync = function (is) {
 };
 
 baseMessage.prototype.setIsProcessed = function (processed) {
-    if (this.header === null) {
-        this.header = 0;
-    }
-
     if (processed) {
         this.header = this.header | HEADER_PROCESSED;
     }
@@ -332,8 +263,7 @@ baseMessage.prototype.setIsProcessed = function (processed) {
 };
 
 baseMessage.prototype.setTXsender = function (TXsender) {
-    this.TXsender = new Buffer(4);
-    TXsender.copy(this.TXsender, 0, 0, 4);
+    this.TXsender = TXsender;
 };
 
 baseMessage.prototype.clearData = function () {
@@ -345,35 +275,86 @@ baseMessage.prototype.appendData = function (dataValue) {
 };
 
 baseMessage.prototype.setData = function (dataValue) {
-    this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" 30/11/2014
+    this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" on 30/11/2014
 };
 
-baseMessage.prototype.buildPackage = function () {
-    if (this.data.length > (65535 - 5)) {
-        console.log('Error in baseMessage.buildPackage(), command to long - can not fit!');
-        return null;
+baseMessage.prototype.buildPackage = function (aes128Key) {
+    /*
+    [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
+                          [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
+    */
+
+    var header = new Buffer(1);
+    header.writeUInt8(this.header, 0);
+
+    var TXsender = new Buffer(4);
+    TXsender.writeUInt32LE(this.TXsender, 0);
+
+    var htx = Buffer.concat([header, TXsender]);
+
+    var htxd;
+    if (this.data.length > 0) {
+        htxd = Buffer.concat([htx, this.data]);
     }
 
-    if (this.TXsender === null) {
-        this.TXsender = new Buffer([0, 0, 0, 0]);
+    var messageLength = new Buffer(2);
+    messageLength.writeUInt16LE(htxd.length, 0);
+
+    var userPayload = new Buffer.concat([messageLength, htxd]);
+
+    if(aes128Key == null) {
+        this.binaryPackage = new Buffer.concat([userPayload]); // we might need it in this.binaryPackage...
+        return userPayload;
     }
-    if (this.header === null) {
-        this.header = 0x00;
+
+    var randomIv = crypto.randomBytes(16); // THIS IS SLOW - CHANGE THIS
+
+    var toEncrypt = new Buffer.concat([randomIv, userPayload]);
+
+    // add padding if required
+    if(toEncrypt.length % 16) {
+        var addThisMuch = 16 - (toEncrypt.length % 16);
+        var appendStuff = crypto.randomBytes(addThisMuch);  // THIS IS SLOW - CHANGE THIS
+        var toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
+    }
+
+
+
+console.log(toEncrypt);
+return;
+
+    if (this.data.length > (65535 - 5)) {
+        console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
+        return null;
     }
 
     var bh = new Buffer(1);
     bh.writeUInt8(this.header, 0);
 
-    var l2 = Buffer.concat([bh, this.TXsender]);
+    var bts = new Buffer(4);
+    bts.writeUInt32LE(this.TXsender, 0);
+
+    var l2 = Buffer.concat([bh, bts]);
 
     if (this.data.length !== 0) {
         l2 = Buffer.concat([l2, this.data]);
     }
 
     var l2Length = new Buffer(2);
-    l2Length.writeInt16BE(l2.length, 0);
+    l2Length.writeUInt16LE(l2.length, 0);
 
     return new Buffer.concat([l2Length, l2]);
 };
+
+// TEST 2
+var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
+var bp = new baseMessage();
+bp.setHeader(150);
+bp.setTXsender(3);
+bp.setData(new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xbb, 0xff]));
+var xxx = bp.buildPackage(ke);
+//console.log(xxx);
+
+//--
 
 module.exports = baseMessage;

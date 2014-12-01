@@ -150,7 +150,7 @@ function simulator() {
     var bp = new baseMessage();
 
     var TXsender = new Buffer(4);
-    TXsender.writeUInt32BE(TXbase, 0);
+    TXsender.writeUInt32LE(TXbase, 0);
     bp.setTXsender(TXsender);
 
     bp.setData(new Buffer('ABCDEF','hex'));

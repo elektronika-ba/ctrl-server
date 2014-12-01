@@ -125,9 +125,7 @@ function BaseSock(socket) {
 
                         var bp = new baseMessage();
                         bp.extractFrom(new Buffer(result[0][0].oBinaryPackage, 'hex'));
-                        var TXserver = new Buffer(4);
-                        TXserver.writeUInt32BE(result[0][0].oTXserver, 0);
-                        bp.setTXsender(TXserver);
+                        bp.setTXsender(result[0][0].oTXserver);
 
                         socket.write(bp.buildPackage(), 'hex');
                         socket.myObj.wlog.info('  ...sent.');
@@ -172,26 +170,27 @@ BaseSock.prototype.onData = function () {
             self.doAuthorize();
         }
         else {
+            // CMAC must be valid for message to be processed
 			if(bp.isCmacValid())
 			{
 				// handle received ACK
 				if (bp.getIsAck()) {
-					socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender().readUInt32BE(0));
+					socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender());
 
 					if (bp.getBackoff()) {
 						clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
 						socket.myObj.tmrSenderTask = null; // don't forget this!
 
 						socket.myObj.backoffMs = socket.myObj.backoffMs * 2;
-						socket.myObj.wlog.info('  ...didn\'t ACK on TXserver', bp.getTXsender().readUInt32BE(0), ', Base wants me to Backoff! (Delay:', socket.myObj.backoffMs, 'ms).');
+						socket.myObj.wlog.info('  ...didn\'t ACK on TXserver', bp.getTXsender(), ', Base wants me to Backoff! (Delay:', socket.myObj.backoffMs, 'ms).');
 
 						// mark this TXserver from txserver2base as NOT sent (sent = 0) so that we can take it again after backoff expires!!!
-						Database.markUnsentTxServer2Base(socket.myObj.IDbase, bp.getTXsender().readUInt32BE(0), function (err) {
+						Database.markUnsentTxServer2Base(socket.myObj.IDbase, bp.getTXsender(), function (err) {
 							if (err) {
 								return;
 							}
 
-							socket.myObj.wlog.info('Marked our Server2Base TXserver', bp.getTXsender().readUInt32BE(0), ', as unsent, started Backoff timer...');
+							socket.myObj.wlog.info('Marked our Server2Base TXserver', bp.getTXsender(), ', as unsent, started Backoff timer...');
 
 							// set backoff timer, and when it executes it will resume sender. in case we get additional ACK before it triggers, it will be restarted but with double time
 							clearTimeout(socket.myObj.tmrBackoff);
@@ -203,7 +202,7 @@ BaseSock.prototype.onData = function () {
 						});
 					}
 					else {
-						Database.ackTxServer2Base(socket.myObj.IDbase, bp.getTXsender().readUInt32BE(0), function (err, result) {
+						Database.ackTxServer2Base(socket.myObj.IDbase, bp.getTXsender(), function (err, result) {
 							if (err) {
 								return;
 							}
@@ -211,10 +210,10 @@ BaseSock.prototype.onData = function () {
 							socket.myObj.backoffMs = Configuration.base.sock.BACKOFF_MS / 2; // reload default/initial backoff duration
 
 							if (result[0][0].oAcked) {
-								socket.myObj.wlog.info('  ...ACKed on TXserver:', bp.getTXsender().readUInt32BE(0));
+								socket.myObj.wlog.info('  ...ACKed on TXserver:', bp.getTXsender());
 							}
 							else {
-								socket.myObj.wlog.warn('  ...couldn\'t not ACK on TXserver:', bp.getTXsender().readUInt32BE(0), ', strange! Hm...');
+								socket.myObj.wlog.warn('  ...couldn\'t not ACK on TXserver:', bp.getTXsender(), ', strange! Hm...');
 							}
 
 							if (bp.getOutOfSync()) {
@@ -262,11 +261,11 @@ BaseSock.prototype.onData = function () {
 					bpAck.setTXsender(bp.getTXsender());
 
 					if (!bp.getIsNotification()) {
-						if (bp.getTXsender().readUInt32BE(0) <= socket.myObj.TXbase) {
+						if (bp.getTXsender() <= socket.myObj.TXbase) {
 							bpAck.setIsProcessed(false);
 							socket.myObj.wlog.warn('  ...Warning: re-transmitted command, not processed!');
 						}
-						else if (bp.getTXsender().readUInt32BE(0) > (socket.myObj.TXbase + 1)) {
+						else if (bp.getTXsender() > (socket.myObj.TXbase + 1)) {
 							// SYNC PROBLEM! Base sent higher than we expected! This means we missed some previous Message!
 							// This part should be handled on Bases' side.
 							// Base should flush all data (NOT A VERY SMART IDEA) and re-connect. Re-sync should naturally occur
@@ -274,7 +273,7 @@ BaseSock.prototype.onData = function () {
 
 							bpAck.setOutOfSync(true);
 							bpAck.setIsProcessed(false);
-							socket.myObj.wlog.error('  ...Error: Base sent out-of-sync data! Expected:', (socket.myObj.TXbase + 1), 'but I got:', bp.getTXsender().readUInt32BE(0));
+							socket.myObj.wlog.error('  ...Error: Base sent out-of-sync data! Expected:', (socket.myObj.TXbase + 1), 'but I got:', bp.getTXsender());
 						}
 						else {
 							bpAck.setIsProcessed(true);
@@ -282,7 +281,7 @@ BaseSock.prototype.onData = function () {
 						}
 
 						socket.write(bpAck.buildPackage(), 'hex');
-						socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender().readUInt32BE(0));
+						socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender());
 					}
 					else {
 						bpAck.setIsProcessed(true); // we need this for bellow code to execute
@@ -442,7 +441,7 @@ BaseSock.prototype.doAuthorize = function () {
 
     // authBytes contains:
     // 16 bytes of baseId
-    // 32 bytes containing encrypted 16 bytes baseId and 16 random bytes that can be discarded
+    // 32 bytes containing 16 random bytes that can be discarded and encrypted 16 bytes of baseId, which when decrypted must match provided baseId (the very first 16 bytes)
 
     if (socket.myObj.IDbase != null) {
         socket.myObj.wlog.warn('Base attempted to re-authorize, request ignored!');
@@ -456,6 +455,9 @@ BaseSock.prototype.doAuthorize = function () {
 
     var baseid = new Buffer(16);
     authBytes.copy(baseid, 0, 0, 16);
+
+    // TODO: NAPRAVI AUTORIZACIJU
+    // daj iz mysql-a crypt podatke od ove Baze
 
     var encryptedBaseId = new Buffer(32);
     authBytes.copy(encryptedBaseId, 0, 16);
