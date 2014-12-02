@@ -2,6 +2,7 @@
 
 var net = require('net');
 var baseMessage = require('../../js/messages/baseMessage');
+var crypto = require('crypto');
 
 //var HOST = '78.47.48.138';
 var HOST = '127.0.0.1';
@@ -12,6 +13,7 @@ var TXserver = 0;
 var TXbase = 1;
 var tmrSimulator = null;
 var aes128Key = new Buffer([0x20 , 0x6a , 0xad , 0xf2 , 0x7b , 0xfe , 0xb3 , 0x31 , 0xd8 , 0xcb , 0xb2 , 0x70 , 0xd3 , 0x7e , 0x45 , 0x8a]);
+var authAes128Key = new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
 
 var client = new net.Socket();
 
@@ -24,9 +26,9 @@ client.connect(PORT, HOST, function () {
     setTimeout(function () {
         // login
         var msg = new baseMessage();
-        msg.setHasSync(true);
+        msg.setIsSync(true);
 
-		// Authentication request contains: BaseID + encrypt(BaseID + random 16 bytes)
+        // Authentication request contains: BaseID + encrypt(random 16 bytes + BaseID)
         msg.setData(new Buffer([
         	0xaa, 0xcc, 0xa5, 0x39, 0xd1, 0x59, 0xa7, 0xca, 0x30, 0x0a, 0xee, 0x98, 0xde, 0xda, 0x7e, 0x92,
 
@@ -34,7 +36,10 @@ client.connect(PORT, HOST, function () {
 			0x0a,0x9e,0xaa,0x50,0xfb,0xa4,0xdb,0x46,0xbb,0xdf,0x08,0x1e,0x57,0x4f,0x2d,0x93
         ]));
 
-        client.write(msg.buildPackage(), 'hex');
+        var aaa = msg.buildEncryptedMessage(authAes128Key, new Buffer([1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6]));
+        //console.log(aaa.toString('hex'));
+
+        client.write(aaa, 'hex');
         console.log('< Sent auth request');
     }, 500);
 });
@@ -48,10 +53,10 @@ client.on('data', function (data) {
 	}
 	else {
 		if(!authorized) {
-        	bp.unpack();
+            bp.unpackAsEncryptedMessage(authAes128Key);
 		}
 		else {
-        	bp.unpack(aes128Key);
+            bp.unpackAsEncryptedMessage(aes128Key);
 		}
 
         if (bp.getIsAck()) {
@@ -113,7 +118,7 @@ client.on('data', function (data) {
                             // start a simulator that will send some stuff to all Clients
                             tmrSimulator = setInterval(simulator, 5000);
 
-                            if(bp.getHasSync()) {
+                            if(bp.getIsSync()) {
                                 console.log('  ...server wants us to re-sync!');
                                 TXserver = 0;
                             }
@@ -157,7 +162,7 @@ function simulator() {
     bp.setTXsender(TXbase);
     bp.setData(new Buffer('ABCDEF','hex'));
 
-	var aaa = bp.buildPackage(aes128Key);
+    var aaa = bp.buildEncryptedMessage(aes128Key, crypto.randomBytes(16));
 
 	console.log(aaa);
     client.write(aaa, 'hex');

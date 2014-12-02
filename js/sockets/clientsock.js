@@ -97,7 +97,7 @@ function ClientSock(socket) {
             socket.myObj.tmrSenderTask = setInterval(function () {
                 Database.getNextTxServer2Client(socket.myObj.IDclient, function (err, result) {
                     if (err) {
-						socket.myObj.wlog.info('Server2Client executed, but DATABASE ERROR happened!');
+                        socket.myObj.wlog.info('Server2Client executed, but DATABASE ERROR happened!');
                         clearInterval(socket.myObj.tmrSenderTask);
                         socket.myObj.tmrSenderTask = null;
                         return;
@@ -280,11 +280,11 @@ ClientSock.prototype.onData = function () {
 
                             self.resendUnackedItems();
                         }
-						/*
-						else if (("type" in d) && d.type == 'something_else') {
-							// something else...
-						}
-						*/
+                            /*
+                            else if (("type" in d) && d.type == 'something_else') {
+                                // something else...
+                            }
+                            */
                         else {
                             socket.myObj.wlog.info('  ...unknown system message:', d, ', ignored.');
                         }
@@ -300,8 +300,8 @@ ClientSock.prototype.onData = function () {
 
                         var bp = new baseMessage();
                         bp.setIsNotification(cm.getIsNotification());
-                        bp.setData(cm.getData());
-                        var binaryPackageAsHexString = new Buffer(bp.buildPackage()).toString('hex');
+                        bp.setDataFromHexString(cm.getData());
+                        var binaryPackageAsHexString = bp.buildPlainMessage().toString('hex');
 
                         // daj sve njegove baze
                         Database.getBasesOfClient(socket.myObj.IDclient, function (err, rows, columns) {
@@ -325,52 +325,54 @@ ClientSock.prototype.onData = function () {
                                     notFoundBaseIds.splice(rows[i].baseid, 1);
 
                                     (function (IDbase) {
-										// no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to the "other side"
-										if(bp.getIsNotification()) {
-											socket.myObj.wlog.info('  ...this is a Notification, sending right now on Bases\'s (', IDbase, ') socket...');
+                                        // no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to the "other side"
+                                        if (bp.getIsNotification()) {
+                                            socket.myObj.wlog.info('  ...this is a Notification, sending right now on Bases\'s (', IDbase, ') socket...');
 
-											// pronadji njegov socket
-											var fBaseSockets = connBases.filter(function (item) {
-												return (item.myObj.IDbase == IDbase);
-											});
+                                            // pronadji njegov socket
+                                            var fBaseSockets = connBases.filter(function (item) {
+                                                return (item.myObj.IDbase == IDbase);
+                                            });
 
-											if (fBaseSockets.length == 1) {
-												fBaseSockets[0].write(bp.buildPackage(fBaseSockets[0].myObj.aes128Key), 'hex');
-												fBaseSockets[0].myObj.wlog.info('  ...sent (piped).');
-											}
-											else if (fBaseSockets.length > 1) {
-												socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
-											}
-											else {
-												socket.myObj.wlog.info('  ...IDbase=', IDbase, 'is offline, will not get this Notification.');
-											}
-										}
-										// not a notification, lets insert into database and trigger senging
-										else {
-											// insert message into database for this base and trigger sending if it is online
-											Database.addTxServer2Base(IDbase, binaryPackageAsHexString, function (err, result) {
-												if (err) {
-													socket.myObj.wlog.info('Error in Database.addTxServer2Base, for IDbase=', IDbase);
-													return;
-												}
+                                            if (fBaseSockets.length == 1) {
+                                                fBaseSockets[0].write(bp.buildEncryptedMessage(fBaseSockets[0].myObj.aes128Key, fBaseSockets[0].myObj.random16bytes), 'hex');
+                                                fBaseSockets[0].myObj.wlog.info('  ...sent (piped).');
 
-												socket.myObj.wlog.info('  ...added to IDbase=', IDbase, ' queue...');
+                                                bp.getData().copy(fBaseSockets[0].myObj.random16bytes, 0, bp.getData().length-16); // prepare IV for next encryption
+                                            }
+                                            else if (fBaseSockets.length > 1) {
+                                                socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+                                            }
+                                            else {
+                                                socket.myObj.wlog.info('  ...IDbase=', IDbase, 'is offline, will not get this Notification.');
+                                            }
+                                        }
+                                            // not a notification, lets insert into database and trigger senging
+                                        else {
+                                            // insert message into database for this base and trigger sending if it is online
+                                            Database.addTxServer2Base(IDbase, binaryPackageAsHexString, function (err, result) {
+                                                if (err) {
+                                                    socket.myObj.wlog.info('Error in Database.addTxServer2Base, for IDbase=', IDbase);
+                                                    return;
+                                                }
 
-												// pronadji njegov socket (ako je online) i pokreni mu slanje
-												var fBaseSockets = connBases.filter(function (item) {
-													return (item.myObj.IDbase == IDbase);
-												});
+                                                socket.myObj.wlog.info('  ...added to IDbase=', IDbase, ' queue...');
 
-												if (fBaseSockets.length == 1) {
-													socket.myObj.wlog.info('  ...triggering queued items sender for IDbase=', IDbase, '...');
-													fBaseSockets[0].startQueuedItemsSender();
-												}
-												else if (fBaseSockets.length > 1) {
-													socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
-												}
+                                                // pronadji njegov socket (ako je online) i pokreni mu slanje
+                                                var fBaseSockets = connBases.filter(function (item) {
+                                                    return (item.myObj.IDbase == IDbase);
+                                                });
 
-											});
-										}
+                                                if (fBaseSockets.length == 1) {
+                                                    socket.myObj.wlog.info('  ...triggering queued items sender for IDbase=', IDbase, '...');
+                                                    fBaseSockets[0].startQueuedItemsSender();
+                                                }
+                                                else if (fBaseSockets.length > 1) {
+                                                    socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+                                                }
+
+                                            });
+                                        }
                                     })(rows[i].IDbase);
 
                                 } // if baseid is targetted one
@@ -456,8 +458,8 @@ ClientSock.prototype.doAuthorize = function () {
             });
             // there should be maximum one existing connection here, but lets loop it just to make sure we close them all
             for (var b = 0; b < fMyConns.length; b++) {
-                wlog.info('  ...found already existing connection to ', fMyConns[b].myObj.ip, ', continuing its TXclient (', socket.myObj.TXclient, '). Destroying it now!');
-                result[0][0].oTXclient = socket.myObj.TXclient; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
+                wlog.info('  ...found already existing connection to', fMyConns[b].myObj.ip, ', continuing its TXclient (', fMyConns[b].myObj.TXclient, '). Destroying it now!');
+                result[0][0].oTXclient = fMyConns[b].myObj.TXclient; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
                 fMyConns[b].myObj.IDclient = null;
                 fMyConns[b].destroy();
             }
@@ -472,10 +474,6 @@ ClientSock.prototype.doAuthorize = function () {
                 ]
             });
 
-            // because we are changing the logging file now, we need to add the bellow
-            // code into a callback function that will be executed after the re-initialization
-            // of the winston logger from above
-            //process.nextTick(function () {
             socket.myObj.IDclient = result[0][0].oIDclient;
 
             socket.myObj.wlog.info('Client', cmd.auth_token.toString(), ' (', socket.myObj.ip, ') authorized.');
@@ -487,7 +485,7 @@ ClientSock.prototype.doAuthorize = function () {
             }
             else {
                 socket.myObj.TXclient = result[0][0].oTXclient;
-                socket.myObj.wlog.info('  ...re-loading TXclient from DB:', socket.myObj.TXclient);
+                socket.myObj.wlog.info('  ...re-loading TXclient:', result[0][0].oTXclient);
             }
 
             var jsAns = new clientMessage();
@@ -515,7 +513,6 @@ ClientSock.prototype.doAuthorize = function () {
                 socket.myObj.wlog.info('  ...there is pending data for Client, starting sender...');
                 socket.startQueuedItemsSender();
             }
-            //});
         }
         else {
             wlog.warn('Client (', socket.myObj.ip, ') failed to authorize.');

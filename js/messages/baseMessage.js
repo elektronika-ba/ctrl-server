@@ -3,13 +3,10 @@
 /*
     Binary message for communication between "Base <-> Server"
 
-    [ALL_LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
-                              [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
+    [ALL_LENGTH] { [RANDOM_IV] [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed] } [CMAC]
 
+    Everything between { and } is encrypted.
     CMAC is calculated over entire cipertext: Encrypt-then-MAC.
-
-    Encrypted is:
-    [RANDOM IV] + [MESSAGE_LEN] + [HEADER] + [TX_SENDER] + [DATA] + [padding when needed]
 */
 
 var crypto = require('crypto');
@@ -30,104 +27,11 @@ function baseMessage() {
     this.data = new Buffer(0);
 
     this.isExtracted = false;
-    this.isCmacValid = false;
-}
-
-baseMessage.prototype.extractFrom = function (binaryPackage) {
-    this.isExtracted = false;
-
-    if (!binaryPackage) {
-        return;
-    }
-
-    this.binaryPackage = binaryPackage;
-
-    if (binaryPackage.length < 2) {
-        return;
-    }
-
-    var packageLength = binaryPackage.readUInt16LE(0);
-
-    if (binaryPackage.length < (packageLength + 2)) {
-        return;
-    }
-
-    this.isExtracted = true;
-};
-
-baseMessage.prototype.unpack = function (aes128Key) {
-	// unpacking encrypted message?
-	if(aes128Key != null) {
-
-		// minimum encrypted data we should receive is: length (2 bytes) + original encrypted message (at least 32 bytes) + cmac (16 bytes) = 50 bytes
-		if (this.binaryPackage.length < 50) {
-			console.log('Warning in baseMessage.unpack(), incomplete encrypted binary package (got ',this.binaryPackage.length,'/minimum 50)!');
-			return;
-		}
-
-        // [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
-		// [LENGTH] contains length of binary stream RandomIV+MsgLength+Header+TXsender+Data+PaddingWhenNeeded+Cmac
-		// [CMAC] is the last 16 bytes of the binaryPackage
-
-		var len = this.binaryPackage.readUInt16LE(0);
-		var cmac = new Buffer(16);
-		this.binaryPackage.copy(cmac, 0, this.binaryPackage.length-16);
-		var msg = new Buffer(len - 16); // message is surrounded by 2 bytes of LENGTH and 16 bytes of CMAC
-		this.binaryPackage.copy(msg, 0, 2);
-
-		// Validate CMAC first: TODO
-		this.isCmacValid = true; // for now lets not validate it
-		/*
-			encrypted message is in: msg
-			key is in: aes128Key
-			expected CMAC is in: cmac
-		*/
-		if(!this.isCmacValid) {
-			console.log('Warning in baseMessage.unpack(), CMAC not valid!');
-			return;
-		}
-
-		// Decrypt
-        var decipher = crypto.createDecipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
-		decipher.setAutoPadding(false);
-		var decrypted = decipher.update(msg, 'hex', 'hex'); //.final('hex') not required?
-
-        // we must discard fist 16 bytes of random IV from the decrypted message
-        new Buffer(decrypted, 'hex').copy(this.binaryPackage, 0, 16);
-	}
-
-    if (this.binaryPackage.length < 7) {
-        console.log('Warning in baseMessage.unpack(), incomplete binary package (got ',this.binaryPackage.length,'/minimum 7)!');
-        return;
-    }
-
-	// Unpack. Now in binaryPackage we have:
-    //[MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA] [padding when required]}
-
-    // How many bytes follow in this message? Note: there is a posibillity that
-    // there is a padding that we need to discard, so this msgLength is very important.
-	var msgLength = this.binaryPackage.readUInt16LE(0);
-    if (this.binaryPackage.length < (msgLength + 2)) {
-        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
-        return;
-    }
-    this.header = this.binaryPackage.readUInt8(2);
-    this.TXsender = this.binaryPackage.readInt32LE(3);
-
-    // has data?
-    if (msgLength > 5) {
-        this.data = new Buffer(msgLength - 5);
-        this.binaryPackage.copy(this.data, 0, 2+1+4, msgLength+1+4); // discard data padding here
-    }
 }
 
 // getters
-baseMessage.prototype.getIsCmacValid = function () {
-	return this.isCmacValid;
-}
-
-baseMessage.prototype.getBinaryPackage = function () {
-    return this.binaryPackage;
+baseMessage.prototype.getBinaryPackageLength = function () {
+    return this.binaryPackage.length;
 };
 
 baseMessage.prototype.getHeader = function () {
@@ -138,35 +42,13 @@ baseMessage.prototype.getTXsender = function () {
     return this.TXsender;
 };
 
-baseMessage.prototype.getIsExtracted = function () {
-    return this.isExtracted;
-};
-
 baseMessage.prototype.getData = function () {
     return this.data;
 };
 
-/*
-// TEST
-var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
-var bp = new baseMessage();
-bp.extractFrom(new Buffer([
-    //6, 0, 150, 0x3,0,0,0, 0xAA
-
-    0x40, 0x00,
-
-    0xcc, 0x4f, 0x9e, 0x20, 0xd1, 0x39, 0x54, 0xdb, 0x5e, 0x74, 0x40, 0x7d, 0x9e, 0x52, 0x35, 0x9d,
-    0x82, 0x63, 0xcf, 0x53, 0x8a, 0x0b, 0x6d, 0x8d, 0x8b, 0xa9, 0x2e, 0x8e, 0xde, 0xb3, 0x61, 0xad,
-    0x8e, 0xb9, 0x46, 0xcc, 0x19, 0x68, 0xfa, 0x33, 0x6e, 0xff, 0x36, 0x5a, 0x0a, 0x23, 0x1a, 0x08,
-
-    0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC
-]));
-bp.unpack(ke);
-console.log(bp.getHeader());
-console.log(bp.getTXsender());
-console.log(bp.getData());
-//--
-*/
+baseMessage.prototype.getIsExtracted = function () {
+    return this.isExtracted;
+};
 
 baseMessage.prototype.getIsAck = function () {
     return ((this.header & HEADER_ACK) > 0);
@@ -176,7 +58,7 @@ baseMessage.prototype.getIsSystemMessage = function () {
     return ((this.header & HEADER_SYSTEM_MESSAGE) > 0);
 };
 
-baseMessage.prototype.getBackoff = function () {
+baseMessage.prototype.getIsBackoff = function () {
     return ((this.header & HEADER_BACKOFF) > 0);
 };
 
@@ -184,11 +66,11 @@ baseMessage.prototype.getIsNotification = function () {
     return ((this.header & HEADER_NOTIFICATION) > 0);
 };
 
-baseMessage.prototype.getHasSync = function () {
+baseMessage.prototype.getIsSync = function () {
     return ((this.header & HEADER_SYNC) > 0);
 };
 
-baseMessage.prototype.getOutOfSync = function () {
+baseMessage.prototype.getIsOutOfSync = function () {
     return ((this.header & HEADER_OUT_OF_SYNC) > 0);
 };
 
@@ -199,6 +81,18 @@ baseMessage.prototype.getIsProcessed = function () {
 // setters
 baseMessage.prototype.setHeader = function (header) {
     this.header = header;
+};
+
+baseMessage.prototype.setTXsender = function (TXsender) {
+    this.TXsender = TXsender;
+};
+
+baseMessage.prototype.setDataFromHexString = function (dataValue) {
+    this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" on 30/11/2014
+};
+
+baseMessage.prototype.setData = function (dataBuff) {
+    this.data = dataBuff;
 };
 
 baseMessage.prototype.setIsAck = function (is) {
@@ -219,7 +113,7 @@ baseMessage.prototype.setIsSystemMessage = function (is) {
     }
 };
 
-baseMessage.prototype.setBackoff = function (is) {
+baseMessage.prototype.setIsBackoff = function (is) {
     if (is) {
         this.header = this.header | HEADER_BACKOFF;
     }
@@ -237,7 +131,7 @@ baseMessage.prototype.setIsNotification = function (is) {
     }
 };
 
-baseMessage.prototype.setHasSync = function (is) {
+baseMessage.prototype.setIsSync = function (is) {
     if (is) {
         this.header = this.header | HEADER_SYNC;
     }
@@ -246,7 +140,7 @@ baseMessage.prototype.setHasSync = function (is) {
     }
 };
 
-baseMessage.prototype.setOutOfSync = function (is) {
+baseMessage.prototype.setIsOutOfSync = function (is) {
     if (is) {
         this.header = this.header | HEADER_OUT_OF_SYNC;
     }
@@ -264,27 +158,144 @@ baseMessage.prototype.setIsProcessed = function (processed) {
     }
 };
 
-baseMessage.prototype.setTXsender = function (TXsender) {
-    this.TXsender = TXsender;
+// this extracts binary stream from both encrypted or unencrypted message
+// as the format is the same (first two bytes are the binary stream length)
+baseMessage.prototype.extractFrom = function (binaryPackage) {
+    if (!binaryPackage) {
+        return false;
+    }
+
+    this.binaryPackage = binaryPackage;
+
+    if (binaryPackage.length < 2) {
+        return false;
+    }
+
+    var packageLength = binaryPackage.readUInt16LE(0);
+
+    if (binaryPackage.length < (packageLength + 2)) {
+        return false;
+    }
+
+    this.isExtracted = true;
+
+    return this.isExtracted;
 };
 
-baseMessage.prototype.clearData = function () {
-    this.data = new Buffer(0);
+// this unpacks unencrypted message from this.binaryPackage
+// returns true on OK, or false on Error
+baseMessage.prototype.unpackAsPlainMessage = function () {
+    // How many usable bytes follow in this message? Note: there is a posibillity that
+    // there is a padding which we need to discard, so this msgLength is important
+    var msgLength = this.binaryPackage.readUInt16LE(0);
+    if (this.binaryPackage.length < (msgLength + 2)) {
+        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
+        return false;
+    }
+    this.header = this.binaryPackage.readUInt8(2);
+    this.TXsender = this.binaryPackage.readUInt32LE(3);
+
+    // Finally extract the data if there is any
+    if (msgLength > 5) {
+        this.data = new Buffer(msgLength - 5);
+        this.binaryPackage.copy(this.data, 0, 2 + 1 + 4, msgLength + 1 + 4); // discard data padding here
+    }
+
+    // debug
+    console.log('msg_length:', msgLength);
+    console.log('header:', this.header);
+    console.log('TXsender:', this.TXsender);
+    console.log('data:', this.data);
+    //--
+
+    return true;
 };
 
-baseMessage.prototype.appendData = function (dataValue) {
-    this.data = Buffer.concat([this.data, dataValue]);
-};
+// this unpacks the encrypted message from this.binaryPackage
+// returns true on OK, or false on Error
+baseMessage.prototype.unpackAsEncryptedMessage = function (aes128Key) {
+    // minimum encrypted data we should receive is: length (2 bytes) + original encrypted message (at least 32 bytes) + cmac (16 bytes) = 50 bytes
+    if (this.binaryPackage.length < 50) {
+        console.log('Warning in baseMessage.unpack(), incomplete encrypted binary package (got ', this.binaryPackage.length, '/minimum 50)!');
+        return false;
+    }
 
-baseMessage.prototype.setData = function (dataValue) {
-    this.data = new Buffer(dataValue, 'hex'); // added: ", 'hex'" on 30/11/2014
-};
+    // Get the size of this packet which we received
+    var allLength = this.binaryPackage.readUInt16LE(0);
 
-baseMessage.prototype.buildPackage = function (aes128Key, random16bytes) {
+    // Extract CMAC from the end (last 16 bytes)
+    var cmac = new Buffer(16);
+    this.binaryPackage.copy(cmac, 0, this.binaryPackage.length - 16);
+
+    // Extract encrypted message which is surrounded by 2 bytes of LENGTH and 16 bytes of CMAC
+    var encryptedMessage = new Buffer(allLength - 16);
+    this.binaryPackage.copy(encryptedMessage, 0, 2);
+
+    // debug
+    console.log('binaryPackage:', this.binaryPackage.toString('hex'));
+    console.log('allLength:', allLength);
+    console.log('encryptedMessage:', encryptedMessage.toString('hex'));
+    console.log('cmac:', cmac.toString('hex'));
+    //--
+
+    // Validate CMAC first
+    var isCmacValid = true; // for now lets not validate it
     /*
-    [LENGTH] {[RANDOM_IV] [MESSAGE_LENGTH]  [HEADER] [TX_SENDER] [DATA] [padding when needed] [CMAC]} for encrypted, or:
-                          [MESSAGE_LENGTH] {[HEADER] [TX_SENDER] [DATA]} for raw unencrypted data
+        TODO !
+        encrypted message is in: encryptedMessage
+        key is in: aes128Key
+        expected CMAC is in: cmac
     */
+    if (!isCmacValid) {
+        console.log('Warning in baseMessage.unpack(), CMAC not valid!');
+        return false;
+    }
+
+    // Finally decrypt the message
+    var decipher = crypto.createDecipheriv('aes-128-cbc', aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+    decipher.setAutoPadding(false);
+    var decrypted = decipher.update(encryptedMessage, 'hex', 'hex'); //.final('hex') not required?
+
+    // debug
+    console.log('decrypted received message w/IV:', decrypted);
+    //--
+
+    // We must discard fist 16 bytes of random IV from the decrypted message
+    this.binaryPackage = new Buffer(decrypted.length - 16);
+    new Buffer(decrypted, 'hex').copy(this.binaryPackage, 0, 16);
+
+    // debug
+    console.log('decrypted received message wo/IV:', this.binaryPackage.toString('hex'));
+    //--
+
+    // Now in binaryPackage we have [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed]
+
+    // Finally unpack the message into appropriate data-fields
+    return this.unpackAsPlainMessage(); // true if everything went OK, false if something is wrong
+
+    /*
+    // How many usable bytes follow in this message? Note: there is a posibillity that
+    // there is a padding which we need to discard, so this msgLength is important
+    var msgLength = this.binaryPackage.readUInt16LE(0);
+    if (this.binaryPackage.length < (msgLength + 2)) {
+        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
+        return;
+    }
+    this.header = this.binaryPackage.readUInt8(2);
+    this.TXsender = this.binaryPackage.readUInt32LE(3);
+
+    // Finally extract the data if there is any
+    if (msgLength > 5) {
+        this.data = new Buffer(msgLength - 5);
+        this.binaryPackage.copy(this.data, 0, 2 + 1 + 4, msgLength + 1 + 4); // discard data padding here
+    }
+    */
+}
+
+// this builds and returns message part without random IV, padding and encryption stuff
+// returns built message on success or empty buffer on error
+baseMessage.prototype.buildPlainMessage = function () {
+    // [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA]
 
     var header = new Buffer(1);
     header.writeUInt8(this.header, 0);
@@ -292,73 +303,122 @@ baseMessage.prototype.buildPackage = function (aes128Key, random16bytes) {
     var TXsender = new Buffer(4);
     TXsender.writeUInt32LE(this.TXsender, 0);
 
-    var htx = Buffer.concat([header, TXsender]);
+    var message = new Buffer.concat([header, TXsender]);
+
+    // debug
+    console.log('buildPlainMessage().message:', message.toString('hex'));
+    //--
 
     if (this.data.length > 0) {
-        htx = Buffer.concat([htx, this.data]);
+        message = new Buffer.concat([message, this.data]);
     }
 
     var messageLength = new Buffer(2);
-    messageLength.writeUInt16LE(htx.length, 0);
+    messageLength.writeUInt16LE(message.length, 0);
 
-    var userPayload = new Buffer.concat([messageLength, htx]);
+    message = new Buffer.concat([messageLength, message]);
 
-    if(!aes128Key || aes128Key == null) {
-		if (userPayload.length > (65535)) {
-			console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
-			return null;
-		}
-
-        this.binaryPackage = new Buffer.concat([userPayload]); // we might need it in this.binaryPackage...
-        return userPayload;
+    if (message.length > 65535) {
+        console.log('Error in baseMessage.buildMessage(), data too long, can not fit!');
+        return new Buffer(0);
     }
 
-    var randomIv = random16bytes; // we will use provided 16 bytes as randomness
-    if(!random16bytes || random16bytes == null) {
-		var randomIv = crypto.randomBytes(16); // THIS IS SLOW. Even though it might be the best way to go, we shouldn't slow things down.
-	}
+    // debug
+    console.log('buildPlainMessage().message:', message.toString('hex'));
+    //--
 
-    var toEncrypt = new Buffer.concat([randomIv, userPayload]);
+    return message;
+}
 
-    // add padding if required
-    if(toEncrypt.length % 16) {
+// this encrypts message and prepares the package for sending and returns it as Buffer.
+// if something goes wrong it returns empty buffer
+baseMessage.prototype.buildEncryptedMessage = function (aes128Key, random16bytes) {
+    // [ALL_LENGTH] { [RANDOM_IV] [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed] } [CMAC]
+
+    var randomIv;
+    if (!random16bytes || random16bytes == null) {
+        randomIv = crypto.randomBytes(16); // NOTE: This is SLOW. Even though it might be the best way to go, we must not slow things down!
+    }
+    else {
+        randomIv = random16bytes; // we will use provided 16 bytes as randomness
+    }
+
+    // Build the message in plaintext (still not encrypted)
+    var toEncrypt = this.buildPlainMessage();
+    if (toEncrypt == null) {
+        return new Buffer(0);
+    }
+
+    // debug
+    console.log('buildEncryptedMessage().toEncrypt wo/IV and padd:', toEncrypt.toString('hex'));
+    //--
+
+    // Add random IV to beginning
+    toEncrypt = new Buffer.concat([randomIv, toEncrypt]);
+
+    // debug
+    console.log('buildEncryptedMessage().toEncrypt w/IV:', toEncrypt.toString('hex'));
+    //--
+
+    // Now add padding to end if required
+    if (toEncrypt.length % 16) {
         var addThisMuch = 16 - (toEncrypt.length % 16);
         var appendStuff = new Buffer(addThisMuch);
-        randomIv.copy(appendStuff, 0, 0, addThisMuch);
+        randomIv.copy(appendStuff, 0, 0, addThisMuch); // use IV as padding
 
-        var toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
+        // debug
+        console.log('padding count:', addThisMuch);
+        console.log('appendStuff:', appendStuff.toString('hex'));
+        //--
+
+        toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
     }
 
-	var cipher = crypto.createCipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
-	cipher.setAutoPadding(false);
-	var encrypted = cipher.update(toEncrypt, 'hex', 'hex'); // .final('hex') not required?
+    // debug
+    console.log('buildEncryptedMessage().toEncrypt w/IV and padding:', toEncrypt.toString('hex'));
+    //--
 
-	var cmac = new Buffer(16);
-	// TODO: Calculate CMAC over "encrypted" now and put into "cmac"
+    // Finally encrypt
+    var cipher = crypto.createCipheriv('aes-128-cbc', aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+    cipher.setAutoPadding(false);
+    var encrypted = cipher.update(toEncrypt, 'hex', 'hex'); // .final('hex') not required?
 
-	var toSend = new Buffer.concat([new Buffer(encrypted,'hex'), cmac]);
+    // debug
+    console.log('buildEncryptedMessage().encrypted:', encrypted);
+    //--
 
+    // calculate CMAC
+    var cmac = new Buffer(16);
+    // TODO: Calculate CMAC over "encrypted" now and put into "cmac"
+
+    // debug
+    console.log('buildEncryptedMessage().CMAC:', cmac.toString('hex'));
+    //--
+
+    // Merge encrypted message and CMAC in "toSend"
+    var toSend = new Buffer.concat([new Buffer(encrypted, 'hex'), cmac]);
+
+    // debug
+    console.log('buildEncryptedMessage().toSend:', toSend.toString('hex'));
+    //--
+
+    // Calculate the size of this packet that will be send out via TCP link
     var allLength = new Buffer(2);
     allLength.writeUInt16LE(toSend.length, 0);
 
-	if (toSend.length > (65535-2)) {
-		console.log('Error in baseMessage.buildPackage(), data to long, can not fit!');
-		return null;
-	}
+    // Merge the size and the packet to return it
+    this.binaryPackage = new Buffer.concat([allLength, toSend]);
 
-	return new Buffer.concat([allLength, toSend]);
+    // debug
+    console.log('buildEncryptedMessage().binaryPackage:', this.binaryPackage.toString('hex'));
+    //--
+
+    if (this.binaryPackage.length > 65535) {
+        console.log('Error in baseMessage.buildPackage(), data too long, can not fit!');
+        return new Buffer(0);
+    }
+
+    return this.binaryPackage;
 };
-
-/*
-// TEST 2
-var ke = new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa]);
-var bp = new baseMessage();
-bp.setHeader(150);
-bp.setTXsender(3);
-bp.setData(new Buffer([0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xbb, 0xff]));
-var xxx = bp.buildPackage(ke, new Buffer([12,0,45,45,45,45,45,45,45,45,45,45,45,4,5,6,7,8,8,9,0]));
-console.log(xxx);
-//--
-*/
 
 module.exports = baseMessage;

@@ -176,3 +176,148 @@
 {"level":"info","message":"  ...ACK sent back for TXsender: 24","timestamp":"2014-12-01T21:08:10.325Z"}
 {"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-01T21:08:10.325Z"}
 {"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-01T21:08:10.387Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:38:49.665Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:38:49.667Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:38:49.670Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:39:59.894Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:39:59.894Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:39:59.895Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-02T14:39:59.926Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:40:08.223Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:40:08.224Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:40:08.224Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-02T14:40:13.258Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:40:44.132Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:40:44.134Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:40:44.134Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-02T14:40:49.160Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:41:13.700Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:41:13.700Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:41:13.700Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:41:19.014Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:42:27.952Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:42:27.953Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:42:27.953Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:42:33.302Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:43:15.570Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:43:15.572Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:43:15.574Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:20.921Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-12-02T14:43:20.942Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:20.944Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:21.006Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:25.932Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-12-02T14:43:25.952Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:25.954Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:25.992Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:30.935Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-12-02T14:43:30.953Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:30.955Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:30.988Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:35.945Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2014-12-02T14:43:35.963Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:35.964Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:35.982Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:40.952Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 5","timestamp":"2014-12-02T14:43:40.969Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:40.971Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:40.993Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:45.957Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 6","timestamp":"2014-12-02T14:43:45.980Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:45.981Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:45.998Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:43:50.976Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 7","timestamp":"2014-12-02T14:43:50.997Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:43:50.999Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:43:51.041Z"}
+{"level":"info","message":"  ...saved current TXbase ( 7 ) and OnlineStatus to database.","timestamp":"2014-12-02T14:43:52.914Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:47:12.340Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:47:12.340Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:47:12.340Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:47:17.662Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-12-02T14:47:17.680Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:47:17.681Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:47:17.721Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:47:22.679Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-12-02T14:47:22.697Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:47:22.699Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:47:22.715Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:47:27.695Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-12-02T14:47:27.713Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:47:27.714Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:47:27.752Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:47:32.712Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2014-12-02T14:47:32.736Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:47:32.738Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:47:32.755Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 ( 127.0.0.1 ) authorized.","timestamp":"2014-12-02T14:57:22.505Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-02T14:57:22.505Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-02T14:57:22.505Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:27.849Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-12-02T14:57:27.879Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:27.881Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:27.923Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:32.854Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-12-02T14:57:32.887Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:32.889Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:32.943Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:37.862Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2014-12-02T14:57:37.889Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:37.891Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:37.930Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:42.883Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2014-12-02T14:57:42.912Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:42.913Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:42.933Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:47.891Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 5","timestamp":"2014-12-02T14:57:47.917Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:47.920Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:47.952Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:52.899Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 6","timestamp":"2014-12-02T14:57:52.931Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:52.933Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:52.955Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:57:57.908Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 7","timestamp":"2014-12-02T14:57:57.937Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:57:57.938Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:57:57.967Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:02.911Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 8","timestamp":"2014-12-02T14:58:02.938Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:02.939Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:02.963Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:07.929Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 9","timestamp":"2014-12-02T14:58:07.960Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:07.962Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:07.998Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:12.931Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 10","timestamp":"2014-12-02T14:58:12.957Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:12.959Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:12.979Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:17.933Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 11","timestamp":"2014-12-02T14:58:17.962Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:17.963Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:18.005Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:22.937Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 12","timestamp":"2014-12-02T14:58:22.964Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:22.965Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:22.988Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:27.952Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 13","timestamp":"2014-12-02T14:58:27.975Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:27.977Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:28.016Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:32.954Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 14","timestamp":"2014-12-02T14:58:32.980Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:32.982Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:33.003Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:37.970Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 15","timestamp":"2014-12-02T14:58:37.992Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:37.994Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:38.031Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:42.978Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 16","timestamp":"2014-12-02T14:58:43.004Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:43.007Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:43.042Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-02T14:58:47.991Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 17","timestamp":"2014-12-02T14:58:48.017Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-02T14:58:48.019Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-02T14:58:48.054Z"}
