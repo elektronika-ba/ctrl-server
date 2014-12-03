@@ -132,7 +132,7 @@ function BaseSock(socket) {
                         socket.write(bp.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
                         socket.myObj.wlog.info('  ...sent.');
 
-                        bp.getData().copy(socket.myObj.random16bytes, 0, bp.getData().length-16); // prepare IV for next encryption
+                        bp.getBinaryPackage().copy(socket.myObj.random16bytes, 0, bp.getBinaryPackage().length-16); // prepare IV for next encryption
 
                         // if nothing else unsent in queue, stop this interval
                         if (result[0][0].oMoreInQueue == 0) {
@@ -282,7 +282,7 @@ BaseSock.prototype.onData = function () {
                         socket.write(bpAck.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
                         socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender());
 
-                        bp.getData().copy(socket.myObj.random16bytes, 0, bp.getData().length - 16); // prepare IV for next encryption
+                        bp.getBinaryPackage().copy(socket.myObj.random16bytes, 0, bp.getBinaryPackage().length - 16); // prepare IV for next encryption
                     }
                     else {
                         bpAck.setIsProcessed(true); // we need this for bellow code to execute
@@ -399,7 +399,12 @@ BaseSock.prototype.onData = function () {
             } // authorized...
         } // is CMAC valid?
         else {
-            socket.myObj.wlog.info('  ...CMAC validation failed. Message discarded!');
+			if (socket.myObj.IDbase != null) {
+            	socket.myObj.wlog.info('  ...CMAC validation failed. Message discarded!');
+			}
+			else {
+				wlog.info('  ...CMAC validation failed. Message discarded!');
+			}
         }
     }
 
@@ -481,6 +486,8 @@ BaseSock.prototype.doAuthorize = function () {
             var decipher = crypto.createDecipheriv('aes-128-cbc', socket.myObj.aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
             decipher.setAutoPadding(false);
             var decrypted = decipher.update(encryptedBaseId, 'hex', 'hex'); //.final('hex') not required?
+
+			// !!!!!!!!! IMPORTANT TODO: MAKE CHALLANGE-RESPONSE AUTHENTICATION
 
             // compare/verify
             var unpackedBaseid = new Buffer(16);
