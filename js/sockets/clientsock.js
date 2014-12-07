@@ -62,7 +62,7 @@ function ClientSock(socket) {
     socket.on('end', function () {
         wlog.info('Connection to Client %s closed.', socket.myObj.ip);
         if (socket.myObj.IDclient != null) {
-            Database.saveTXclient(socket.myObj.IDbase, socket.myObj.TXclient);
+            Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
             Database.clientOnlineStatus(socket.myObj.IDclient, 0);
             socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
         }
@@ -77,7 +77,7 @@ function ClientSock(socket) {
         if (e.code == 'ECONNRESET' || e.code == 'ETIMEDOUT') {
             wlog.info("Connection to Client %s dropped.", socket.myObj.ip);
             if (socket.myObj.IDclient != null) {
-                Database.saveTXclient(socket.myObj.IDbase, socket.myObj.TXclient);
+                Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
                 Database.clientOnlineStatus(socket.myObj.IDclient, 0);
                 socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
             }
@@ -331,7 +331,7 @@ ClientSock.prototype.onData = function () {
 
                                             // pronadji njegov socket
                                             var fBaseSockets = connBases.filter(function (item) {
-                                                return (item.myObj.IDbase == IDbase);
+                                                return (item.myObj.IDbase == IDbase && item.myObj.authorized == true);
                                             });
 
                                             if (fBaseSockets.length == 1) {
@@ -360,7 +360,7 @@ ClientSock.prototype.onData = function () {
 
                                                 // pronadji njegov socket (ako je online) i pokreni mu slanje
                                                 var fBaseSockets = connBases.filter(function (item) {
-                                                    return (item.myObj.IDbase == IDbase);
+                                                    return (item.myObj.IDbase == IDbase && item.myObj.authorized == true);
                                                 });
 
                                                 if (fBaseSockets.length == 1) {

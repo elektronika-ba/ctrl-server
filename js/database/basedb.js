@@ -5,6 +5,20 @@ var pool = require('./database').pool;
 // For Base Socket
 //////////////////////////////////////////
 
+exports.baseUpdateStoredTXserver = function (IDbase, TXserver) {
+    var sql = "UPDATE base SET TXserver=? WHERE IDbase=CAST(? AS UNSIGNED) LIMIT 1";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [TXserver, IDbase], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('baseUpdateStoredTXserver() error:', err); return; }
+        });
+    });
+};
+
 exports.baseOnlineStatus = function (IDbase, online) {
     var sql = "UPDATE base SET online=?, last_online=NOW() WHERE IDbase=CAST(? AS UNSIGNED) LIMIT 1";
 
@@ -15,6 +29,49 @@ exports.baseOnlineStatus = function (IDbase, online) {
             connection.release();
 
             if (err) { console.log('baseOnlineStatus() error:', err); return; }
+        });
+    });
+};
+
+exports.insertBaseVariable = function (IDbase, variableId, variableValue) {
+    var sql = "INSERT INTO base_variable (IDbase, variable_id, variable_value) VALUES(CAST(? AS UNSIGNED), ?, ?)";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [IDbase, variableId, variableValue], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('insertBaseVariable() error:', err); return; }
+        });
+    });
+};
+
+exports.deleteBaseVariable = function (IDbase, variableId) {
+    var sql = "DELETE FROM base_variable WHERE IDbase=CAST(? AS UNSIGNED) AND variable_id=? LIMIT 1";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [IDbase, variableId], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('deleteBaseVariable() error:', err); return; }
+        });
+    });
+};
+
+exports.getBaseVariable = function (IDbase, variableId, callback) {
+    var sql = "SELECT variable_id, variable_value FROM base_variable WHERE IDbase=CAST(? AS UNSIGNED) AND variable_id = ? LIMIT 1";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+
+        connection.query(sql, [IDbase, variableId], function (err, rows, columns) {
+            connection.release();
+
+            if (err) { console.log('getBaseVariable() error:', err); callback(true); return; }
+            callback(false, rows, columns);
         });
     });
 };

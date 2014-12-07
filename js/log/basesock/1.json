@@ -1255,3 +1255,68 @@
 {"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-07T10:20:55.182Z"}
 {"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-07T10:20:55.233Z"}
 {"level":"info","message":"  ...saved current TXbase ( 64 ) and OnlineStatus to database.","timestamp":"2014-12-07T10:21:05.545Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:54:16.031Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:54:16.033Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:54:16.035Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:55:30.379Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:55:30.381Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:55:30.383Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T12:55:40.845Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:55:53.582Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:55:53.584Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:55:53.586Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T12:56:36.124Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:56:38.864Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:56:38.866Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:56:38.869Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T12:56:52.744Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:57:08.641Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:57:08.641Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:57:08.641Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T12:57:11.602Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:58:17.359Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:58:17.359Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:58:17.360Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T12:59:39.551Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T12:59:39.553Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T12:59:39.555Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:00:05.206Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:00:05.208Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:00:05.210Z"}
+{"level":"error","message":"  ...no such (or multiple) variable(s) with ID: 3721182122 !","timestamp":"2014-12-07T13:00:05.233Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:01:41.570Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:01:41.570Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:01:41.571Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:01:43.499Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:03:12.587Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:03:12.588Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:03:12.588Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:03:13.293Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:03:52.263Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:04:10.663Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:04:10.665Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:04:10.667Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:04:33.235Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:04:35.707Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:04:35.709Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:05:42.613Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:05:42.615Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:05:42.616Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:06:57.269Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:07:03.328Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:07:03.328Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:07:03.329Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:07:09.325Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:09:58.419Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:09:58.420Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:09:58.420Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:10:13.086Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:14:08.891Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:14:08.891Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:14:08.891Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:14:10.649Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-07T13:14:16.308Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-07T13:14:16.308Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-07T13:14:16.308Z"}
+{"level":"warn","message":"  ...no such variable with ID: 3721181962 , returning 0x00000000.","timestamp":"2014-12-07T13:14:16.318Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-07T13:14:22.540Z"}

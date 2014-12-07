@@ -19,6 +19,7 @@ var HEADER_OUT_OF_SYNC = 0x08; // if the originator of this package is out of sy
 var HEADER_NOTIFICATION = 0x10; // is notification required with this message (only used if this is not an ACK)
 var HEADER_SYSTEM_MESSAGE = 0x20; // is this a system message? (not to be forwarded to Client, or sending a system message to Base)
 var HEADER_BACKOFF = 0x40; // if receiver can't buffer anymore data (including the data he is acknowledging to) from sender, he will acknowledge with this bit set
+var HEADER_SAVE_TXSERVER = 0x80; // when Base sends an ACK to Server, and if this bit is set, then Server will accept 4-byte payload of that ACK and save it to Base's DB as TXserver (server-side-stored TXserver feature)
 
 function baseMessage() {
     this.binaryPackage = null;
@@ -81,6 +82,10 @@ baseMessage.prototype.getIsOutOfSync = function () {
 
 baseMessage.prototype.getIsProcessed = function () {
     return ((this.header & HEADER_PROCESSED) > 0);
+};
+
+baseMessage.prototype.getIsSaveTXserver = function () {
+    return ((this.header & HEADER_SAVE_TXSERVER) > 0);
 };
 
 // setters
@@ -163,6 +168,15 @@ baseMessage.prototype.setIsProcessed = function (processed) {
     }
 };
 
+baseMessage.prototype.setIsSaveTXserver = function (processed) {
+    if (processed) {
+        this.header = this.header | HEADER_SAVE_TXSERVER;
+    }
+    else {
+        this.header = this.header & ~(HEADER_SAVE_TXSERVER);
+    }
+};
+
 // this extracts binary stream from both encrypted or unencrypted message
 // as the format is the same (first two bytes are the binary stream length)
 baseMessage.prototype.extractFrom = function (binaryPackage) {
@@ -228,6 +242,7 @@ baseMessage.prototype.unpackAsEncryptedMessage = function (aes128Key) {
 	// it also needs to be in 16 byte blocks, plus 2 bytes at the beginning
     if ((this.binaryPackage.length - 2) % 16) {
         console.log('Warning in baseMessage.unpack(), encrypted binary package not in 16 byte blocks (got', this.binaryPackage.length, ')!');
+        console.log('Warning in baseMessage.unpack(), here it is:', this.binaryPackage.toString('hex'));
         return false;
     }
 

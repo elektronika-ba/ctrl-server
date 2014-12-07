@@ -179,6 +179,17 @@ BaseSock.prototype.onData = function () {
                 if (bp.getIsAck()) {
                     socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender());
 
+					// Base sent us his TXserver, for us to save?
+					if(bp.getIsSaveTXserver()) {
+						socket.myObj.wlog.info('  ...saving Base\'s TXserver value in DB.');
+						if(bp.getData().length == 4) {
+							Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(0)); // alwas in Little Endian
+						}
+						else {
+							socket.myObj.wlog.warn('  ...not saved, I got (', bp.getData().length, '/4) bytes:', bp.getData().toString('hex'));
+						}
+					}
+
                     if (bp.getIsBackoff()) {
                         clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
                         socket.myObj.tmrSenderTask = null; // don't forget this!
@@ -313,11 +324,90 @@ BaseSock.prototype.onData = function () {
 
                                 socket.setKeepAlive(false);
                             }
-                                /*
-                                else if (bp.getData().toString('hex') == '04') {
-                                    // something else...
-                                }
-                                */
+							else if (bp.getData().length>0 && bp.getData()[0] == 0x04) {
+								socket.myObj.wlog.info('  ...saving Base variable.');
+
+								if(bp.getData().length == 9) {
+									var variableId = new Buffer(4);
+									bp.getData().copy(variableId, 0, 1);
+
+									var variableValue = new Buffer(4);
+									bp.getData().copy(variableValue, 0, 5);
+
+									Database.deleteBaseVariable(socket.myObj.IDbase, variableId.readUInt32LE(0));
+									Database.insertBaseVariable(socket.myObj.IDbase, variableId.readUInt32LE(0), variableValue.readUInt32LE(0));
+								}
+								else {
+									socket.myObj.wlog.info('  ...didn\'t get 1+4+4 bytes here (got', bp.getData().length, '), ignored.');
+								}
+							}
+							else if (bp.getData().length>0 && bp.getData()[0] == 0x05) {
+								socket.myObj.wlog.info('  ...getting Base variable.');
+
+								if(bp.getData().length == 5) {
+									var variableId = new Buffer(4);
+									bp.getData().copy(variableId, 0, 1);
+
+									Database.getBaseVariable(socket.myObj.IDbase, variableId.readUInt32LE(0), function(err, rows) {
+                                        if (err) {
+                                            socket.myObj.wlog.error('Unknown error in Database.getBaseVariable()!');
+                                        }
+
+										var variableResponse = new Buffer(9); // 1(systemMessageType 0x05)+4(variableId)+4(variableValue)
+										variableResponse.writeUInt8(0x05, 0);
+										variableId.copy(variableResponse, 1);
+
+										if (rows.length != 1) {
+											socket.myObj.wlog.warn('  ...no such variable with ID:', variableId.readUInt32LE(0), ', returning 0x00000000.');
+											variableResponse.writeUInt32LE(0, 5);
+										}
+										else {
+											variableResponse.writeUInt32LE(rows[0].variable_value, 5);
+										}
+
+										// push it to him via system message + notification type
+										var bpSys = new baseMessage();
+										bpSys.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+										bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+										bpSys.setData(variableResponse);
+
+										socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
+
+										bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+									});
+								}
+								else {
+									socket.myObj.wlog.info('  ...didn\'t get 1+4 bytes here (got', bp.getData().length, '), ignored.');
+								}
+							}
+							else if (bp.getData().toString('hex') == '06') {
+								var tss = moment.utc().zone(socket.myObj.timezone).format("YYYYMMDDHHmmssd"); // YYYY MM DD HH MM SS DAY-OF-WEEK(1-7)
+								var ts = new Buffer(tss);
+								for (var i = 0; i < ts.length; i++) {
+									ts[i] = ts[i] - 0x30; // remove ascii base
+								}
+
+								// push it to him via system message + notification type
+								var bpSys = new baseMessage();
+								bpSys.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+								bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+								bpSys.setData(ts);
+								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
+
+								bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+							}
+							/*
+							else if (bp.getData().length>0 && bp.getData()[0] == 0x07) {
+								socket.myObj.wlog.info('  ...saving TXserver server-stored value.');
+
+								if(bp.getData().length == 5) {
+									Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(1)); // alwas in Little Endian
+								}
+								else {
+									socket.myObj.wlog.info('  ...didn\'t get 1+4 bytes here (got', bp.getData().length, '), ignored.');
+								}
+							}
+							*/
                             else {
                                 socket.myObj.wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
                             }
@@ -544,7 +634,7 @@ BaseSock.prototype.doAuthorize = function () {
 				// kill all potentially already existing connections of this Base
 				// (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
 				var fMyConns = connBases.filter(function (item) {
-					return (socket.myObj.IDbase == item.myObj.IDbase && socket.myObj.authorized == true);
+					return (socket.myObj.IDbase == item.myObj.IDbase && item.myObj.authorized == true);
 				});
 				// there should be maximum one existing connection here, but lets loop it just to make sure we close them all
 				for (var b = 0; b < fMyConns.length; b++) {
@@ -580,7 +670,11 @@ BaseSock.prototype.doAuthorize = function () {
 				var bpAns = new baseMessage();
 				bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 				bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-				bpAns.setDataFromHexString('00'); // OK!
+
+				var authResponse = new Buffer(4); // response is a TXserver value which Base previously saved into our DB via SystemMessage 0x07
+				authResponse.writeUInt32LE(result[0][0].oTXserver, 0); // we store/restore it as Little Endian
+
+				bpAns.setDataFromHexString(authResponse);
 
 				// should we force other side to re-sync?
 				if (result[0][0].oForceSync == 1) {
@@ -597,7 +691,7 @@ BaseSock.prototype.doAuthorize = function () {
 
 				// something pending for Base? (oForceSync is 0 if there is something pending in DB)
 				if (result[0][0].oForceSync == 0) {
-					socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
+					socket.myObj.wlog.info('  ...there is pending data for Base, starting sender in a bit...');
 					socket.startQueuedItemsSender();
 				}
 			});

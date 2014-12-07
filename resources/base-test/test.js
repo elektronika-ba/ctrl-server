@@ -4,15 +4,15 @@ var net = require('net');
 var baseMessage = require('../../js/messages/baseMessage');
 var crypto = require('crypto');
 
-var HOST = '78.47.48.138'; // www.ctrl.ba
-//var HOST = '127.0.0.1';
+//var HOST = '78.47.48.138'; // www.ctrl.ba
+var HOST = '127.0.0.1';
 var PORT = 8001;
 
 var authorized = false;
 var TXserver = 0;
 var TXbase = 1;
 var tmrSimulator = null;
-var aes128Key = new Buffer([0x20,0x6a,0xad,0xf2,0x7b,0xfe,0xb3,0x31,0xd8,0xcb,0xb2,0x70,0xd3,0x7e,0x45,0x8b]);
+var aes128Key = new Buffer([0x20,0x6a,0xad,0xf2,0x7b,0xfe,0xb3,0x31,0xd8,0xcb,0xb2,0x70,0xd3,0x7e,0x45,0x8a]);
 var authPhase = 1;
 var client = new net.Socket();
 
@@ -26,7 +26,7 @@ client.connect(PORT, HOST, function () {
         // login
         var msg = new baseMessage();
         msg.setData(new Buffer([
-        	0xaa, 0xcc, 0xa5, 0x39, 0xd1, 0x59, 0xa7, 0xca, 0x30, 0x0a, 0xee, 0x98, 0xde, 0xda, 0x7e, 0x93,
+        	0xaa, 0xcc, 0xa5, 0x39, 0xd1, 0x59, 0xa7, 0xca, 0x30, 0x0a, 0xee, 0x98, 0xde, 0xda, 0x7e, 0x92,
         ]));
         var aaa = msg.buildEncryptedMessage(new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]), crypto.randomBytes(16));
         client.write(aaa, 'hex');
@@ -85,6 +85,8 @@ client.on('data', function (data) {
 				if(bp.getIsSync()) {
 					TXserver = 0;
 				}
+
+				simulator();
 			}
 		}
 		// not authentication communication
@@ -132,7 +134,10 @@ client.on('data', function (data) {
 				if (bpAck.getIsProcessed()) {
 					// system messages from Server?
 					if (bp.getIsSystemMessage()) {
-						console.log('  ...system message received! Dont know what to do here...');
+						console.log('  ...system message received!');
+
+						// lets see what we got here, it can be a server-stored-variable or timestamp.
+						console.log(bp.getData()); // too lazy, just print it to console
 					}
 					else {
 						console.log('  ...fresh data!');
@@ -159,6 +164,7 @@ client.on('error', function (err) {
 });
 
 function simulator() {
+	/*
     console.log('Sending data to all associated Clients on my CTRL account. TXsender:', TXbase);
 
     var bp = new baseMessage();
@@ -171,4 +177,15 @@ function simulator() {
     client.write(aaa, 'hex');
 
     TXbase++;
+    */
+
+	// request server-stored-variable
+    var bp = new baseMessage();
+    bp.setIsSystemMessage(true);
+    bp.setIsNotification(true);
+    //bp.setData(new Buffer('05AABBCCDD','hex'));
+    bp.setData(new Buffer('06','hex'));
+    var aaa = bp.buildEncryptedMessage(aes128Key, crypto.randomBytes(16));
+    client.write(aaa, 'hex');
+    console.log('> Variable Req sent.');
 }
