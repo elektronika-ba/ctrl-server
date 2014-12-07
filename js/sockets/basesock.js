@@ -371,7 +371,7 @@ BaseSock.prototype.onData = function () {
 										bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 										bpSys.setData(variableResponse);
 
-										socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
+										socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
 
 										bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
 									});
@@ -392,7 +392,7 @@ BaseSock.prototype.onData = function () {
 								bpSys.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 								bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 								bpSys.setData(ts);
-								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
+								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
 
 								bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
 							}
