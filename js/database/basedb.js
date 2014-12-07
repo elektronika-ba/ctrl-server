@@ -117,17 +117,16 @@ exports.authBasePhase2 = function (IDbase, callback) {
     });
 };
 
-exports.authBaseError = function (baseid, remoteAddress, callback) {
+exports.authBaseError = function (baseid, remoteAddress) {
     var sql = "INSERT INTO base_auth_fail (stamp_system, baseid, remote_ip) VALUES(NOW(), ?, ?)";
 
     pool.getConnection(function (err, connection) {
-        if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
+        if (err) { console.log('MySQL connection pool error:', err); return; }
 
         connection.query(sql, [baseid, remoteAddress], function (err, result) {
             connection.release();
 
-            if (err) { console.log('authBaseError() error:', err); callback(true); return; }
-            callback(false);
+            if (err) { console.log('authBaseError() error:', err); return; }
         });
     });
 

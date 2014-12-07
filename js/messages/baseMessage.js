@@ -242,18 +242,19 @@ baseMessage.prototype.unpackAsEncryptedMessage = function (aes128Key) {
     var encryptedMessage = new Buffer(allLength - 16);
     this.binaryPackage.copy(encryptedMessage, 0, 2);
 
-    // debug
+    /*// debug
+    console.log('aes128Key:', aes128Key.toString('hex'));
     console.log('binaryPackage:', this.binaryPackage.toString('hex'));
     console.log('allLength:', allLength);
     console.log('encryptedMessage:', encryptedMessage.toString('hex'));
     console.log('cmac:', cmac.toString('hex'));
-    //--
+    //--*/
 
     // Validate CMAC first
     var cmacCalculated = this.calcCMAC(encryptedMessage, aes128Key);
 
 	//debug
-    console.log('calculated cmac:', cmacCalculated.toString('hex'));
+    //console.log('calculated cmac:', cmacCalculated.toString('hex'));
     //--
 
 	if( cmac.toString('hex') != cmacCalculated.toString('hex') ) {
@@ -321,7 +322,15 @@ baseMessage.prototype.buildPlainMessage = function () {
 
     if (this.data.length > 0) {
         message = new Buffer.concat([message, this.data]);
+
+		// debug
+		//console.log('buildPlainMessage() added data, because this.data.length is > 0:', this.data.length);
+		//--
     }
+
+	// debug
+    //console.log('buildPlainMessage().message+data:', message.toString('hex'));
+	//--
 
     var messageLength = new Buffer(2);
     messageLength.writeUInt16LE(message.length, 0);
@@ -334,7 +343,7 @@ baseMessage.prototype.buildPlainMessage = function () {
     }
 
     // debug
-    //console.log('buildPlainMessage().message:', message.toString('hex'));
+    //console.log('buildPlainMessage().complete message:', message.toString('hex'));
     //--
 
     return message;
@@ -376,10 +385,10 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key, random16bytes
         var appendStuff = new Buffer(addThisMuch);
         randomIv.copy(appendStuff, 0, 0, addThisMuch); // use IV as padding
 
-        // debug
-        /*console.log('padding count:', addThisMuch);
-        console.log('appendStuff:', appendStuff.toString('hex'));*/
-        //--
+        /*// debug
+        console.log('padding count:', addThisMuch);
+        console.log('appendStuff:', appendStuff.toString('hex'));
+        //--*/
 
         toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
     }
@@ -422,6 +431,10 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key, random16bytes
         console.log('Error in baseMessage.buildPackage(), data too long, can not fit!');
         return new Buffer(0);
     }
+
+    // debug
+    //console.log('buildEncryptedMessage().binaryPackage:', this.binaryPackage.toString('hex'));
+    //--
 
     return this.binaryPackage;
 };
@@ -575,11 +588,5 @@ baseMessage.prototype.calcCMAC = function (msg, aes128Key)
 	// STEP 7.
 	return cmac;
 }
-
-// test
-var a=new baseMessage();
-//0x20,0x6a,0xad,0xf2,0x7b,0xfe,0xb3,0x31,0xd8,0xcb,0xb2,0x70,0xd3,0x7e,0x45,0x8a
-console.log( a.calcCMAC(new Buffer('e7035fb7421a2d76a2217b55858b6eb083566dfc13c259ebee933806ffffaf2ce606fcd98e81000000008828ff3f62006200000001000435b7f9b05bbcae157c38b7e8250c3db25e2ded964dc9de57db','hex'), new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])) );
-//--
 
 module.exports = baseMessage;

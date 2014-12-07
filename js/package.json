@@ -1,12 +1,11 @@
 {
   "name": "CTRL",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "CTRL - Remote Control Thing",
   "main": "server.js",
   "dependencies": {
     "moment": "~2.6.0",
     "mysql": "~2.1.1",
-    "node-gcm": "~0.9.10",
     "winston": "~0.7.3"
   },
   "devDependencies": {},
@@ -20,5 +19,5 @@
     "elektronika"
   ],
   "author": "Trax",
-  "license": "WTF"
+  "license": "MIT"
 }

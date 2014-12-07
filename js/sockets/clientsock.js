@@ -583,7 +583,7 @@ ClientSock.prototype.sendBasesStatusNotification = function () {
             var ccm = {};
             ccm.type = "base_connection_status";
             ccm.connected = foundConnected;
-            ccm.baseid = baseid;
+            ccm.baseid = baseid.toString('hex');
             jsNotif.setDataAsObject(ccm);
 
             var jsonPackageAsString = JSON.stringify(jsNotif.buildMessage());

@@ -22,15 +22,18 @@ function BaseSock(socket) {
     self.socket = socket;
 
     socket.myObj = {
-        IDbase: null, // once authorized this will hold IDbase
-        baseid: null, // once authorized this will hold Base ID
-        timezome: 0, // once authorized this will hold TimeZone for this Base
-        TXbase: 0, // once authorized this will hold last sequence id received from Base (integer - 4 bytes)
-        aes128Key: new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), // once authorized this will hold crypt key used to talk to Base. Until then, encyrption key is all zeroes and communication is encrypted using this key
+		authorized: false, // once authorized this will be true
+        IDbase: null,
+        baseid: Buffer(0),
+        timezome: 0,
+        TXbase: 0,
+        aes128Key: new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
 
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
         random16bytes: new Buffer(16), // this holds 16 bytes of previous encrypted data we sent to be used as IV for next encryption
+        authPhase: 1, // authentication works in two-phase negotiation, this saves current auth phase
+        challengeValue: new Buffer(16), // the value we sent to Base which we will expect back to verify the socket
 
         tmrSenderTask: null, // timer for task that sends data from queue (stored in MySQL) to Base on socket, one-by-one
         ip: null,
@@ -59,7 +62,7 @@ function BaseSock(socket) {
     // Remove the base from the list when it leaves
     socket.on('end', function () {
         wlog.info("Connection to Base %s closed.", socket.myObj.ip);
-        if (socket.myObj.IDbase != null) {
+        if (socket.myObj.authorized == true) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
             Database.baseOnlineStatus(socket.myObj.IDbase, 0);
             socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
@@ -76,7 +79,7 @@ function BaseSock(socket) {
     socket.on('error', function (e) {
         if (e.code == 'ECONNRESET' || e.code == 'ETIMEDOUT') {
             wlog.info("Connection to Base %s dropped.", socket.myObj.ip);
-            if (socket.myObj.IDbase != null) {
+            if (socket.myObj.authorized == true) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
                 Database.baseOnlineStatus(socket.myObj.IDbase, 0);
                 socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
@@ -168,7 +171,7 @@ BaseSock.prototype.onData = function () {
         // unpack must succeed for message to be processed further
         if (bp.unpackAsEncryptedMessage(socket.myObj.aes128Key)) {
             // if unauthorized try authorizing with this received message!
-            if (socket.myObj.IDbase == null) {
+            if (socket.myObj.authorized == false) {
                 self.doAuthorize();
             }
             else {
@@ -329,7 +332,7 @@ BaseSock.prototype.onData = function () {
                                 }
 
                                 if (rows.length <= 0) {
-                                    socket.myObj.wlog.info('No Clients associated with Base (', socket.myObj.IDbase, ') yet! Strange...');
+                                    socket.myObj.wlog.info('No Clients associated with Base (', socket.myObj.baseid.toString('hex'), ') yet! Strange...');
                                     return;
                                 }
 
@@ -399,7 +402,7 @@ BaseSock.prototype.onData = function () {
             } // authorized...
         } // is CMAC valid?
         else {
-			if (socket.myObj.IDbase != null) {
+			if (socket.myObj.authorized == true) {
             	socket.myObj.wlog.info('  ...CMAC validation failed. Message discarded!');
 			}
 			else {
@@ -442,178 +445,185 @@ BaseSock.prototype.doAuthorize = function () {
     var self = this;
     var socket = self.socket;
     var bp = self.bp;
-    var authBytes = bp.getData();
 
-    // authBytes contains:
-    // 16 bytes of baseId
-    // 32 bytes containing 16 random bytes that can be discarded (after decryption) and 16 bytes of baseId, which when decrypted must match provided baseId (the very first 16 bytes of authBytes)
-
-    if (socket.myObj.IDbase != null) {
+    if (socket.myObj.authorized == true) {
         socket.myObj.wlog.warn('Base attempted to re-authorize, request ignored!');
         return;
     }
 
-    if (authBytes.length != 48) {
-        wlog.info('Error in doAuthorize(), didn\'t get required 48 bytes of command to continue (', authBytes.length, ').');
-        return;
-    }
+	// Stage 1 (we received encrypted BASE ID from Base - it is decrypted already in "authBytes")
+	// It was encrypted with zero-key. In case you are wondering why we are using zero-key here,
+	// it is because of the Base<->Server binary protocol - all communication must be encrypted.
+	// Now we need to send this Base a challenge which is encrypted with it's actual secret key.
+	// Base will verify CMAC, decrypt it and send us a reply back and hopefully the socket will
+	// get authorized and that's it.
+	if(socket.myObj.authPhase == 1) {
+		var baseid = bp.getData();
 
-    var baseid = new Buffer(16);
-    authBytes.copy(baseid, 0, 0, 16);
-    var encryptedBaseId = new Buffer(32);
-    authBytes.copy(encryptedBaseId, 0, 16);
+		if (baseid.length != 16) {
+			wlog.info('Error in doAuthorize() stage 1, didn\'t get required 16 bytes of data to continue (', baseid.length, ').');
+			return;
+		}
 
-    encryptedBaseId.copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption (will be used in case this Base gets authorized)
+		Database.authBasePhase1(baseid.toString('hex'), socket.myObj.ip, Configuration.base.sock.MAX_AUTH_ATTEMPTS, Configuration.base.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
+			if (err) {
+				wlog.error('Unknown error in Database.authBasePhase1()!');
 
-    Database.authBasePhase1(baseid.toString('hex'), socket.myObj.ip, Configuration.base.sock.MAX_AUTH_ATTEMPTS, Configuration.base.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
-        if (err) {
-            wlog.error('Unknown error in Database.authBasePhase1()!');
+				socket.end();
+				socket.destroy();
+				return;
+			}
 
-            socket.end();
-            socket.destroy();
-            return;
-        }
+			// provided baseid exists in database (and auth limit not exceeded)?
+			if (result[0][0].oOK == 1) {
+				// stupid random number generator for challenge value
+				for(var i=0; i<4; i++) {
+					var nr = Math.floor((Math.random() * 0xFFFFFFFF) + 1);
+					socket.myObj.challengeValue.writeUInt32LE(nr, i*4);
+				}
 
-        // provided baseid exists in database (and auth limit not exceeded)?
-        if (result[0][0].oOK == 1) {
-            socket.myObj.aes128Key = new Buffer(result[0][0].oCryptKey, 'hex');
-            socket.myObj.timezone = result[0][0].oTimezone;
-            socket.myObj.baseid = baseid.toString('hex');
-            var dbTXbase = result[0][0].oTXbase;
-            var dbIDbase = result[0][0].oIDbase;
+				socket.myObj.authorized = false;
+				socket.myObj.IDbase = result[0][0].oIDbase;
+				socket.myObj.baseid = baseid;
+				socket.myObj.aes128Key = new Buffer(result[0][0].oCryptKey, 'hex');
+				socket.myObj.timezone = result[0][0].oTimezone;
+				socket.myObj.TXbase = result[0][0].oTXbase;
 
-            // Decrypt and compare if last 16 bytes are in fact "baseid" we expect. This time use the "crypt_key" of provided "baseid"
-            var decipher = crypto.createDecipheriv('aes-128-cbc', socket.myObj.aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
-            decipher.setAutoPadding(false);
-            var decrypted = decipher.update(encryptedBaseId, 'hex', 'hex'); //.final('hex') not required?
+				// send challenge
+				var bpChall = new baseMessage();
+				bpChall.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+				bpChall.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+				bpChall.setData(socket.myObj.challengeValue);
+				socket.write(bpChall.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
 
-			// !!!!!!!!! IMPORTANT TODO: MAKE CHALLANGE-RESPONSE AUTHENTICATION
+    			bpChall.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
 
-            // compare/verify
-            var unpackedBaseid = new Buffer(16);
-            new Buffer(decrypted, 'hex').copy(unpackedBaseid, 0, 16);
-            if (unpackedBaseid.toString('hex') != baseid.toString('hex')) {
-                socket.myObj.baseid = null;
-                socket.myObj.IDbase = null;
-                socket.myObj.aes128Key = null;
+    			socket.myObj.authPhase++; // next stage...
+			}
+			else {
+				wlog.info('Base', baseid.toString('hex'), 'authorization error, non-existing BaseID!');
 
-                wlog.info('Base', baseid.toString('hex'), 'authorization error, decrypted BaseID does not match!');
+				// log auth attempt
+				Database.authBaseError(baseid.toString('hex'), socket.myObj.ip);
 
-                // log auth attempt
-                Database.authBaseError(baseid.toString('hex'), socket.myObj.ip);
+				socket.myObj.authPhase = 255; // move away from any valid Stage number and wait for timer to close this socket
+			}
+		});
+	}
+	// Stage 2 (we need to read the answer to my challenge from Base)
+	// This stage is encrypted with our actual secret key.
+	// The answer is the same challange we sent out, but with additional 16 bytes of whatever Base sent us (we discard it).
+	// The challange we send out is in last 16 bytes of response we are about to parse. We are in AES-CBC mode so
+	// this kind of challenge-response is safe.
+	else if(socket.myObj.authPhase == 2) {
+		var challResponse = bp.getData();
 
-                var bpAns = new baseMessage();
-                bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
-                bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-                bpAns.setDataFromHexString('01'); // ERROR! Wrong encrypted baseid value
+		if (challResponse.length != 32) {
+			wlog.info('Error in doAuthorize() stage 2, didn\'t get required 32 bytes of data to continue (', challResponse.length, ').');
+			return;
+		}
 
-                // answer but with default AES-128 key (all zeroes)
-                socket.write(bpAns.buildEncryptedMessage(new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), socket.myObj.random16bytes), 'hex');
-            }
-            else {
-                Database.authBasePhase2(dbIDbase, function (err, result) {
-                    if (err) {
-                        wlog.error('Unknown error in Database.authBasePhase2()!');
+		var extractedChallengeValue = new Buffer(16);
+		challResponse.copy(extractedChallengeValue, 0, 16);
 
-                        socket.end();
-                        socket.destroy();
-                        return;
-                    }
+		// all good?
+		if(extractedChallengeValue.toString('hex') == socket.myObj.challengeValue.toString('hex')) {
+			Database.authBasePhase2(socket.myObj.IDbase, function (err, result) {
+				if (err) {
+					wlog.error('Unknown error in Database.authBasePhase2()!');
 
-                    clearTimeout(socket.myObj.authTimer);
+					socket.end();
+					socket.destroy();
+					return;
+				}
 
-                    wlog.info('  ...authorized as IDbase =', dbIDbase);
+				clearTimeout(socket.myObj.authTimer);
 
-                    // kill all potentially already existing connections of this Base
-                    // (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
-                    var fMyConns = connBases.filter(function (item) {
-                        return (dbIDbase == item.myObj.IDbase);
-                    });
-                    // there should be maximum one existing connection here, but lets loop it just to make sure we close them all
-                    for (var b = 0; b < fMyConns.length; b++) {
-                        wlog.info('  ...found already existing connection at', fMyConns[b].myObj.ip, ', continuing its TXbase (', fMyConns[b].myObj.TXbase, '). Destroying it now!');
-                        dbTXbase = fMyConns[b].myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
-                        fMyConns[b].myObj.baseid = null;
-                        fMyConns[b].myObj.IDbase = null;
-                        fMyConns[b].destroy(); // NOTE: this will trigger an error on socket error listener...
-                    }
+				wlog.info('  ...authorized as IDbase =', socket.myObj.IDbase);
 
-                    wlog.info('  ...stopping logging in this file.');
+				// kill all potentially already existing connections of this Base
+				// (if TCP error happens and keep-alive is not used, then connection might remain active so we must destroy it)
+				var fMyConns = connBases.filter(function (item) {
+					return (socket.myObj.IDbase == item.myObj.IDbase && socket.myObj.authorized == true);
+				});
+				// there should be maximum one existing connection here, but lets loop it just to make sure we close them all
+				for (var b = 0; b < fMyConns.length; b++) {
+					wlog.info('  ...found already existing connection at IP', fMyConns[b].myObj.ip, ', continuing its TXbase (', fMyConns[b].myObj.TXbase, '). Destroying it now!');
+					socket.myObj.TXbase = fMyConns[b].myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
+					fMyConns[b].myObj.authorized = false;
+					fMyConns[b].destroy(); // NOTE: this will trigger an error on socket error listener... but what can we do about it, eh?
+				}
 
-                    // this marks socket as "authenticated"
-                    socket.myObj.IDbase = dbIDbase;
+				wlog.info('  ...stopping logging in this file.');
 
-                    // instantiate logger for this IDbase
-                    socket.myObj.wlog = new (winston.Logger)({
-                        transports: [
-						  new (winston.transports.Console)(),
-						  new (winston.transports.File)({ filename: './log/basesock/' + socket.myObj.IDbase + '.json' })
-                        ]
-                    });
+				socket.myObj.authorized = true;
 
-                    socket.myObj.wlog.info('Base', baseid.toString('hex'), '(', socket.myObj.ip, ') authorized.');
+				// instantiate logger for this IDbase
+				socket.myObj.wlog = new (winston.Logger)({
+					transports: [
+					  new (winston.transports.Console)(),
+					  new (winston.transports.File)({ filename: './log/basesock/' + socket.myObj.IDbase + '.json' })
+					]
+				});
 
-                    // is other side forcing us to re-sync?
-                    if (bp.getIsSync()) {
-                        socket.myObj.TXbase = 0;
-                        socket.myObj.wlog.info('  ...re-syncing TXbase to: 0.');
-                    }
-                    else {
-                        socket.myObj.TXbase = dbTXbase;
-                        socket.myObj.wlog.info('  ...re-loading TXbase:', dbTXbase);
-                    }
+				socket.myObj.wlog.info('Base', socket.myObj.baseid.toString('hex'), 'at IP', socket.myObj.ip, 'authorized.');
 
-                    var bpAns = new baseMessage();
-                    bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
-                    bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-                    bpAns.setDataFromHexString('00'); // OK!
+				// is other side forcing us to re-sync?
+				if (bp.getIsSync()) {
+					socket.myObj.TXbase = 0;
+					socket.myObj.wlog.info('  ...re-syncing TXbase to: 0.');
+				}
+				else {
+					socket.myObj.wlog.info('  ...re-loading TXbase:', socket.myObj.TXbase);
+				}
 
-                    // should we force other side to re-sync?
-                    if (result[0][0].oForceSync == 1) {
-                        bpAns.setIsSync(true);
-                        socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
-                    }
+				var bpAns = new baseMessage();
+				bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
+				bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
+				bpAns.setDataFromHexString('00'); // OK!
 
-                    // answer but with default AES-128 key (all zeroes)
-                    socket.write(bpAns.buildEncryptedMessage(new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), socket.myObj.random16bytes), 'hex');
+				// should we force other side to re-sync?
+				if (result[0][0].oForceSync == 1) {
+					bpAns.setIsSync(true);
+					socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
+				}
 
-                    self.informMyClients(true);
-                    Database.baseOnlineStatus(socket.myObj.IDbase, 1);
+				socket.write(bpAns.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
 
-                    // something pending for Base? (oForceSync is 0 if there is something pending in DB)
-                    if (result[0][0].oForceSync == 0) {
-                        socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
-                        socket.startQueuedItemsSender();
-                    }
-                });
-            }
-        }
-        else {
-            socket.myObj.baseid = null;
-            socket.myObj.IDbase = null;
-            socket.myObj.aes128Key = null;
+				bpAns.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
 
-            wlog.info('Base', baseid.toString('hex'), 'authorization error, non-existing BaseID!');
+				self.informMyClients(true);
+				Database.baseOnlineStatus(socket.myObj.IDbase, 1);
 
-            // log auth attempt
-            Database.authBaseError(baseid.toString('hex'), socket.myObj.ip);
+				// something pending for Base? (oForceSync is 0 if there is something pending in DB)
+				if (result[0][0].oForceSync == 0) {
+					socket.myObj.wlog.info('  ...there is pending data for Base, starting sender...');
+					socket.startQueuedItemsSender();
+				}
+			});
 
-            var bpAns = new baseMessage();
-            bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
-            bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-            bpAns.setDataFromHexString('01'); // ERROR! Wrong baseid provided
+			socket.myObj.authPhase++; // move away from last phase
+		}
+		// no way!
+		else {
+			wlog.info('Base', socket.myObj.baseid.toString('hex'), 'authorization error, wrong response to my challenge!');
 
-            // answer but with default AES-128 key (all zeroes)
-            socket.write(bpAns.buildEncryptedMessage(new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), socket.myObj.random16bytes), 'hex');
-        }
-    });
+			// log auth attempt
+			Database.authBaseError(socket.myObj.baseid.toString('hex'), socket.myObj.ip);
+
+			socket.myObj.authPhase = 255; // move away from any valid Phase number and wait for timer to close this socket
+		}
+	}
+	else {
+		wlog.info('Base', socket.myObj.baseid.toString('hex'), 'authorization error, received data for invalid Phase!');
+	}
 };
 
 BaseSock.prototype.informMyClients = function (connected) {
     var self = this;
     var socket = self.socket;
 
-    if (socket.myObj.IDbase == null) return;
+    if (socket.myObj.authorized == false) return;
 
     Database.getClientsOfBase(socket.myObj.IDbase, function (err, rows, columns) {
         if (err) {
@@ -628,7 +638,7 @@ BaseSock.prototype.informMyClients = function (connected) {
         cm.setIsNotification(true);
         cm.setIsSystemMessage(true);
         var ccm = {
-            "baseid": socket.myObj.baseid,
+            "baseid": socket.myObj.baseid.toString('hex'),
             "type": "base_connection_status",
             "connected": connected,
         };

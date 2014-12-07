@@ -203,18 +203,18 @@ function doAuthorize(socket) {
 }
 
 function simulator() {
-    console.log('Sending data to all associated Bases on my CTRL account. TXsender:', TXclient);
+    console.log('Sending data... TXsender:', TXclient);
 
     // Note: we can send data to a targeted Base, but lets send to all for this example...
 
 	// synchronized message example
-	/*
-    var authCommand = { "header": {"notification": true}, "TXsender": TXclient, "data": "010203040506070809" };
+    var authCommand = { "header": {"notification": false}, "baseid": ["790fef4eeab6e9e6ff4fabc2a0eb5b9d"], "TXsender": TXclient, "data": "010203040506070809" };
     client.socket.write(JSON.stringify(authCommand) + '\n', 'ascii');
     TXclient++;
-    */
 
+    /*
     // notification message example
-    var authCommand = { "header": {"notification": true}, "TXsender": 0, "data": "010203040506070809" };
-    client.socket.write(JSON.stringify(authCommand) + '\n', 'ascii');
+    var yo = { "header": {"notification": true}, "TXsender": 0, "data": "010203040506070809" };
+    client.socket.write(JSON.stringify(yo) + '\n', 'ascii');
+    */
 }
