@@ -46,7 +46,7 @@ client.on('data', function (data) {
 
 		// parsing authorization communication?
 		if(!authorized) {
-			console.log('RX:', bp.getBinaryPackage().toString('hex'));
+			//console.log('RX:', bp.getBinaryPackage().toString('hex'));
 
 			if(authPhase == 1) {
 				// parse it
@@ -86,7 +86,8 @@ client.on('data', function (data) {
 					TXserver = 0;
 				}
 
-				simulator();
+                // start a simulator that will send some stuff to Clients
+                tmrSimulator = setInterval(simulator, 5000);
 			}
 		}
 		// not authentication communication
@@ -123,7 +124,7 @@ client.on('data', function (data) {
 						TXserver++; // next package we will receive should be +1 of current value, so lets ++
 					}
 
-					client.write(bpAck.buildPackage(), 'hex');
+                    client.write(bpAck.buildEncryptedMessage(aes128Key, crypto.randomBytes(16)), 'hex');
 					console.log('  ...ACK sent back for TXsender:', bp.getTXsender());
 				}
 				else {
@@ -164,7 +165,6 @@ client.on('error', function (err) {
 });
 
 function simulator() {
-	/*
     console.log('Sending data to all associated Clients on my CTRL account. TXsender:', TXbase);
 
     var bp = new baseMessage();
@@ -177,9 +177,9 @@ function simulator() {
     client.write(aaa, 'hex');
 
     TXbase++;
-    */
 
-	// request server-stored-variable
+	/*
+    // request server-stored-variable
     var bp = new baseMessage();
     bp.setIsSystemMessage(true);
     bp.setIsNotification(true);
@@ -188,4 +188,5 @@ function simulator() {
     var aaa = bp.buildEncryptedMessage(aes128Key, crypto.randomBytes(16));
     client.write(aaa, 'hex');
     console.log('> Variable Req sent.');
+    */
 }

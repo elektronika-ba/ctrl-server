@@ -8,7 +8,7 @@ var net = require('net');
 var clientMessage = require('../../js/messages/clientMessage');
 
 var connectToVersion = 1;
-var authToken = 'gln42XbaSAWBQlc9f2lGqHzX2SAsaE9gRnbHbcJTDulkHpkNgx';
+var authToken = 'fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4';
 var TXserver = 0;
 var TXclient = 1;
 var dataBuff = '';
@@ -29,15 +29,15 @@ fs.readFile('./TXserver.txt', function(err, data) {
 });
 
 var sslOptions = {
-    cert: fs.readFileSync('./ctrlba_cert.pem'),
-    ca: fs.readFileSync('./ctrlba_cert.pem'),
+    cert: fs.readFileSync('./localhost_cert.pem'),
+    ca: fs.readFileSync('./localhost_cert.pem'),
     rejectUnauthorized: false
 };
 
 var client = this;
 
 // Connect to TLS CTRL Server
-client.socket = tls.connect(9000 + connectToVersion, 'ctrl.ba', sslOptions, function() {
+client.socket = tls.connect(9000 + connectToVersion, 'localhost', sslOptions, function() {
     client.socket.setKeepAlive(true, 1000);
 
     if (client.socket.authorized) {
@@ -208,7 +208,7 @@ function simulator() {
     // Note: we can send data to a targeted Base, but lets send to all for this example...
 
 	// synchronized message example
-    var authCommand = { "header": {"notification": false}, "baseid": ["790fef4eeab6e9e6ff4fabc2a0eb5b9d"], "TXsender": TXclient, "data": "010203040506070809" };
+    var authCommand = { "header": {"notification": false}, "TXsender": TXclient, "data": "010203040506070809" };
     client.socket.write(JSON.stringify(authCommand) + '\n', 'ascii');
     TXclient++;
 
