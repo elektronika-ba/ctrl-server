@@ -11,6 +11,16 @@
 */
 
 var crypto = require('crypto');
+var Configuration = require('../configuration/configuration');
+
+// Random IV pool
+// To avoid executing crypto.randomBytes() for each encryption, lets
+// call it once and generate lots of random IVs. When it empties, some
+// poor base socket will re-generate the entire pool and re-fill it. It takes
+// the same amount of time to generate 8kb of random data as it takes
+// to generate 128kb of data (this is experimentally measured on my Windows PC)
+// so this method will speed things up a lot!
+var randomIvPool = new Buffer(0); // buildEncryptedMessage() will take care of this pool (init, consumption and re-init)
 
 var HEADER_SYNC = 0x01; // if other side should sync to 0?
 var HEADER_ACK = 0x02; // this packet IS ack
@@ -366,16 +376,25 @@ baseMessage.prototype.buildPlainMessage = function () {
 
 // this encrypts message and prepares the package for sending and returns it as Buffer.
 // if something goes wrong it returns empty buffer
-baseMessage.prototype.buildEncryptedMessage = function (aes128Key, random16bytes) {
+baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
     // [ALL_LENGTH] { [RANDOM_IV] [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed] } [CMAC]
 
-    var randomIv;
-    if (!random16bytes || random16bytes == null) {
-        randomIv = crypto.randomBytes(16); // NOTE: This is SLOW. Even though it might be the best way to go, we must not slow things down!
+    // re-fill the pool because it is empty?
+    if (!randomIvPool || randomIvPool == null || randomIvPool.length < 16) {
+        //console.log('randomIvPool is empty, re-generating...');
+        try {
+            randomIvPool = crypto.randomBytes(Configuration.base.randomIvPoolSize);
+        } catch (ex) {
+            // handle error, most likely, entropy sources are drained
+            randomIvPool = crypto.pseudoRandomBytes(Configuration.base.randomIvPoolSize); // any better ideas?
+        }
     }
-    else {
-        randomIv = random16bytes; // we will use provided 16 bytes as randomness
-    }
+
+    // take first 16 bytes from the Pool and remove them
+    var randomIv = new Buffer(16);
+    randomIvPool.copy(randomIv, 0, 0, 16);
+    randomIvPool = randomIvPool.slice(16);
+    //console.log('randomIvPool.size=', randomIvPool.length);
 
     // Build the message in plaintext (still not encrypted)
     var toEncrypt = this.buildPlainMessage();

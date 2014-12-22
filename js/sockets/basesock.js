@@ -31,7 +31,7 @@ function BaseSock(socket) {
 
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
-        random16bytes: new Buffer(16), // this holds 16 bytes of previous encrypted data we sent to be used as IV for next encryption
+        //random16bytes: new Buffer(16), // this holds 16 bytes of previous encrypted data we sent to be used as IV for next encryption
         authPhase: 1, // authentication works in two-phase negotiation, this saves current auth phase
         challengeValue: new Buffer(16), // the value we sent to Base which we will expect back to verify the socket
 
@@ -132,10 +132,8 @@ function BaseSock(socket) {
                         bp.unpackAsPlainMessage();
                         bp.setTXsender(result[0][0].oTXserver);
 
-                        socket.write(bp.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
+                        socket.write(bp.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
                         socket.myObj.wlog.info('  ...sent.');
-
-                        bp.getBinaryPackage().copy(socket.myObj.random16bytes, 0, bp.getBinaryPackage().length-16); // prepare IV for next encryption
 
                         // if nothing else unsent in queue, stop this interval
                         if (result[0][0].oMoreInQueue == 0) {
@@ -293,10 +291,8 @@ BaseSock.prototype.onData = function () {
                             socket.myObj.TXbase++; // next package we will receive should be +1 of current value, so lets ++
                         }
 
-                        socket.write(bpAck.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
+                        socket.write(bpAck.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
                         socket.myObj.wlog.info('  ...ACK sent back for TXsender:', bp.getTXsender());
-
-                        bp.getBinaryPackage().copy(socket.myObj.random16bytes, 0, bp.getBinaryPackage().length - 16); // prepare IV for next encryption
                     }
                     else {
                         bpAck.setIsProcessed(true); // we need this for bellow code to execute
@@ -371,9 +367,7 @@ BaseSock.prototype.onData = function () {
 										bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 										bpSys.setData(variableResponse);
 
-										socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
-
-										bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+										socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 									});
 								}
 								else {
@@ -392,9 +386,7 @@ BaseSock.prototype.onData = function () {
 								bpSys.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 								bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 								bpSys.setData(ts);
-								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
-
-								bpSys.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 							}
 							/*
 							else if (bp.getData().length>0 && bp.getData()[0] == 0x07) {
@@ -584,9 +576,7 @@ BaseSock.prototype.doAuthorize = function () {
 				bpChall.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 				bpChall.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 				bpChall.setData(socket.myObj.challengeValue);
-				socket.write(bpChall.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.challengeValue), 'hex');
-
-    			bpChall.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+				socket.write(bpChall.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 
     			socket.myObj.authPhase++; // next stage...
 			}
@@ -682,9 +672,7 @@ BaseSock.prototype.doAuthorize = function () {
 					socket.myObj.wlog.info('  ...forcing Base to re-sync because I don\'t have anything pending for it.');
 				}
 
-				socket.write(bpAns.buildEncryptedMessage(socket.myObj.aes128Key, socket.myObj.random16bytes), 'hex');
-
-				bpAns.getBinaryPackage().copy(socket.myObj.random16bytes, 0, 0, 16); // prepare IV for next encryption
+				socket.write(bpAns.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 
 				self.informMyClients(true);
 				Database.baseOnlineStatus(socket.myObj.IDbase, 1);

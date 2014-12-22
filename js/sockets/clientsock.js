@@ -335,10 +335,8 @@ ClientSock.prototype.onData = function () {
                                             });
 
                                             if (fBaseSockets.length == 1) {
-                                                fBaseSockets[0].write(bp.buildEncryptedMessage(fBaseSockets[0].myObj.aes128Key, fBaseSockets[0].myObj.random16bytes), 'hex');
+                                                fBaseSockets[0].write(bp.buildEncryptedMessage(fBaseSockets[0].myObj.aes128Key), 'hex');
                                                 fBaseSockets[0].myObj.wlog.info('  ...sent (piped).');
-
-                                                bp.getBinaryPackage().copy(fBaseSockets[0].myObj.random16bytes, 0, bp.getBinaryPackage().length-16); // prepare IV for next encryption
                                             }
                                             else if (fBaseSockets.length > 1) {
                                                 socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');

@@ -22,6 +22,9 @@ var Configuration = {
             MAX_CONN: 1000,
         },
 
+        // Random IV Pool Size
+        randomIvPoolSize: 131072,           // custom pool size, bigger = better, but not too big! lets try with 131072bytes (128kB), that will last us for 8192 encryptions. See ../server.js for more info
+
         // Socket Setup
         sock: {
             KEEPALIVE_MS: 5000,    			// keep-alive connection timeout

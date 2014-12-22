@@ -8,6 +8,7 @@ var tls = require('tls');
 var fs = require('fs');
 var net = require('net');
 var winston = require('winston');
+var crypto = require('crypto');
 
 // Array of connected Bases and Clients (sockets)
 exports.connBases = [];
