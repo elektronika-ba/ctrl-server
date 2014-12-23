@@ -230,13 +230,6 @@ baseMessage.prototype.unpackAsPlainMessage = function () {
         this.binaryPackage.copy(this.data, 0, 2 + 1 + 4, msgLength + 1 + 4); // discard data padding here
     }
 
-    // debug
-    /*console.log('msg_length:', msgLength);
-    console.log('header:', this.header);
-    console.log('TXsender:', this.TXsender);
-    console.log('data:', this.data);*/
-    //--
-
     return true;
 };
 
@@ -267,66 +260,26 @@ baseMessage.prototype.unpackAsEncryptedMessage = function (aes128Key) {
     var encryptedMessage = new Buffer(allLength - 16);
     this.binaryPackage.copy(encryptedMessage, 0, 2);
 
-    /*// debug
-    console.log('aes128Key:', aes128Key.toString('hex'));
-    console.log('binaryPackage:', this.binaryPackage.toString('hex'));
-    console.log('allLength:', allLength);
-    console.log('encryptedMessage:', encryptedMessage.toString('hex'));
-    console.log('cmac:', cmac.toString('hex'));
-    //--*/
-
     // Validate CMAC first
     var cmacCalculated = this.calcCMAC(encryptedMessage, aes128Key);
-
-	//debug
-    //console.log('calculated cmac:', cmacCalculated.toString('hex'));
-    //--
-
 	if( cmac.toString('hex') != cmacCalculated.toString('hex') ) {
-		//console.log('Warning in baseMessage.unpack(), CMAC not valid!');
         return false;
     }
 
     // Finally decrypt the message
-    var decipher = crypto.createDecipheriv('aes-128-cbc', aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+    var decipher = crypto.createDecipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
     decipher.setAutoPadding(false);
     var decrypted = decipher.update(encryptedMessage, '', ''); //.final('hex') not required?
-
-    // debug
-    //console.log('decrypted received message w/IV:', decrypted);
-    //--
 
     // We must discard fist 16 bytes of random IV from the decrypted message
     this.binaryPackage = new Buffer(decrypted.length - 16);
     decrypted.copy(this.binaryPackage, 0, 16);
 
-    // debug
-    //console.log('decrypted received message wo/IV:', this.binaryPackage.toString('hex'));
-    //--
-
     // Now in binaryPackage we have [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed]
 
     // Finally unpack the message into appropriate data-fields
     return this.unpackAsPlainMessage(); // true if everything went OK, false if something is wrong
-
-    /*
-    // How many usable bytes follow in this message? Note: there is a posibillity that
-    // there is a padding which we need to discard, so this msgLength is important
-    var msgLength = this.binaryPackage.readUInt16LE(0);
-    if (this.binaryPackage.length < (msgLength + 2)) {
-        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
-        return;
-    }
-    this.header = this.binaryPackage.readUInt8(2);
-    this.TXsender = this.binaryPackage.readUInt32LE(3);
-
-    // Finally extract the data if there is any
-    if (msgLength > 5) {
-        this.data = new Buffer(msgLength - 5);
-        this.binaryPackage.copy(this.data, 0, 2 + 1 + 4, msgLength + 1 + 4); // discard data padding here
-    }
-    */
-}
+};
 
 // this builds and returns message part without random IV, padding and encryption stuff
 // returns built message on success or empty buffer on error
@@ -341,21 +294,9 @@ baseMessage.prototype.buildPlainMessage = function () {
 
     var message = new Buffer.concat([header, TXsender]);
 
-    // debug
-    //console.log('buildPlainMessage().message:', message.toString('hex'));
-    //--
-
     if (this.data.length > 0) {
         message = new Buffer.concat([message, this.data]);
-
-		// debug
-		//console.log('buildPlainMessage() added data, because this.data.length is > 0:', this.data.length);
-		//--
     }
-
-	// debug
-    //console.log('buildPlainMessage().message+data:', message.toString('hex'));
-	//--
 
     var messageLength = new Buffer(2);
     messageLength.writeUInt16LE(message.length, 0);
@@ -367,21 +308,12 @@ baseMessage.prototype.buildPlainMessage = function () {
         return new Buffer(0);
     }
 
-    // debug
-    //console.log('buildPlainMessage().complete message:', message.toString('hex'));
-    //--
-
     return message;
-}
+};
 
-// this encrypts message and prepares the package for sending and returns it as Buffer.
-// if something goes wrong it returns empty buffer
-baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
-    // [ALL_LENGTH] { [RANDOM_IV] [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed] } [CMAC]
-
+baseMessage.prototype.getRandomIv = function() {
     // re-fill the pool because it is empty?
     if (!randomIvPool || randomIvPool == null || randomIvPool.length < 16) {
-        //console.log('randomIvPool is empty, re-generating...');
         try {
             randomIvPool = crypto.randomBytes(Configuration.base.randomIvPoolSize);
         } catch (ex) {
@@ -390,11 +322,36 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
         }
     }
 
-    // take first 16 bytes from the Pool and remove them
+    // take and remove first 16 bytes from the Pool
     var randomIv = new Buffer(16);
     randomIvPool.copy(randomIv, 0, 0, 16);
     randomIvPool = randomIvPool.slice(16);
-    //console.log('randomIvPool.size=', randomIvPool.length);
+
+    return randomIv;
+};
+
+// this encrypts message and prepares the package for sending and returns it as Buffer.
+// if something goes wrong it returns empty buffer
+baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
+    // [ALL_LENGTH] { [RANDOM_IV] [MESSAGE_LENGTH] [HEADER] [TX_SENDER] [DATA] [padding when needed] } [CMAC]
+
+    /*
+    // re-fill the pool because it is empty?
+    if (!randomIvPool || randomIvPool == null || randomIvPool.length < 16) {
+        try {
+            randomIvPool = crypto.randomBytes(Configuration.base.randomIvPoolSize);
+        } catch (ex) {
+            // handle error, most likely, entropy sources are drained
+            randomIvPool = crypto.pseudoRandomBytes(Configuration.base.randomIvPoolSize); // any better ideas?
+        }
+    }
+
+    // take and remove first 16 bytes from the Pool
+    var randomIv = new Buffer(16);
+    randomIvPool.copy(randomIv, 0, 0, 16);
+    randomIvPool = randomIvPool.slice(16);
+    */
+    var randomIv = this.getRandomIv();
 
     // Build the message in plaintext (still not encrypted)
     var toEncrypt = this.buildPlainMessage();
@@ -402,57 +359,27 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
         return new Buffer(0);
     }
 
-    // debug
-    //console.log('buildEncryptedMessage().toEncrypt wo/IV and padd:', toEncrypt.toString('hex'));
-    //--
-
     // Add random IV to beginning
     toEncrypt = new Buffer.concat([randomIv, toEncrypt]);
-
-    // debug
-    //console.log('buildEncryptedMessage().toEncrypt w/IV:', toEncrypt.toString('hex'));
-    //--
 
     // Now add padding to end if required
     if (toEncrypt.length % 16) {
         var addThisMuch = 16 - (toEncrypt.length % 16);
         var appendStuff = new Buffer(addThisMuch);
         randomIv.copy(appendStuff, 0, 0, addThisMuch); // use IV as padding
-
-        /*// debug
-        console.log('padding count:', addThisMuch);
-        console.log('appendStuff:', appendStuff.toString('hex'));
-        //--*/
-
         toEncrypt = new Buffer.concat([toEncrypt, appendStuff]);
     }
 
-    // debug
-    //console.log('buildEncryptedMessage().toEncrypt w/IV and padding:', toEncrypt.toString('hex'));
-    //--
-
     // Finally encrypt
-    var cipher = crypto.createCipheriv('aes-128-cbc', aes128Key, new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+    var cipher = crypto.createCipheriv('aes-128-cbc', aes128Key, new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]));
     cipher.setAutoPadding(false);
     var encrypted = cipher.update(toEncrypt, '', ''); // .final('hex') not required?
-
-    // debug
-    //console.log('buildEncryptedMessage().encrypted:', encrypted);
-    //--
 
     // Calculate CMAC over "encrypted" now and put into "cmac"
     var cmac = this.calcCMAC(encrypted, aes128Key);
 
-    // debug
-    //console.log('buildEncryptedMessage().CMAC:', cmac.toString('hex'));
-    //--
-
     // Merge encrypted message and CMAC in "toSend"
     var toSend = new Buffer.concat([encrypted, cmac]);
-
-    // debug
-    //console.log('buildEncryptedMessage().toSend:', toSend.toString('hex'));
-    //--
 
     // Calculate the size of this packet that will be send out via TCP link
     var allLength = new Buffer(2);
@@ -465,10 +392,6 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
         console.log('Error in baseMessage.buildPackage(), data too long, can not fit!');
         return new Buffer(0);
     }
-
-    // debug
-    //console.log('buildEncryptedMessage().binaryPackage:', this.binaryPackage.toString('hex'));
-    //--
 
     return this.binaryPackage;
 };
@@ -484,8 +407,7 @@ baseMessage.prototype.buildEncryptedMessage = function (aes128Key) {
 	K1             fbeed618 35713366 7c85e08f 7236a8de
 	K2             f7ddac30 6ae266cc f90bc11e e46d513b
 */
-baseMessage.prototype.calcCMACSubKeys = function (aes128Key)
-{
+baseMessage.prototype.calcCMACSubKeys = function (aes128Key) {
 	var subKeys = {
 		K1: new Buffer(16),
 		K2: new Buffer(16)
@@ -519,7 +441,7 @@ baseMessage.prototype.calcCMACSubKeys = function (aes128Key)
 
 	// STEP 4.
 	return subKeys;
-}
+};
 
 /*
 	http://tools.ietf.org/html/rfc4493#section-2.4
@@ -548,8 +470,7 @@ baseMessage.prototype.calcCMACSubKeys = function (aes128Key)
 				   f69f2445 df4f9b17 ad2b417b e66c3710
 	AES-CMAC       51f0bebf 7e3b9d92 fc497417 79363cfe
 */
-baseMessage.prototype.calcCMAC = function (msg, aes128Key)
-{
+baseMessage.prototype.calcCMAC = function (msg, aes128Key) {
 	// STEP 1.
 	var subKeys = this.calcCMACSubKeys(aes128Key);
 
@@ -621,6 +542,6 @@ baseMessage.prototype.calcCMAC = function (msg, aes128Key)
 
 	// STEP 7.
 	return cmac;
-}
+};
 
 module.exports = baseMessage;

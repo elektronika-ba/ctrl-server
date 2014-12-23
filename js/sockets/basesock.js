@@ -390,14 +390,7 @@ BaseSock.prototype.onData = function () {
 							}
 							/*
 							else if (bp.getData().length>0 && bp.getData()[0] == 0x07) {
-								socket.myObj.wlog.info('  ...saving TXserver server-stored value.');
-
-								if(bp.getData().length == 5) {
-									Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(1)); // alwas in Little Endian
-								}
-								else {
-									socket.myObj.wlog.info('  ...didn\'t get 1+4 bytes here (got', bp.getData().length, '), ignored.');
-								}
+                                // something else...
 							}
 							*/
                             else {
@@ -558,11 +551,8 @@ BaseSock.prototype.doAuthorize = function () {
 
 			// provided baseid exists in database (and auth limit not exceeded)?
 			if (result[0][0].oOK == 1) {
-				// stupid random number generator for challenge value
-				for(var i=0; i<4; i++) {
-					var nr = Math.floor((Math.random() * 0xFFFFFFFF) + 1);
-					socket.myObj.challengeValue.writeUInt32LE(nr, i*4);
-				}
+                socket.myObj.challengeValue = bp.getRandomIv(); // instead of pseudo-random generator, use the IV pool
+                console.log('challenge:', socket.myObj.challengeValue);
 
 				socket.myObj.authorized = false;
 				socket.myObj.IDbase = result[0][0].oIDbase;

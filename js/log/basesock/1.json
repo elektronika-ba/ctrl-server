@@ -206,3 +206,35 @@
 {"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-22T15:00:39.206Z"}
 {"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2014-12-22T15:00:39.206Z"}
 {"level":"info","message":"  ...sent (piped).","timestamp":"2014-12-22T15:00:40.510Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-23T10:36:25.532Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-23T10:36:25.532Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-23T10:36:25.532Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-23T10:36:30.540Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-12-23T10:36:30.542Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-23T10:36:30.542Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-23T10:36:30.598Z"}
+{"level":"info","message":"  ...saved current TXbase ( 1 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:36:32.683Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-23T10:36:59.213Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-23T10:36:59.213Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-23T10:36:59.214Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:37:02.267Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-23T10:37:05.090Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-23T10:37:05.091Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-23T10:37:05.091Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:37:09.995Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-23T10:37:11.191Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-23T10:37:11.191Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-23T10:37:11.192Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:37:15.036Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2014-12-23T10:37:20.108Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2014-12-23T10:37:20.108Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2014-12-23T10:37:20.108Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-23T10:37:25.124Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2014-12-23T10:37:25.126Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-23T10:37:25.126Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-23T10:37:25.178Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2014-12-23T10:37:30.139Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2014-12-23T10:37:30.140Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-23T10:37:30.140Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-23T10:37:30.216Z"}
+{"level":"info","message":"  ...saved current TXbase ( 2 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:37:31.885Z"}
