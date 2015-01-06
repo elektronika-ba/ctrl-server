@@ -44,6 +44,9 @@ var Configuration = {
     // Client Socket Server related
     //-----------------------------
     client: {
+		// Required for localhost authentications - to bypass IP blocking after MAX_AUTH_ATTEMPTS wrong auths. This is used when extensions such as CTRL-ANDROID-GCM server connects to us on Client's request
+		localIPs: ['127.0.0.1', '10.0.0.1', '78.47.48.138'],
+
         // Server Setup
         srv: {
             PORT: 9000,                     // starting port number. actual port number is this value + version!

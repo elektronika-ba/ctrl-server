@@ -280,11 +280,16 @@ ClientSock.prototype.onData = function () {
 
                             self.resendUnackedItems();
                         }
-                            /*
-                            else if (("type" in d) && d.type == 'something_else') {
-                                // something else...
-                            }
-                            */
+						else if (("type" in d) && d.type == 'tickle') {
+							socket.myObj.wlog.info('  ...tickle.');
+
+							// nothing.
+						}
+						/*
+						else if (("type" in d) && d.type == 'something_else') {
+							// something else...
+						}
+						*/
                         else {
                             socket.myObj.wlog.info('  ...unknown system message:', d, ', ignored.');
                         }
@@ -429,10 +434,19 @@ ClientSock.prototype.doAuthorize = function () {
         return;
     }
 
-    if (!("auth_token" in cmd)) {
-        wlog.warn('Error in doAuthorize(), missing auth_token parameter!');
+    if ((typeof cmd != "object") || !("auth_token" in cmd) || (typeof cmd.auth_token != "string")) {
+        wlog.warn('Error in doAuthorize(), missing (or not a string) auth_token parameter!');
         return;
     }
+
+	// change IP of socket connection, if connection from localhost (ourself)
+	var fMyIPs = Configuration.client.localIPs.filter(function (item) {
+		return (socket.myObj.ip == item);
+	});
+	if(fMyIPs.length > 0 && ("origin_ip" in cmd) && (typeof cmd.origin_ip == "string")) {
+		socket.myObj.ip = cmd.origin_ip;
+		wlog.info('  ...localhost connected, origin IP changed to:', socket.myObj.ip);
+	}
 
     Database.authClient(cmd.auth_token, socket.myObj.ip, Configuration.client.sock.MAX_AUTH_ATTEMPTS, Configuration.client.sock.MAX_AUTH_ATTEMPTS_MINUTES, function (err, result) {
         if (err) {

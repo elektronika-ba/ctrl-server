@@ -31,7 +31,6 @@ function BaseSock(socket) {
 
         dataBuff: new Buffer(0), // buffer for incoming data!
         authTimer: null, // auth timer - connection killer
-        //random16bytes: new Buffer(16), // this holds 16 bytes of previous encrypted data we sent to be used as IV for next encryption
         authPhase: 1, // authentication works in two-phase negotiation, this saves current auth phase
         challengeValue: new Buffer(16), // the value we sent to Base which we will expect back to verify the socket
 
@@ -388,8 +387,13 @@ BaseSock.prototype.onData = function () {
 								bpSys.setData(ts);
 								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 							}
+							else if (bp.getData().toString('hex') == '07') {
+                                socket.myObj.wlog.info('  ...tickle.');
+
+								// nothing.
+							}
 							/*
-							else if (bp.getData().length>0 && bp.getData()[0] == 0x07) {
+							else if (bp.getData().length>0 && bp.getData()[0] == 0x08) {
                                 // something else...
 							}
 							*/
@@ -414,6 +418,7 @@ BaseSock.prototype.onData = function () {
                                 var cm = new clientMessage();
                                 cm.setIsNotification(bp.getIsNotification());
                                 cm.setData(bp.getData().toString('hex'));
+                                cm.setBaseId(socket.myObj.baseid.toString('hex'));
                                 var jsonPackageAsString = JSON.stringify(cm.buildMessage());
 
                                 var rowsLength = rows.length;

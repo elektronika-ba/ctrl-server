@@ -64,9 +64,9 @@ clientMessage.prototype.extractFrom = function (jd) {
         if (("data" in jd) && ((typeof jd.data == "string") || (typeof jd.data == "object"))) {
             this.jsonData.data = jd.data;
         }
-        else {
-            console.log('Warning in extractFrom(), extracted Data is not a string! Using default.');
-        }
+        /*else {
+            console.log('Warning in extractFrom(), extracted Data is not a String nor Object! Using default.');
+        }*/
 
         this.isExtracted = true;
     };
