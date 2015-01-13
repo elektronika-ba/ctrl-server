@@ -3,6 +3,7 @@
 // Base's server logic
 
 var Configuration = require('../configuration/configuration');
+var ServerExtensions = require('../server_extensions/server_extensions');
 
 var moment = require('moment');
 var winston = require('winston');
@@ -64,6 +65,7 @@ function BaseSock(socket) {
         if (socket.myObj.authorized == true) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
             Database.baseOnlineStatus(socket.myObj.IDbase, 0);
+            ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, false);
             socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
         }
         self.informMyClients(false);
@@ -81,6 +83,7 @@ function BaseSock(socket) {
             if (socket.myObj.authorized == true) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
                 Database.baseOnlineStatus(socket.myObj.IDbase, 0);
+                ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, false);
                 socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
             }
             self.informMyClients(false);
@@ -172,6 +175,9 @@ BaseSock.prototype.onData = function () {
                 self.doAuthorize();
             }
             else {
+                // call server extensions
+                ServerExtensions.exec('onBaseReceive', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'bp': bp});
+
                 // handle received ACK
                 if (bp.getIsAck()) {
                     socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender());
@@ -428,7 +434,7 @@ BaseSock.prototype.onData = function () {
 
                                     // insert message into database for this client and trigger sending if he is online
                                     (function (IDclient) {
-                                        // no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to the "other side"
+                                        // no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to "other side"
                                         if (cm.getIsNotification()) {
                                             socket.myObj.wlog.info('  ...this is a Notification, sending right now on Client\'s (', IDclient, ') socket...');
 
@@ -448,7 +454,7 @@ BaseSock.prototype.onData = function () {
                                                 socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will not get this Notification.');
                                             }
                                         }
-                                            // not a notification, lets insert into database and trigger senging
+                                            // not a notification, lets insert into database and trigger sending
                                         else {
                                             Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
                                                 if (err) {
@@ -671,6 +677,7 @@ BaseSock.prototype.doAuthorize = function () {
 
 				self.informMyClients(true);
 				Database.baseOnlineStatus(socket.myObj.IDbase, 1);
+                ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, true);
 
 				// something pending for Base? (oForceSync is 0 if there is something pending in DB)
 				if (result[0][0].oForceSync == 0) {

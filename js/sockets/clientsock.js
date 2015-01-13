@@ -3,6 +3,7 @@
 // Client's server logic
 
 var Configuration = require('../configuration/configuration');
+var ServerExtensions = require('../server_extensions/server_extensions');
 
 var moment = require('moment');
 var winston = require('winston');
@@ -64,6 +65,7 @@ function ClientSock(socket) {
         if (socket.myObj.IDclient != null) {
             Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
             Database.clientOnlineStatus(socket.myObj.IDclient, 0);
+            ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, false);
             socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
         }
         clearTimeout(socket.myObj.tmrSenderTask);
@@ -79,6 +81,7 @@ function ClientSock(socket) {
             if (socket.myObj.IDclient != null) {
                 Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
                 Database.clientOnlineStatus(socket.myObj.IDclient, 0);
+                ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, false);
                 socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
             }
             clearTimeout(socket.myObj.tmrSenderTask);
@@ -182,6 +185,9 @@ ClientSock.prototype.onData = function () {
             self.doAuthorize();
         }
         else {
+            // call server extensions
+            ServerExtensions.exec('onClientReceive', {'IDclient': socket.myObj.IDclient, 'cm': cm});
+
             // handle received ACK
             if (cm.getIsAck()) {
                 socket.myObj.wlog.info('Processing Client\'s ACK for our TXserver:', cm.getTXsender());
@@ -519,6 +525,7 @@ ClientSock.prototype.doAuthorize = function () {
 
             self.sendBasesStatusNotification();
             Database.clientOnlineStatus(socket.myObj.IDclient, 1);
+            ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, true);
 
             // something pending for Client? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {
