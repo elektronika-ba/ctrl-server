@@ -6,19 +6,30 @@ require("fs").readdirSync('./server_extensions').forEach(function(file) {
     extensions.push(require('./' + file));
 });
 
-exports.exec = function(functionName, params) {
+exports.ext = function(functionName, params) {
+
+	// for each loaded extension, call the appropriate function
     for(var i=0; i<extensions.length; i++) {
-        if(functionName == 'onBaseReceive') {
-            extensions[i].onBaseReceive(params);
+
+        if(functionName == 'onBaseMessage') {
+            extensions[i].onBaseMessage(params);
+        }
+        else if(functionName == 'onBaseSystemMessage') {
+            extensions[i].onBaseSystemMessage(params);
         }
         else if(functionName == 'onBaseStatusChange') {
             extensions[i].onBaseStatusChange(params);
         }
-        else if(functionName == 'onClientReceive') {
-            extensions[i].onClientReceive(params);
+        else if(functionName == 'onClientSystemMessage') {
+            extensions[i].onClientSystemMessage(params);
+        }
+        else if(functionName == 'onClientMessage') {
+            extensions[i].onClientMessage(params);
         }
         else if(functionName == 'onClientStatusChange') {
             extensions[i].onClientStatusChange(params);
         }
+
     }
+
 };

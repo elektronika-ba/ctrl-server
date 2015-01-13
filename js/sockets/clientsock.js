@@ -65,7 +65,7 @@ function ClientSock(socket) {
         if (socket.myObj.IDclient != null) {
             Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
             Database.clientOnlineStatus(socket.myObj.IDclient, 0);
-            ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, false);
+            ServerExtensions.ext('onClientStatusChange', {'IDclient': socket.myObj.IDclient, 'connected': false});
             socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
         }
         clearTimeout(socket.myObj.tmrSenderTask);
@@ -81,7 +81,7 @@ function ClientSock(socket) {
             if (socket.myObj.IDclient != null) {
                 Database.saveTXclient(socket.myObj.IDclient, socket.myObj.TXclient);
                 Database.clientOnlineStatus(socket.myObj.IDclient, 0);
-                ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, false);
+                ServerExtensions.ext('onClientStatusChange', {'IDclient': socket.myObj.IDclient, 'connected': false});
                 socket.myObj.wlog.info('  ...saved current TXclient (', socket.myObj.TXclient, ') and OnlineStatus to database.');
             }
             clearTimeout(socket.myObj.tmrSenderTask);
@@ -185,9 +185,6 @@ ClientSock.prototype.onData = function () {
             self.doAuthorize();
         }
         else {
-            // call server extensions
-            ServerExtensions.exec('onClientReceive', {'IDclient': socket.myObj.IDclient, 'cm': cm});
-
             // handle received ACK
             if (cm.getIsAck()) {
                 socket.myObj.wlog.info('Processing Client\'s ACK for our TXserver:', cm.getTXsender());
@@ -278,6 +275,8 @@ ClientSock.prototype.onData = function () {
                     if (cm.getIsSystemMessage()) {
                         socket.myObj.wlog.info('  ...system message received, parsing...');
 
+            			ServerExtensions.ext('onClientSystemMessage', {'IDclient': socket.myObj.IDclient, 'cm': cm});
+
                         var d = cm.getData();
 
                         // process system messages
@@ -314,13 +313,14 @@ ClientSock.prototype.onData = function () {
                         bp.setDataFromHexString(cm.getData());
                         var binaryPackageAsHexString = bp.buildPlainMessage().toString('hex');
 
-                        // daj sve njegove baze
+                        // get all his Bases
                         Database.getBasesOfClient(socket.myObj.IDclient, function (err, rows, columns) {
                             if (err) {
                                 return;
                             }
 
                             if (rows.length <= 0) {
+                                socket.myObj.wlog.info('No Bases associated with Client (', socket.myObj.IDclient, ') yet! Strange...');
                                 return;
                             }
 
@@ -335,7 +335,7 @@ ClientSock.prototype.onData = function () {
 
                                     notFoundBaseIds.splice(rows[i].baseid, 1);
 
-                                    (function (IDbase) {
+                                    (function (IDbase, baseid) {
                                         // no point in inserting notifications into database since they are not acknowledged/re-transmitted, right? just pipe it to the "other side"
                                         if (bp.getIsNotification()) {
                                             socket.myObj.wlog.info('  ...this is a Notification, sending right now on Bases\'s (', IDbase, ') socket...');
@@ -348,15 +348,21 @@ ClientSock.prototype.onData = function () {
                                             if (fBaseSockets.length == 1) {
                                                 fBaseSockets[0].write(bp.buildEncryptedMessage(fBaseSockets[0].myObj.aes128Key), 'hex');
                                                 fBaseSockets[0].myObj.wlog.info('  ...sent (piped).');
-                                            }
-                                            else if (fBaseSockets.length > 1) {
-                                                socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+
+                                                ServerExtensions.ext('onClientMessage', {'IDclient': socket.myObj.IDclient, 'IDbase': IDbase, 'baseid': baseid, 'sent': true, 'cm': cm});
                                             }
                                             else {
-                                                socket.myObj.wlog.info('  ...IDbase=', IDbase, 'is offline, will not get this Notification.');
-                                            }
+												if (fBaseSockets.length > 1) {
+													socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+												}
+												else {
+													socket.myObj.wlog.info('  ...IDbase=', IDbase, 'is offline, will not get this Notification.');
+												}
+
+                                                ServerExtensions.ext('onClientMessage', {'IDclient': socket.myObj.IDclient, 'IDbase': IDbase, 'baseid': baseid, 'sent': false, 'cm': cm});
+											}
                                         }
-                                            // not a notification, lets insert into database and trigger senging
+                                        // not a notification, lets insert into database and trigger senging
                                         else {
                                             // insert message into database for this base and trigger sending if it is online
                                             Database.addTxServer2Base(IDbase, binaryPackageAsHexString, function (err, result) {
@@ -375,14 +381,23 @@ ClientSock.prototype.onData = function () {
                                                 if (fBaseSockets.length == 1) {
                                                     socket.myObj.wlog.info('  ...triggering queued items sender for IDbase=', IDbase, '...');
                                                     fBaseSockets[0].startQueuedItemsSender();
+
+                                                    ServerExtensions.ext('onClientMessage', {'IDclient': socket.myObj.IDclient, 'IDbase': IDbase, 'baseid': baseid, 'sent': true, 'cm': cm});
                                                 }
-                                                else if (fBaseSockets.length > 1) {
-                                                    socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
-                                                }
+                                                else {
+													if (fBaseSockets.length > 1) {
+														socket.myObj.wlog.info('  ...found more than one socket for IDbase=', IDbase, 'which is a pretty improbable situation!');
+													}
+													else {
+                                                		socket.myObj.wlog.info('  ...IDbase=', IDbase, 'is offline, will get this message when logged-in.');
+													}
+
+													ServerExtensions.ext('onClientMessage', {'IDclient': socket.myObj.IDclient, 'IDbase': IDbase, 'baseid': baseid, 'sent': false, 'cm': cm});
+												}
 
                                             });
                                         }
-                                    })(rows[i].IDbase);
+                                    })(rows[i].IDbase, rows[i].baseid);
 
                                 } // if baseid is targetted one
 
@@ -525,7 +540,7 @@ ClientSock.prototype.doAuthorize = function () {
 
             self.sendBasesStatusNotification();
             Database.clientOnlineStatus(socket.myObj.IDclient, 1);
-            ServerExtensions.exec('onClientStatusChange',{'IDclient': socket.myObj.IDclient, true);
+            ServerExtensions.ext('onClientStatusChange', {'IDclient': socket.myObj.IDclient, 'connected': true});
 
             // something pending for Client? (oForceSync is 0 if there is something pending in DB)
             if (result[0][0].oForceSync == 0) {

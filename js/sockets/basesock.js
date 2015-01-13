@@ -65,7 +65,6 @@ function BaseSock(socket) {
         if (socket.myObj.authorized == true) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
             Database.baseOnlineStatus(socket.myObj.IDbase, 0);
-            ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, false);
             socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
         }
         self.informMyClients(false);
@@ -83,7 +82,6 @@ function BaseSock(socket) {
             if (socket.myObj.authorized == true) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
                 Database.baseOnlineStatus(socket.myObj.IDbase, 0);
-                ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, false);
                 socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
             }
             self.informMyClients(false);
@@ -175,9 +173,6 @@ BaseSock.prototype.onData = function () {
                 self.doAuthorize();
             }
             else {
-                // call server extensions
-                ServerExtensions.exec('onBaseReceive', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'bp': bp});
-
                 // handle received ACK
                 if (bp.getIsAck()) {
                     socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender());
@@ -308,6 +303,8 @@ BaseSock.prototype.onData = function () {
                         // system messages are not forwarded to our Clients
                         if (bp.getIsSystemMessage()) {
                             socket.myObj.wlog.info('  ...system message received, parsing...');
+
+                			ServerExtensions.ext('onBaseSystemMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'bp': bp});
 
                             // process system messages
                             if (bp.getData().toString('hex') == '01') {
@@ -446,15 +443,21 @@ BaseSock.prototype.onData = function () {
                                             if (fClientSockets.length == 1) {
                                                 fClientSockets[0].write(jsonPackageAsString + '\n', 'ascii');
                                                 fClientSockets[0].myObj.wlog.info('  ...sent (piped).');
-                                            }
-                                            else if (fClientSockets.length > 1) {
-                                                socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+
+                                                ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp});
                                             }
                                             else {
-                                                socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will not get this Notification.');
-                                            }
+												if (fClientSockets.length > 1) {
+													socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+												}
+												else {
+													socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will not get this Notification.');
+												}
+
+												ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp});
+											}
                                         }
-                                            // not a notification, lets insert into database and trigger sending
+                                        // not a notification, lets insert into database and trigger sending
                                         else {
                                             Database.addTxServer2Client(IDclient, jsonPackageAsString, function (err, result) {
                                                 if (err) {
@@ -472,9 +475,18 @@ BaseSock.prototype.onData = function () {
                                                 if (fClientSockets.length == 1) {
                                                     socket.myObj.wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
                                                     fClientSockets[0].startQueuedItemsSender();
+
+                                                    ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp});
                                                 }
-                                                else if (fClientSockets.length > 1) {
-                                                    socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+                                                else {
+													if (fClientSockets.length > 1) {
+                                                    	socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+													}
+													else {
+                                                		socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will get this message when logged-in.');
+													}
+
+													ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp});
                                                 }
                                             });
                                         }
@@ -677,7 +689,6 @@ BaseSock.prototype.doAuthorize = function () {
 
 				self.informMyClients(true);
 				Database.baseOnlineStatus(socket.myObj.IDbase, 1);
-                ServerExtensions.exec('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, true);
 
 				// something pending for Base? (oForceSync is 0 if there is something pending in DB)
 				if (result[0][0].oForceSync == 0) {
@@ -743,10 +754,19 @@ BaseSock.prototype.informMyClients = function (connected) {
             if (fClientSockets.length == 1) {
                 socket.myObj.wlog.info('  ...sending Base connection status notification to IDclient=', IDclient, '...');
                 fClientSockets[0].write(jsonPackageAsString + '\n', 'ascii'); // send right away
+
+				ServerExtensions.ext('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'connected': connected});
             }
-            else if (fClientSockets.length > 1) {
-                socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
-            }
+            else {
+            	if (fClientSockets.length > 1) {
+            	    socket.myObj.wlog.info('  ...found more than one socket for IDclient=', IDclient, 'which is a pretty improbable situation!');
+	            }
+	            else {
+					socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline and is not going to get this notification!');
+				}
+
+				ServerExtensions.ext('onBaseStatusChange',{'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'connected': connected});
+			}
 
         }
     });
