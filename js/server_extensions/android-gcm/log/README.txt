@@ -1,0 +1,1 @@
+This folder holds the log.json log file.

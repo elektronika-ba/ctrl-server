@@ -296,7 +296,7 @@ ClientSock.prototype.onData = function () {
 						}
 						*/
                         else {
-                            socket.myObj.wlog.info('  ...unknown system message:', d, ', ignored.');
+                            socket.myObj.wlog.info('  ...unknown system message by Server:', d, ', ignored. Maybe Server Extension will pick it up.');
                         }
                     }
                     else {

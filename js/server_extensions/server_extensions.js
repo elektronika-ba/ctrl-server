@@ -1,15 +1,20 @@
 'use strict';
 
+// This will load all Server Extensions found in this directory.
+
 var extensions = [];
 require("fs").readdirSync('./server_extensions').forEach(function(file) {
     if(file == 'server_extensions.js') return;
-    extensions.push(require('./' + file));
+    //console.log('EXT: Loading extension:', file);
+    extensions.push(require('./' + file + '/index.js'));
 });
 
 exports.ext = function(functionName, params) {
 
 	// for each loaded extension, call the appropriate function
     for(var i=0; i<extensions.length; i++) {
+
+        if(!extensions[i].isEnabled()) continue;
 
         if(functionName == 'onBaseMessage') {
             extensions[i].onBaseMessage(params);

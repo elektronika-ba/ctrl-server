@@ -238,3 +238,598 @@
 {"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2014-12-23T10:37:30.140Z"}
 {"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2014-12-23T10:37:30.216Z"}
 {"level":"info","message":"  ...saved current TXbase ( 2 ) and OnlineStatus to database.","timestamp":"2014-12-23T10:37:31.885Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:02:45.331Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:02:45.331Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:02:45.331Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:02:50.338Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:02:50.339Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:02:50.340Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:02:50.506Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:02:50.507Z"}
+{"level":"info","message":"  ...saved current TXbase ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:02:53.423Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:02:53.454Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:06:53.354Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:06:53.354Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:06:53.354Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:06:53.359Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:06:56.632Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:06:56.642Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:07:54.546Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:07:54.546Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:07:54.546Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:07:54.558Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:07:59.563Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:07:59.565Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:07:59.565Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:07:59.621Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:07:59.621Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:08:04.583Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:08:04.585Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:08:04.585Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:08:04.623Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:08:04.624Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:08:09.603Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:08:09.603Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:08:09.604Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:08:09.671Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:08:09.671Z"}
+{"level":"info","message":"  ...saved current TXbase ( 3 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:08:13.900Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:08:13.910Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:12:22.608Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:12:22.608Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:12:22.608Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:12:22.618Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:12:27.632Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:12:27.633Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:12:27.633Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:12:27.675Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:12:27.675Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:12:32.650Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:12:32.651Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:12:32.651Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:12:32.688Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:12:32.688Z"}
+{"level":"info","message":"  ...saved current TXbase ( 2 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:12:32.886Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:12:32.893Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:16:40.232Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:16:40.233Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:16:40.233Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:16:45.248Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:16:45.250Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:16:45.259Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:16:45.301Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:16:45.301Z"}
+{"level":"info","message":"  ...saved current TXbase ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:16:48.721Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:16:48.734Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:18:13.311Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:18:13.311Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:18:13.311Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:18:13.511Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:18:13.668Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:13.668Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:13.670Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 1","timestamp":"2015-01-14T11:18:13.673Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 1","timestamp":"2015-01-14T11:18:13.692Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:18.330Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:18:18.330Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:18.331Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:18.372Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:18:18.372Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:18:18.498Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:18:18.662Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:18.663Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:18.663Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 2","timestamp":"2015-01-14T11:18:18.665Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 2","timestamp":"2015-01-14T11:18:18.712Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:23.340Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:18:23.341Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:23.345Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:23.408Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:18:23.408Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:18:23.532Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:18:23.768Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:23.769Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:23.769Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 3","timestamp":"2015-01-14T11:18:23.771Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:18:23.778Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 3","timestamp":"2015-01-14T11:18:23.840Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:28.352Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:18:28.354Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:28.354Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:28.726Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:28.727Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:33.367Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2015-01-14T11:18:33.367Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:33.368Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:33.389Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:33.389Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:38.381Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 5","timestamp":"2015-01-14T11:18:38.381Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:38.381Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:38.417Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:38.417Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:43.386Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 6","timestamp":"2015-01-14T11:18:43.386Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:43.386Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:43.668Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:43.668Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:48.390Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 7","timestamp":"2015-01-14T11:18:48.390Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:48.391Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:48.440Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:48.440Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:53.403Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 8","timestamp":"2015-01-14T11:18:53.404Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:53.404Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:53.447Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:53.447Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:18:58.408Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 9","timestamp":"2015-01-14T11:18:58.408Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:18:58.408Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:18:58.429Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:18:58.429Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:03.420Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 10","timestamp":"2015-01-14T11:19:03.421Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:03.421Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:03.452Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:03.492Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:08.425Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 11","timestamp":"2015-01-14T11:19:08.426Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:08.426Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:08.455Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:08.455Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:13.433Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 12","timestamp":"2015-01-14T11:19:13.434Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:13.434Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:13.585Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:13.585Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:18.438Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 13","timestamp":"2015-01-14T11:19:18.438Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:18.439Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:18.486Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:18.487Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:23.445Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 14","timestamp":"2015-01-14T11:19:23.446Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:23.446Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:23.481Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:23.481Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:28.459Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 15","timestamp":"2015-01-14T11:19:28.459Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:28.459Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:28.518Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:28.518Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:33.462Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 16","timestamp":"2015-01-14T11:19:33.463Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:33.463Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:33.503Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:33.504Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:38.468Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 17","timestamp":"2015-01-14T11:19:38.468Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:38.468Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:38.517Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:38.517Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:43.480Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 18","timestamp":"2015-01-14T11:19:43.480Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:43.480Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:43.631Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:43.631Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:48.484Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 19","timestamp":"2015-01-14T11:19:48.485Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:48.485Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:48.556Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:48.556Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:53.505Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 20","timestamp":"2015-01-14T11:19:53.506Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:53.506Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:53.542Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:53.542Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:19:58.518Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 21","timestamp":"2015-01-14T11:19:58.519Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:19:58.519Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:19:58.625Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:19:58.625Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:03.522Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 22","timestamp":"2015-01-14T11:20:03.522Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:03.522Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:03.564Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:03.565Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:08.542Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 23","timestamp":"2015-01-14T11:20:08.542Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:08.543Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:08.601Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:08.601Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:13.546Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 24","timestamp":"2015-01-14T11:20:13.547Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:13.547Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:13.575Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:13.575Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:18.550Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 25","timestamp":"2015-01-14T11:20:18.550Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:18.550Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:18.578Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:18.579Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:23.560Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 26","timestamp":"2015-01-14T11:20:23.560Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:23.560Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:23.599Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:23.599Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:28.564Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 27","timestamp":"2015-01-14T11:20:28.564Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:28.564Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:28.610Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:28.610Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:33.578Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 28","timestamp":"2015-01-14T11:20:33.578Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:33.578Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:33.603Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:33.603Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:38.584Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 29","timestamp":"2015-01-14T11:20:38.584Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:38.585Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:38.709Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:38.709Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:43.594Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 30","timestamp":"2015-01-14T11:20:43.595Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:43.595Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:43.610Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:43.610Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:48.600Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 31","timestamp":"2015-01-14T11:20:48.601Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:48.601Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:48.647Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:48.647Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:53.604Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 32","timestamp":"2015-01-14T11:20:53.604Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:53.604Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:53.742Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:53.742Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:20:58.615Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 33","timestamp":"2015-01-14T11:20:58.616Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:20:58.617Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:20:58.652Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:20:58.652Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:03.626Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 34","timestamp":"2015-01-14T11:21:03.627Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:03.627Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:03.673Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:03.673Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:08.630Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 35","timestamp":"2015-01-14T11:21:08.630Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:08.630Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:08.796Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:08.797Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:13.642Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 36","timestamp":"2015-01-14T11:21:13.642Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:13.642Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:13.666Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:13.666Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:18.646Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 37","timestamp":"2015-01-14T11:21:18.646Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:18.646Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:18.711Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:18.711Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:23.657Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 38","timestamp":"2015-01-14T11:21:23.657Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:23.658Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:23.847Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:23.847Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:21:28.667Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 39","timestamp":"2015-01-14T11:21:28.668Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:21:28.668Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:21:28.699Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:21:28.700Z"}
+{"level":"info","message":"  ...saved current TXbase ( 39 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:21:28.716Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:21:28.719Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:24:08.968Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:24:08.968Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:24:08.969Z"}
+{"level":"info","message":"  ...sending Base connection status notification to IDclient= 1 ...","timestamp":"2015-01-14T11:24:08.976Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:24:09.972Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:24:10.121Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:10.122Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:24:10.122Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 1","timestamp":"2015-01-14T11:24:10.128Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 1","timestamp":"2015-01-14T11:24:10.146Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:24:12.788Z"}
+{"level":"info","message":"  ...sending Base connection status notification to IDclient= 1 ...","timestamp":"2015-01-14T11:24:12.798Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:24:19.353Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:24:19.353Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T11:24:19.354Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:24:19.354Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:24:19.358Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:24:19.504Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:19.505Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:24:19.505Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:24:19.538Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:24:19.542Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:24:50.372Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:24:50.373Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T11:24:50.373Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:24:50.374Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:24:50.529Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:50.530Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:24:50.530Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 2","timestamp":"2015-01-14T11:24:50.538Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 2","timestamp":"2015-01-14T11:24:50.597Z"}
+{"level":"error","message":"  ...ERROR: ACKed but Base told me OUT-OF-SYNC!","timestamp":"2015-01-14T11:24:50.597Z"}
+{"level":"info","message":"  ...will re-send unacknowledged queue items. Increased flush-counter to: 1 / 3 !","timestamp":"2015-01-14T11:24:50.597Z"}
+{"level":"info","message":"  ...starting queued items sender of all unacknowledged items...","timestamp":"2015-01-14T11:24:50.598Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:24:50.599Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:24:50.707Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:24:55.388Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:24:55.389Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:24:55.389Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:24:55.410Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:24:55.411Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:00.408Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:25:00.408Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:00.408Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:00.580Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:00.580Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:00.663Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:25:00.874Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:00.954Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:00.954Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:00.955Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 3","timestamp":"2015-01-14T11:25:00.962Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 3","timestamp":"2015-01-14T11:25:01.095Z"}
+{"level":"error","message":"  ...ERROR: ACKed but Base told me OUT-OF-SYNC!","timestamp":"2015-01-14T11:25:01.095Z"}
+{"level":"info","message":"  ...will re-send unacknowledged queue items. Increased flush-counter to: 2 / 3 !","timestamp":"2015-01-14T11:25:01.095Z"}
+{"level":"info","message":"  ...starting queued items sender of all unacknowledged items...","timestamp":"2015-01-14T11:25:01.098Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:01.098Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:25:01.201Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:05.423Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:25:05.424Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:05.424Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:05.451Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:05.451Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:05.467Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:05.608Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:05.608Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:05.608Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 4","timestamp":"2015-01-14T11:25:05.622Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 4","timestamp":"2015-01-14T11:25:05.641Z"}
+{"level":"error","message":"  ...ERROR: ACKed but Base told me OUT-OF-SYNC!","timestamp":"2015-01-14T11:25:05.641Z"}
+{"level":"info","message":"  ...will re-send unacknowledged queue items. Increased flush-counter to: 3 / 3 !","timestamp":"2015-01-14T11:25:05.641Z"}
+{"level":"info","message":"  ...starting queued items sender of all unacknowledged items...","timestamp":"2015-01-14T11:25:05.643Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:05.643Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:25:05.747Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:10.427Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2015-01-14T11:25:10.428Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:10.428Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:10.454Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:10.454Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:10.470Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:10.645Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:10.646Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:10.646Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 5","timestamp":"2015-01-14T11:25:10.652Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 5","timestamp":"2015-01-14T11:25:10.713Z"}
+{"level":"error","message":"  ...ERROR: ACKed but Base told me OUT-OF-SYNC!","timestamp":"2015-01-14T11:25:10.713Z"}
+{"level":"error","message":"  ...Will flush queue and destroy socket...","timestamp":"2015-01-14T11:25:10.713Z"}
+{"level":"error","message":"Socket destroyed because of out-of-sync!","timestamp":"2015-01-14T11:25:11.022Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:15.490Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:15.639Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:15.641Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:15.641Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:25:16.047Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:25:16.047Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T11:25:16.048Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:16.048Z"}
+{"level":"info","message":"  ...sending Base connection status notification to IDclient= 1 ...","timestamp":"2015-01-14T11:25:16.049Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:16.179Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:16.182Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:16.182Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 1","timestamp":"2015-01-14T11:25:16.185Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 1","timestamp":"2015-01-14T11:25:16.204Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:20.501Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:20.626Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:20.626Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:20.626Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 2","timestamp":"2015-01-14T11:25:20.632Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 2","timestamp":"2015-01-14T11:25:20.684Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:21.071Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:25:21.072Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:21.072Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:21.091Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:21.091Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:25.771Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:25.942Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:25.943Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:25.943Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 3","timestamp":"2015-01-14T11:25:25.947Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 3","timestamp":"2015-01-14T11:25:26.033Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:26.094Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:25:26.097Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:26.097Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:26.172Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:26.172Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:30.508Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:30.633Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:30.634Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:30.634Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 4","timestamp":"2015-01-14T11:25:30.636Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 4","timestamp":"2015-01-14T11:25:30.650Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:31.107Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:25:31.107Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:31.107Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:31.131Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:31.131Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:35.511Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:35.669Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:35.669Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:35.669Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 5","timestamp":"2015-01-14T11:25:35.671Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 5","timestamp":"2015-01-14T11:25:35.686Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:36.118Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2015-01-14T11:25:36.119Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:36.119Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:36.175Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:36.175Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:40.530Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:40.696Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:40.697Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:40.697Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 6","timestamp":"2015-01-14T11:25:40.700Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 6","timestamp":"2015-01-14T11:25:40.713Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:41.129Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 5","timestamp":"2015-01-14T11:25:41.130Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:41.130Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:41.146Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:41.146Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:45.534Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:45.667Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:45.668Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:45.668Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 7","timestamp":"2015-01-14T11:25:45.672Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 7","timestamp":"2015-01-14T11:25:45.692Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:46.143Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 6","timestamp":"2015-01-14T11:25:46.144Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:46.144Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:46.225Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:46.225Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:51.158Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 7","timestamp":"2015-01-14T11:25:51.159Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:51.159Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:51.202Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:25:51.202Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:25:56.174Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 8","timestamp":"2015-01-14T11:25:56.175Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:25:56.175Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:25:56.213Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:25:56.213Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:25:57.335Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:25:57.476Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:57.477Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:57.478Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 8","timestamp":"2015-01-14T11:25:57.481Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 8","timestamp":"2015-01-14T11:25:57.501Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:26:01.188Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 9","timestamp":"2015-01-14T11:26:01.189Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:26:01.190Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:26:01.217Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDclient= 1 ...","timestamp":"2015-01-14T11:26:01.217Z"}
+{"level":"info","message":"  ...saved current TXbase ( 9 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:26:01.593Z"}
+{"level":"info","message":"  ...sending Base connection status notification to IDclient= 1 ...","timestamp":"2015-01-14T11:26:01.596Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:46:05.589Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:46:05.589Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T11:46:05.590Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:46:05.591Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T11:46:05.745Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:46:05.746Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T11:46:05.746Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 9","timestamp":"2015-01-14T11:46:05.749Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 9","timestamp":"2015-01-14T11:46:05.770Z"}
+{"level":"error","message":"  ...ERROR: ACKed but Base told me OUT-OF-SYNC!","timestamp":"2015-01-14T11:46:05.770Z"}
+{"level":"info","message":"  ...will re-send unacknowledged queue items. Increased flush-counter to: 1 / 3 !","timestamp":"2015-01-14T11:46:05.770Z"}
+{"level":"info","message":"  ...starting queued items sender of all unacknowledged items...","timestamp":"2015-01-14T11:46:05.772Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T11:46:05.773Z"}
+{"level":"warn","message":"Server2Base executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:46:05.882Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:46:10.597Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:46:10.597Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:46:10.598Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:46:10.632Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:46:10.632Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:46:15.604Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:46:15.605Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:46:15.605Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:46:15.841Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:46:15.842Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T11:46:20.616Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:46:20.616Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T11:46:20.616Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T11:46:20.705Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:46:20.705Z"}
+{"level":"info","message":"  ...saved current TXbase ( 3 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:46:23.431Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:46:23.442Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:48:07.603Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:48:07.603Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:48:07.603Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:48:10.835Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:48:10.851Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:52:13.621Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:52:13.621Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:52:13.621Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:52:13.626Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:52:14.772Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:52:14.786Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:52:36.123Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:52:36.123Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:52:36.123Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:52:38.083Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:52:38.095Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:53:13.816Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:53:13.816Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:53:13.817Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:53:13.821Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:53:15.382Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:53:15.389Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T11:53:43.861Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T11:53:43.861Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T11:53:43.861Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:53:43.868Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:53:48.751Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T11:53:48.765Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T12:11:22.733Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T12:11:22.733Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T12:11:22.734Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T12:11:22.735Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:11:22.739Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:11:22.863Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:11:22.866Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 1","timestamp":"2015-01-14T12:11:22.872Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 1","timestamp":"2015-01-14T12:11:22.895Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:11:22.961Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:11:22.962Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 2","timestamp":"2015-01-14T12:11:22.970Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 2","timestamp":"2015-01-14T12:11:22.986Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:11:23.070Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:11:23.071Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 3","timestamp":"2015-01-14T12:11:23.076Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 3","timestamp":"2015-01-14T12:11:23.127Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:11:23.178Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:11:23.179Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 4","timestamp":"2015-01-14T12:11:23.184Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 4","timestamp":"2015-01-14T12:11:23.252Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:11:23.327Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:11:23.328Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T12:11:23.328Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 5","timestamp":"2015-01-14T12:11:23.335Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 5","timestamp":"2015-01-14T12:11:23.419Z"}
+{"level":"info","message":"Processing Base's data...","timestamp":"2015-01-14T12:11:27.756Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:11:27.758Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Clients...","timestamp":"2015-01-14T12:11:27.758Z"}
+{"level":"info","message":"  ...added to IDclient= 1  queue...","timestamp":"2015-01-14T12:11:27.798Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:11:27.798Z"}
+{"level":"info","message":"  ...saved current TXbase ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:11:30.291Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:11:30.312Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T12:13:09.252Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T12:13:09.253Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T12:13:09.253Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:13:09.256Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:13:13.181Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:13:13.193Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T12:13:20.848Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T12:13:20.848Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T12:13:20.848Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:13:20.851Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:13:23.996Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:13:24.005Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T12:19:19.463Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T12:19:19.463Z"}
+{"level":"info","message":"  ...there is pending data for Base, starting sender in a bit...","timestamp":"2015-01-14T12:19:19.465Z"}
+{"level":"info","message":"Server2Base interval-timer started.","timestamp":"2015-01-14T12:19:19.465Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:19:19.467Z"}
+{"level":"info","message":"Server2Base executed, assembling package and sending to Base...","timestamp":"2015-01-14T12:19:19.601Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:19:19.602Z"}
+{"level":"info","message":"Server2Base sender stopped, nothing more to send...","timestamp":"2015-01-14T12:19:19.602Z"}
+{"level":"info","message":"Processing Base's ACK for our TXserver: 1","timestamp":"2015-01-14T12:19:19.604Z"}
+{"level":"info","message":"  ...ACKed on TXserver: 1","timestamp":"2015-01-14T12:19:19.618Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:19:23.196Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:19:23.204Z"}
+{"level":"info","message":"Base aacca539d159a7ca300aee98deda7e92 at IP 127.0.0.1 authorized.","timestamp":"2015-01-14T12:19:26.017Z"}
+{"level":"info","message":"  ...re-syncing TXbase to: 0.","timestamp":"2015-01-14T12:19:26.018Z"}
+{"level":"info","message":"  ...forcing Base to re-sync because I don't have anything pending for it.","timestamp":"2015-01-14T12:19:26.018Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:19:26.019Z"}
+{"level":"info","message":"  ...saved current TXbase ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:19:26.347Z"}
+{"level":"info","message":"  ...IDclient= 1 is offline and is not going to get this notification!","timestamp":"2015-01-14T12:19:26.350Z"}

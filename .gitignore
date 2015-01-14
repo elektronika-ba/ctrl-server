@@ -3,6 +3,7 @@ resources/misc/
 resources/doc/client_jsons.txt
 js/node_modules/
 resources/*.docx
+js/server_extensions/android-gcm/node_modules/
 
 # Windows image file caches
 Thumbs.db

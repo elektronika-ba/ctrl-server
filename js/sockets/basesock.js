@@ -401,7 +401,7 @@ BaseSock.prototype.onData = function () {
 							}
 							*/
                             else {
-                                socket.myObj.wlog.info('  ...unknown system message:', bp.getData().toString('hex'), ', ignored.');
+                                socket.myObj.wlog.info('  ...unknown system message by Server:', bp.getData().toString('hex'), ', ignored. Maybe Server Extension will pick it up.');
                             }
                         }
                         else {
@@ -444,7 +444,7 @@ BaseSock.prototype.onData = function () {
                                                 fClientSockets[0].write(jsonPackageAsString + '\n', 'ascii');
                                                 fClientSockets[0].myObj.wlog.info('  ...sent (piped).');
 
-                                                ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp});
+                                                ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp, 'cm': cm});
                                             }
                                             else {
 												if (fClientSockets.length > 1) {
@@ -454,7 +454,7 @@ BaseSock.prototype.onData = function () {
 													socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will not get this Notification.');
 												}
 
-												ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp});
+                                                ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp, 'cm': cm});
 											}
                                         }
                                         // not a notification, lets insert into database and trigger sending
@@ -476,7 +476,7 @@ BaseSock.prototype.onData = function () {
                                                     socket.myObj.wlog.info('  ...triggering queued items sender for IDclient=', IDclient, '...');
                                                     fClientSockets[0].startQueuedItemsSender();
 
-                                                    ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp});
+                                                    ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': true, 'bp': bp, 'cm': cm});
                                                 }
                                                 else {
 													if (fClientSockets.length > 1) {
@@ -486,7 +486,7 @@ BaseSock.prototype.onData = function () {
                                                 		socket.myObj.wlog.info('  ...IDclient=', IDclient, 'is offline, will get this message when logged-in.');
 													}
 
-													ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp});
+                                                    ServerExtensions.ext('onBaseMessage', {'IDbase': socket.myObj.IDbase, 'baseid': socket.myObj.baseid, 'IDclient': IDclient, 'sent': false, 'bp': bp, 'cm': cm});
                                                 }
                                             });
                                         }
@@ -575,7 +575,7 @@ BaseSock.prototype.doAuthorize = function () {
 			// provided baseid exists in database (and auth limit not exceeded)?
 			if (result[0][0].oOK == 1) {
                 socket.myObj.challengeValue = bp.getRandomIv(); // instead of pseudo-random generator, use the IV pool
-                console.log('challenge:', socket.myObj.challengeValue);
+                //console.log('challenge:', socket.myObj.challengeValue);
 
 				socket.myObj.authorized = false;
 				socket.myObj.IDbase = result[0][0].oIDbase;

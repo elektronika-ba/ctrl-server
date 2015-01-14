@@ -1,0 +1,17 @@
+{
+  "name": "android-gcm",
+  "version": "1.0.0",
+  "description": "Extension for Android GCM Notifications",
+  "main": "index.js",
+  "dependencies": {
+    "winston": "~0.7.3"
+    "mysql": "~2.1.1",
+    "node-gcm": "~0.9.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Trax",
+  "license": "MIT"
+}

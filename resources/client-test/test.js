@@ -149,6 +149,10 @@ function onData(socket) {
                                 TXserver = 0;
                             }
 
+                            // lets say that we are an Android client, and now we should send our Device Registration Id to Server...
+                            var myRegidCommandToSend = { "header": {"system_message": true, "notification": true}, "data": {"type": "ext_android_gcm_myregid", "regid": "blablablablablablablablablablablablablablablablablabla"} };
+                            client.socket.write(JSON.stringify(myRegidCommandToSend) + '\n', 'ascii');
+
                             // start a simulator that will send some stuff to Base
                             tmrSimulator = setInterval(simulator, 5000);
                         }

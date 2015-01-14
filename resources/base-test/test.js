@@ -117,7 +117,7 @@ client.on('data', function (data) {
 
 						bpAck.setIsOutOfSync(true);
 						bpAck.setIsProcessed(false);
-						console.log('  ...Error: Server sent out-of-sync data! Expected:', (TXserver + 1), 'but I got:', cm.getTXsender());
+						console.log('  ...Error: Server sent out-of-sync data! Expected:', (TXserver + 1), 'but I got:', bp.getTXsender());
 					}
 					else {
 						bpAck.setIsProcessed(true);

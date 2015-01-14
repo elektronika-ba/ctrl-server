@@ -1,0 +1,89 @@
+{"level":"info","message":"GCM Request OK, handling response...","timestamp":"2015-01-14T11:12:23.002Z"}
+{"level":"info","message":"GCM said InvalidRegistration , will delete Android regId: 1421233662","timestamp":"2015-01-14T11:12:23.003Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:16:40.239Z"}
+{"level":"info","message":"GCM Request OK, handling response...","timestamp":"2015-01-14T11:16:40.557Z"}
+{"level":"info","message":"GCM said InvalidRegistration , will delete Android regId: root@localhost","timestamp":"2015-01-14T11:16:40.557Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:16:45.301Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:16:48.734Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:28.727Z"}
+{"level":"info","message":"GCM Request OK, handling response...","timestamp":"2015-01-14T11:18:29.052Z"}
+{"level":"info","message":"GCM said InvalidRegistration , will delete Android regId: root@localhost","timestamp":"2015-01-14T11:18:29.052Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:33.389Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:38.417Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:43.668Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:48.440Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:53.447Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:18:58.429Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:03.492Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:08.455Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:13.585Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:18.487Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:23.481Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:28.518Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:33.504Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:38.517Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:43.631Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:48.556Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:53.542Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:19:58.625Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:03.565Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:08.602Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:13.575Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:18.579Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:23.599Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:28.610Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:33.603Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:38.709Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:43.610Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:48.648Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:53.742Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:20:58.652Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:03.673Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:08.797Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:13.666Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:18.711Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:23.847Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:28.700Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:21:28.719Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:24:19.358Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:24:19.542Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:24:50.378Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:25:51.202Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:46:05.596Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:46:10.632Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:46:15.842Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:46:20.705Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:46:23.443Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:48:07.611Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:48:10.852Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:52:13.627Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:52:14.787Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:52:36.130Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:52:38.095Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:53:13.823Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T11:53:15.389Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:04:15.756Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:05:43.501Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:07:55.570Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablablablablablablablablablablablablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:08:31.815Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablablablablablablablablablablablablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:11:11.908Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:11:22.740Z"}
+{"level":"info","message":"Sending New Message Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:11:27.798Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:11:30.312Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:11:30.940Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:11:36.047Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:11:38.543Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:13:20.852Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:13:24.005Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:13:29.074Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:13:32.203Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablablablablablablablablablablablablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:13:33.216Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:19:19.468Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:19:23.204Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:19:26.019Z"}
+{"level":"info","message":"Sending Base Status Android GCM to Client IDclient= 1","timestamp":"2015-01-14T12:19:26.350Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:19:27.713Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:19:31.594Z"}
+{"level":"info","message":"Adding/Updating Android regId: blablablablablablablablablablablablablablablablablabla , for IDclient= 1","timestamp":"2015-01-14T12:19:33.227Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:19:34.318Z"}
+{"level":"error","message":"Error in gcmsender.send() 401","timestamp":"2015-01-14T12:19:34.781Z"}

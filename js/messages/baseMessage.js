@@ -15,11 +15,11 @@ var Configuration = require('../configuration/configuration');
 
 // Random IV pool
 // To avoid executing crypto.randomBytes() for each encryption, lets
-// call it once and generate lots of random IVs. When it empties, some
-// poor base socket will re-generate the entire pool and re-fill it. It takes
+// call it once and generate lots of random IVs. When it empties, /*some
+// poor*/ base socket will re-generate the entire pool and re-fill it. It takes
 // the same amount of time to generate 8kb of random data as it takes
 // to generate 128kb of data (this is experimentally measured on my Windows PC)
-// so this method will speed things up a lot!
+// so this method will speed things up!
 var randomIvPool = new Buffer(0); // buildEncryptedMessage() will take care of this pool (init, consumption and re-init)
 
 var HEADER_SYNC = 0x01; // if other side should sync to 0?

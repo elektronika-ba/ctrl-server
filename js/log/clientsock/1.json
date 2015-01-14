@@ -164,3 +164,520 @@
 {"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2014-12-22T15:00:40.508Z"}
 {"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2014-12-22T15:00:40.508Z"}
 {"level":"info","message":"  ...this is a Notification, sending right now on Bases's ( 1 ) socket...","timestamp":"2014-12-22T15:00:40.510Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T11:18:03.970Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T11:18:03.970Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T11:18:03.971Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:18:03.971Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.143Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.143Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 18","timestamp":"2015-01-14T11:18:04.160Z"}
+{"level":"info","message":"  ...acked on TXserver: 18","timestamp":"2015-01-14T11:18:04.176Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.234Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.234Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 19","timestamp":"2015-01-14T11:18:04.244Z"}
+{"level":"info","message":"  ...acked on TXserver: 19","timestamp":"2015-01-14T11:18:04.259Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.342Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.342Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 20","timestamp":"2015-01-14T11:18:04.352Z"}
+{"level":"info","message":"  ...acked on TXserver: 20","timestamp":"2015-01-14T11:18:04.409Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.450Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.450Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 21","timestamp":"2015-01-14T11:18:04.459Z"}
+{"level":"info","message":"  ...acked on TXserver: 21","timestamp":"2015-01-14T11:18:04.533Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.568Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.568Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 22","timestamp":"2015-01-14T11:18:04.580Z"}
+{"level":"info","message":"  ...acked on TXserver: 22","timestamp":"2015-01-14T11:18:04.658Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.782Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.783Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 23","timestamp":"2015-01-14T11:18:04.792Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.932Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.933Z"}
+{"level":"info","message":"  ...acked on TXserver: 23","timestamp":"2015-01-14T11:18:04.935Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 24","timestamp":"2015-01-14T11:18:04.942Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:04.945Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:04.946Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 25","timestamp":"2015-01-14T11:18:04.955Z"}
+{"level":"info","message":"  ...acked on TXserver: 24","timestamp":"2015-01-14T11:18:04.957Z"}
+{"level":"info","message":"  ...acked on TXserver: 25","timestamp":"2015-01-14T11:18:04.990Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:05.007Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:05.007Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 26","timestamp":"2015-01-14T11:18:05.017Z"}
+{"level":"info","message":"  ...acked on TXserver: 26","timestamp":"2015-01-14T11:18:05.073Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:05.091Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:05.091Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:05.092Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 27","timestamp":"2015-01-14T11:18:05.101Z"}
+{"level":"info","message":"  ...acked on TXserver: 27","timestamp":"2015-01-14T11:18:05.156Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:18:07.660Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T11:18:08.424Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T11:18:08.424Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T11:18:08.424Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:18:13.444Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:18:13.447Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:18:13.447Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:18:13.510Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:18:13.511Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:18:18.372Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:18:18.456Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:18:18.456Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:18:18.456Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:18:18.497Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:18:18.498Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:18.529Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:18.530Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:18.530Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 1","timestamp":"2015-01-14T11:18:18.534Z"}
+{"level":"info","message":"  ...acked on TXserver: 1","timestamp":"2015-01-14T11:18:18.612Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:18:23.408Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:18:23.461Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:18:23.461Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:18:23.462Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:18:23.532Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:18:23.532Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:18:23.591Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:18:23.592Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:18:23.592Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 2","timestamp":"2015-01-14T11:18:23.598Z"}
+{"level":"info","message":"  ...acked on TXserver: 2","timestamp":"2015-01-14T11:18:23.723Z"}
+{"level":"info","message":"  ...saved current TXclient ( 3 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:18:27.206Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T11:24:04.911Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T11:24:04.912Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T11:24:04.912Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:24:04.912Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.053Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.053Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 3","timestamp":"2015-01-14T11:24:05.072Z"}
+{"level":"info","message":"  ...acked on TXserver: 3","timestamp":"2015-01-14T11:24:05.085Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.160Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.160Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 4","timestamp":"2015-01-14T11:24:05.176Z"}
+{"level":"info","message":"  ...acked on TXserver: 4","timestamp":"2015-01-14T11:24:05.193Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.285Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.286Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 5","timestamp":"2015-01-14T11:24:05.298Z"}
+{"level":"info","message":"  ...acked on TXserver: 5","timestamp":"2015-01-14T11:24:05.334Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.359Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.360Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 6","timestamp":"2015-01-14T11:24:05.373Z"}
+{"level":"info","message":"  ...acked on TXserver: 6","timestamp":"2015-01-14T11:24:05.425Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.517Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.517Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 7","timestamp":"2015-01-14T11:24:05.529Z"}
+{"level":"info","message":"  ...acked on TXserver: 7","timestamp":"2015-01-14T11:24:05.658Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.700Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.700Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 8","timestamp":"2015-01-14T11:24:05.714Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.791Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.792Z"}
+{"level":"info","message":"  ...acked on TXserver: 8","timestamp":"2015-01-14T11:24:05.793Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.803Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.803Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 9","timestamp":"2015-01-14T11:24:05.807Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 10","timestamp":"2015-01-14T11:24:05.818Z"}
+{"level":"info","message":"  ...acked on TXserver: 9","timestamp":"2015-01-14T11:24:05.841Z"}
+{"level":"info","message":"  ...acked on TXserver: 10","timestamp":"2015-01-14T11:24:05.858Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:05.899Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:05.900Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 11","timestamp":"2015-01-14T11:24:05.910Z"}
+{"level":"info","message":"  ...acked on TXserver: 11","timestamp":"2015-01-14T11:24:05.966Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.024Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.024Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 12","timestamp":"2015-01-14T11:24:06.035Z"}
+{"level":"info","message":"  ...acked on TXserver: 12","timestamp":"2015-01-14T11:24:06.049Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.157Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.159Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 13","timestamp":"2015-01-14T11:24:06.171Z"}
+{"level":"info","message":"  ...acked on TXserver: 13","timestamp":"2015-01-14T11:24:06.223Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.306Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.307Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 14","timestamp":"2015-01-14T11:24:06.320Z"}
+{"level":"info","message":"  ...acked on TXserver: 14","timestamp":"2015-01-14T11:24:06.406Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.456Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.456Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 15","timestamp":"2015-01-14T11:24:06.471Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.599Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.599Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 16","timestamp":"2015-01-14T11:24:06.611Z"}
+{"level":"info","message":"  ...acked on TXserver: 15","timestamp":"2015-01-14T11:24:06.623Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.623Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.623Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 17","timestamp":"2015-01-14T11:24:06.633Z"}
+{"level":"info","message":"  ...acked on TXserver: 16","timestamp":"2015-01-14T11:24:06.757Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.758Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.758Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 18","timestamp":"2015-01-14T11:24:06.776Z"}
+{"level":"info","message":"  ...acked on TXserver: 17","timestamp":"2015-01-14T11:24:06.798Z"}
+{"level":"info","message":"  ...acked on TXserver: 18","timestamp":"2015-01-14T11:24:06.889Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.930Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.931Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 19","timestamp":"2015-01-14T11:24:06.942Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:06.981Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:06.981Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 20","timestamp":"2015-01-14T11:24:06.994Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.088Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.088Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 21","timestamp":"2015-01-14T11:24:07.102Z"}
+{"level":"info","message":"  ...acked on TXserver: 19","timestamp":"2015-01-14T11:24:07.129Z"}
+{"level":"info","message":"  ...acked on TXserver: 20","timestamp":"2015-01-14T11:24:07.188Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.189Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.189Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 22","timestamp":"2015-01-14T11:24:07.203Z"}
+{"level":"info","message":"  ...acked on TXserver: 21","timestamp":"2015-01-14T11:24:07.280Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.329Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.331Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 23","timestamp":"2015-01-14T11:24:07.342Z"}
+{"level":"info","message":"  ...acked on TXserver: 22","timestamp":"2015-01-14T11:24:07.420Z"}
+{"level":"info","message":"  ...acked on TXserver: 23","timestamp":"2015-01-14T11:24:07.464Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.465Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.465Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 24","timestamp":"2015-01-14T11:24:07.475Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.512Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.513Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 25","timestamp":"2015-01-14T11:24:07.525Z"}
+{"level":"info","message":"  ...acked on TXserver: 24","timestamp":"2015-01-14T11:24:07.653Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.695Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.695Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 26","timestamp":"2015-01-14T11:24:07.709Z"}
+{"level":"info","message":"  ...acked on TXserver: 25","timestamp":"2015-01-14T11:24:07.737Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.737Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.737Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 27","timestamp":"2015-01-14T11:24:07.752Z"}
+{"level":"info","message":"  ...acked on TXserver: 26","timestamp":"2015-01-14T11:24:07.885Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.886Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.886Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 28","timestamp":"2015-01-14T11:24:07.898Z"}
+{"level":"info","message":"  ...acked on TXserver: 27","timestamp":"2015-01-14T11:24:07.927Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:07.977Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:07.977Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 29","timestamp":"2015-01-14T11:24:07.988Z"}
+{"level":"info","message":"  ...acked on TXserver: 28","timestamp":"2015-01-14T11:24:08.077Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.169Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.169Z"}
+{"level":"info","message":"  ...acked on TXserver: 29","timestamp":"2015-01-14T11:24:08.171Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 30","timestamp":"2015-01-14T11:24:08.183Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.235Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.235Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 31","timestamp":"2015-01-14T11:24:08.245Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.344Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.344Z"}
+{"level":"info","message":"  ...acked on TXserver: 30","timestamp":"2015-01-14T11:24:08.346Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 32","timestamp":"2015-01-14T11:24:08.358Z"}
+{"level":"info","message":"  ...acked on TXserver: 31","timestamp":"2015-01-14T11:24:08.435Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.476Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.477Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 33","timestamp":"2015-01-14T11:24:08.488Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.526Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.526Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 34","timestamp":"2015-01-14T11:24:08.538Z"}
+{"level":"info","message":"  ...acked on TXserver: 32","timestamp":"2015-01-14T11:24:08.568Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.635Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.635Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 35","timestamp":"2015-01-14T11:24:08.646Z"}
+{"level":"info","message":"  ...acked on TXserver: 33","timestamp":"2015-01-14T11:24:08.676Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.718Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.718Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 36","timestamp":"2015-01-14T11:24:08.728Z"}
+{"level":"info","message":"  ...acked on TXserver: 34","timestamp":"2015-01-14T11:24:08.759Z"}
+{"level":"info","message":"  ...acked on TXserver: 35","timestamp":"2015-01-14T11:24:08.811Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.866Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.867Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 37","timestamp":"2015-01-14T11:24:08.876Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:08.884Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:08.885Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 37","timestamp":"2015-01-14T11:24:08.893Z"}
+{"level":"info","message":"  ...acked on TXserver: 36","timestamp":"2015-01-14T11:24:08.925Z"}
+{"level":"warn","message":"  ...couldn't not ACK on TXserver: 37 , strange! Hm...","timestamp":"2015-01-14T11:24:09.009Z"}
+{"level":"info","message":"  ...acked on TXserver: 37","timestamp":"2015-01-14T11:24:09.051Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:09.100Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:09.100Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 38","timestamp":"2015-01-14T11:24:09.110Z"}
+{"level":"warn","message":"Server2Client executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:24:09.164Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:09.257Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:09.258Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:24:09.258Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 39","timestamp":"2015-01-14T11:24:09.271Z"}
+{"level":"info","message":"  ...acked on TXserver: 38","timestamp":"2015-01-14T11:24:09.307Z"}
+{"level":"info","message":"  ...acked on TXserver: 39","timestamp":"2015-01-14T11:24:09.398Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:24:09.942Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:24:09.942Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:24:09.942Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:24:09.971Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:24:09.971Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:24:14.953Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:24:14.953Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:24:14.953Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:24:15.348Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:24:15.349Z"}
+{"level":"info","message":"  ...saved current TXclient ( 2 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:24:16.903Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T11:24:55.394Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T11:24:55.394Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T11:24:55.394Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:24:55.411Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:24:55.549Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:24:55.550Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:24:55.550Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 1","timestamp":"2015-01-14T11:24:55.569Z"}
+{"level":"info","message":"  ...acked on TXserver: 1","timestamp":"2015-01-14T11:24:55.590Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:00.423Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:25:00.423Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:00.423Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:00.581Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:00.663Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:00.663Z"}
+{"level":"warn","message":"Server2Client executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:25:00.798Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:00.799Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:00.799Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:00.799Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 2","timestamp":"2015-01-14T11:25:00.809Z"}
+{"level":"info","message":"  ...acked on TXserver: 2","timestamp":"2015-01-14T11:25:01.003Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:05.439Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:25:05.439Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:05.439Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:05.451Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:05.466Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:05.467Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:05.609Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:05.609Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:05.609Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 3","timestamp":"2015-01-14T11:25:05.628Z"}
+{"level":"info","message":"  ...acked on TXserver: 3","timestamp":"2015-01-14T11:25:05.649Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:10.444Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 3","timestamp":"2015-01-14T11:25:10.444Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:10.445Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:10.454Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:10.470Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:10.470Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:10.587Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:10.588Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:10.588Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 4","timestamp":"2015-01-14T11:25:10.598Z"}
+{"level":"info","message":"  ...acked on TXserver: 4","timestamp":"2015-01-14T11:25:10.662Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:15.453Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 4","timestamp":"2015-01-14T11:25:15.454Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:15.454Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:15.490Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:15.490Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:20.461Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 5","timestamp":"2015-01-14T11:25:20.461Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:20.462Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:20.501Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:20.501Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:21.092Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:21.241Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:21.241Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:21.241Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 5","timestamp":"2015-01-14T11:25:21.252Z"}
+{"level":"info","message":"  ...acked on TXserver: 5","timestamp":"2015-01-14T11:25:21.266Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:25.472Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 6","timestamp":"2015-01-14T11:25:25.472Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:25.472Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:25.771Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:25.771Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:26.172Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:26.313Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:26.314Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:26.314Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 6","timestamp":"2015-01-14T11:25:26.327Z"}
+{"level":"info","message":"  ...acked on TXserver: 6","timestamp":"2015-01-14T11:25:26.346Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:30.473Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 7","timestamp":"2015-01-14T11:25:30.473Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:30.473Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:30.508Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:30.508Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:31.131Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:31.256Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:31.256Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:31.256Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 7","timestamp":"2015-01-14T11:25:31.260Z"}
+{"level":"info","message":"  ...acked on TXserver: 7","timestamp":"2015-01-14T11:25:31.281Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:35.482Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 8","timestamp":"2015-01-14T11:25:35.482Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:35.482Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:35.511Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:35.511Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:36.175Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:36.317Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:36.317Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:36.317Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 8","timestamp":"2015-01-14T11:25:36.323Z"}
+{"level":"info","message":"  ...acked on TXserver: 8","timestamp":"2015-01-14T11:25:36.342Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:40.491Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 9","timestamp":"2015-01-14T11:25:40.491Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:40.491Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:40.530Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:40.530Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:41.146Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:41.288Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:41.288Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:41.288Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 9","timestamp":"2015-01-14T11:25:41.295Z"}
+{"level":"info","message":"  ...acked on TXserver: 9","timestamp":"2015-01-14T11:25:41.312Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:45.496Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 10","timestamp":"2015-01-14T11:25:45.497Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:45.497Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:45.534Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:45.534Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:46.225Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:46.374Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:46.375Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:46.375Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 10","timestamp":"2015-01-14T11:25:46.383Z"}
+{"level":"info","message":"  ...acked on TXserver: 10","timestamp":"2015-01-14T11:25:46.407Z"}
+{"level":"info","message":"  ...saved current TXclient ( 10 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:25:47.466Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T11:25:52.291Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T11:25:52.292Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T11:25:52.292Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:52.294Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:52.432Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:52.432Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:52.433Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 11","timestamp":"2015-01-14T11:25:52.446Z"}
+{"level":"info","message":"  ...acked on TXserver: 11","timestamp":"2015-01-14T11:25:52.465Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:25:56.213Z"}
+{"level":"warn","message":"Server2Client executed but no data from DB to send. Strange!","timestamp":"2015-01-14T11:25:56.427Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:25:56.439Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:25:56.439Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:25:56.439Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 12","timestamp":"2015-01-14T11:25:56.449Z"}
+{"level":"info","message":"  ...acked on TXserver: 12","timestamp":"2015-01-14T11:25:56.513Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:25:57.309Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T11:25:57.310Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:25:57.310Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:25:57.335Z"}
+{"level":"info","message":"  ...triggering queued items sender for IDbase= 1 ...","timestamp":"2015-01-14T11:25:57.335Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T11:26:01.218Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T11:26:01.358Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T11:26:01.358Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T11:26:01.359Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 13","timestamp":"2015-01-14T11:26:01.367Z"}
+{"level":"info","message":"  ...acked on TXserver: 13","timestamp":"2015-01-14T11:26:01.383Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T11:26:02.316Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T11:26:02.316Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T11:26:02.317Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T11:26:02.331Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T11:26:02.331Z"}
+{"level":"info","message":"  ...saved current TXclient ( 2 ) and OnlineStatus to database.","timestamp":"2015-01-14T11:26:03.803Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:02:52.435Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:02:52.436Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T12:02:52.437Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T12:02:52.437Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:02:52.492Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:03:18.063Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:03:18.063Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T12:03:18.063Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T12:03:18.063Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:03:18.080Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:03:18.080Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:03:18.080Z"}
+{"level":"info","message":"  ...unknown system message: { type: 'ext_android_gcm_myregid', regid: 'blablablablabla' } , ignored.","timestamp":"2015-01-14T12:03:18.082Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T12:03:18.205Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:03:18.205Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 14","timestamp":"2015-01-14T12:03:18.225Z"}
+{"level":"info","message":"  ...acked on TXserver: 14","timestamp":"2015-01-14T12:03:18.246Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T12:03:18.295Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:03:18.296Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 15","timestamp":"2015-01-14T12:03:18.308Z"}
+{"level":"info","message":"  ...acked on TXserver: 15","timestamp":"2015-01-14T12:03:18.329Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T12:03:18.437Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:03:18.437Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T12:03:18.437Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 16","timestamp":"2015-01-14T12:03:18.454Z"}
+{"level":"info","message":"  ...acked on TXserver: 16","timestamp":"2015-01-14T12:03:18.503Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:03:23.087Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:03:23.087Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:03:23.088Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:03:23.108Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:03:23.109Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:03:28.094Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 2","timestamp":"2015-01-14T12:03:28.094Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:03:28.094Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:03:28.236Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:03:28.236Z"}
+{"level":"info","message":"  ...saved current TXclient ( 2 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:03:28.558Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:03:47.085Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:03:47.086Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:03:47.086Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:03:47.117Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:04:15.727Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:04:15.728Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:04:15.728Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:05:43.472Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:05:43.473Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:05:43.473Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:05:43.499Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:05:43.499Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:05:43.499Z"}
+{"level":"info","message":"  ...unknown system message: { type: 'ext_android_gcm_myregid', regid: 'blablablablabla' } , ignored.","timestamp":"2015-01-14T12:05:43.505Z"}
+{"level":"info","message":"  ...saved current TXclient ( 0 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:05:45.742Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:07:55.537Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:07:55.537Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:07:55.538Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:07:55.564Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:07:55.564Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:07:55.564Z"}
+{"level":"info","message":"  ...unknown system message by Server: { type: 'ext_android_gcm_myregid', regid: 'blablablablabla' } , ignored. Maybe Server Extension will pick it up.","timestamp":"2015-01-14T12:07:55.576Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:08:00.566Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:08:00.566Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:08:00.567Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:08:00.609Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:08:00.609Z"}
+{"level":"info","message":"  ...saved current TXclient ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:08:02.500Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:08:31.794Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:08:31.794Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:08:31.794Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:08:31.815Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:08:31.815Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:08:31.815Z"}
+{"level":"info","message":"  ...unknown system message by Server: { type: 'ext_android_gcm_myregid',\n  regid: 'blablablablablablablablablablablablablablablablablabla' } , ignored. Maybe Server Extension will pick it up.","timestamp":"2015-01-14T12:08:31.815Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:08:36.818Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:08:36.818Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:08:36.819Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:08:36.861Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:08:36.861Z"}
+{"level":"info","message":"  ...saved current TXclient ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:08:37.566Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:11:11.898Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:11:11.898Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:11:11.898Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:11:11.906Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:11:11.907Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:11:11.907Z"}
+{"level":"info","message":"  ...unknown system message by Server: { type: 'ext_android_gcm_myregid',\n  regid: 'blablablablablablablablablablablablablablablablablabla' } , ignored. Maybe Server Extension will pick it up.","timestamp":"2015-01-14T12:11:11.911Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:11:16.916Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:11:16.917Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:11:16.917Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:11:16.969Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:11:16.969Z"}
+{"level":"info","message":"  ...saved current TXclient ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:11:18.260Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:13:33.196Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:13:33.196Z"}
+{"level":"info","message":"  ...there is pending data for Client, starting sender...","timestamp":"2015-01-14T12:13:33.196Z"}
+{"level":"info","message":"Server2Client timer started.","timestamp":"2015-01-14T12:13:33.196Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:13:33.215Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:13:33.215Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:13:33.216Z"}
+{"level":"info","message":"  ...unknown system message by Server: { type: 'ext_android_gcm_myregid',\n  regid: 'blablablablablablablablablablablablablablablablablabla' } , ignored. Maybe Server Extension will pick it up.","timestamp":"2015-01-14T12:13:33.227Z"}
+{"level":"info","message":"Server2Client executed, assembling JSON and sending to Client...","timestamp":"2015-01-14T12:13:33.335Z"}
+{"level":"info","message":"  ...sent.","timestamp":"2015-01-14T12:13:33.336Z"}
+{"level":"info","message":"Server2Client sender stopped, nothing more to send...","timestamp":"2015-01-14T12:13:33.336Z"}
+{"level":"info","message":"Processing Client's ACK for our TXserver: 1","timestamp":"2015-01-14T12:13:33.352Z"}
+{"level":"info","message":"  ...acked on TXserver: 1","timestamp":"2015-01-14T12:13:33.368Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:13:38.229Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:13:38.229Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:13:38.229Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:13:38.272Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:13:38.272Z"}
+{"level":"info","message":"  ...saved current TXclient ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:13:40.220Z"}
+{"level":"info","message":"Client fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4  ( 127.0.0.1 ) authorized.","timestamp":"2015-01-14T12:19:33.200Z"}
+{"level":"info","message":"  ...re-syncing TXclient to: 0.","timestamp":"2015-01-14T12:19:33.200Z"}
+{"level":"info","message":"  ...forcing Client to re-sync because I don't have anything pending for him.","timestamp":"2015-01-14T12:19:33.200Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:19:33.222Z"}
+{"level":"info","message":"  ...didn't ACK because this was a notification.","timestamp":"2015-01-14T12:19:33.222Z"}
+{"level":"info","message":"  ...system message received, parsing...","timestamp":"2015-01-14T12:19:33.224Z"}
+{"level":"info","message":"  ...unknown system message by Server: { type: 'ext_android_gcm_myregid',\n  regid: 'blablablablablablablablablablablablablablablablablabla' } , ignored. Maybe Server Extension will pick it up.","timestamp":"2015-01-14T12:19:33.230Z"}
+{"level":"info","message":"Processing Client's data...","timestamp":"2015-01-14T12:19:38.224Z"}
+{"level":"info","message":"  ...ACK sent back for TXsender: 1","timestamp":"2015-01-14T12:19:38.224Z"}
+{"level":"info","message":"  ...fresh data, will forward to my Base...","timestamp":"2015-01-14T12:19:38.224Z"}
+{"level":"info","message":"  ...added to IDbase= 1  queue...","timestamp":"2015-01-14T12:19:38.276Z"}
+{"level":"info","message":"  ...IDbase= 1 is offline, will get this message when logged-in.","timestamp":"2015-01-14T12:19:38.276Z"}
+{"level":"info","message":"  ...saved current TXclient ( 1 ) and OnlineStatus to database.","timestamp":"2015-01-14T12:19:39.755Z"}
