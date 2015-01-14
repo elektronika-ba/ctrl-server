@@ -1,7 +1,7 @@
 'use strict';
 
 // A way to enable/disable this Server Extension even when it is included in the /server_extensions/ directory
-var EXTENSION_ENABLED = true;
+var EXTENSION_ENABLED = false;
 
 var Configuration = require('./configuration/configuration');
 
@@ -29,33 +29,33 @@ var Database = require('./database/database');
 // Entry points for this Server Extension
 module.exports = {
     // Used by ../server_extensions.js
-    isEnabled: function() {
+    isEnabled: function () {
         return EXTENSION_ENABLED;
     },
 
-	// Base sent a System Message to Server. We can see what is sent here.
-	onBaseSystemMessage: function(params) {
-		// "params" contains:
-		// params.IDbase -> sender of this message
-		// params.baseid -> sender of this message
-		// params.bp -> contents of the message
-	},
+    // Base sent a System Message to Server. We can see what is sent here.
+    onBaseSystemMessage: function (params) {
+        // "params" contains:
+        // params.IDbase -> sender of this message
+        // params.baseid -> sender of this message
+        // params.bp -> contents of the message
+    },
 
-	// Base sent a Message to Server which is forwarded to all associated Clients.
+    // Base sent a Message to Server which is forwarded to all associated Clients.
     // This function is called for each Client that is supposed to receive it.
-	// Here we can see if it was forwarded to Client right now, or it is queued on Server.
-	onBaseMessage: function(params) {
-		// "params" contains:
-		// params.IDbase -> sender of this message
-		// params.baseid -> sender of this message
-		// params.IDclient -> IDclient of Client who is supposed to receive this message from Base
-		// params.sent -> boolean saying if this message is sent to Client
-		// params.bp -> contents of the message as Base sent it (in baseMessage.js format)
+    // Here we can see if it was forwarded to Client right now, or it is queued on Server.
+    onBaseMessage: function (params) {
+        // "params" contains:
+        // params.IDbase -> sender of this message
+        // params.baseid -> sender of this message
+        // params.IDclient -> IDclient of Client who is supposed to receive this message from Base
+        // params.sent -> boolean saying if this message is sent to Client
+        // params.bp -> contents of the message as Base sent it (in baseMessage.js format)
         // params.cm -> contens of the message as is being forwarded to Client (in clientMessage.js format)
-		// To check if this is a notification-type message, simply do: params.bp.getIsNotification()
+        // To check if this is a notification-type message, simply do: params.bp.getIsNotification()
 
-		if(!params.sent) {
-			wlog.info('Sending New Message Android GCM to Client IDclient=', params.IDclient);
+        if (!params.sent) {
+            wlog.info('Sending New Message Android GCM to Client IDclient=', params.IDclient);
 
             var gcmmessage = new gcm.Message({
                 collapseKey: 'tickle',
@@ -65,21 +65,21 @@ module.exports = {
             });
 
             notifyClient(params.IDclient, gcmmessage);
-		}
-	},
+        }
+    },
 
-	// Base went offline or is now connected.
-	// Here we can see if that notification was sent to Client or not because the Client is offline.
-	onBaseStatusChange: function(params) {
-		// "params" contains:
-		// params.IDbase -> sender of this message
-		// params.baseid -> sender of this message
-		// params.IDclient -> IDclient of Client who is supposed to receive this notification
-		// params.sent -> boolean saying if this message is sent to Client
-		// params.connected -> boolean saying if Base is now connected or disconnected
+    // Base went offline or is now connected.
+    // Here we can see if that notification was sent to Client or not because the Client is offline.
+    onBaseStatusChange: function (params) {
+        // "params" contains:
+        // params.IDbase -> sender of this message
+        // params.baseid -> sender of this message
+        // params.IDclient -> IDclient of Client who is supposed to receive this notification
+        // params.sent -> boolean saying if this message is sent to Client
+        // params.connected -> boolean saying if Base is now connected or disconnected
 
-		if(!params.sent) {
-			wlog.info('Sending Base Status Android GCM to Client IDclient=', params.IDclient);
+        if (!params.sent) {
+            wlog.info('Sending Base Status Android GCM to Client IDclient=', params.IDclient);
 
             var gcmmessage = new gcm.Message({
                 collapseKey: 'tickle',
@@ -89,14 +89,14 @@ module.exports = {
             });
 
             notifyClient(params.IDclient, gcmmessage);
-		}
-	},
+        }
+    },
 
-	// Client sent a System Message to Server. We can see what is sent here.
-	onClientSystemMessage: function(params) {
-		// "params" contains:
-		// params.IDclient -> sender of this message
-		// params.cm -> contents of the message
+    // Client sent a System Message to Server. We can see what is sent here.
+    onClientSystemMessage: function (params) {
+        // "params" contains:
+        // params.IDclient -> sender of this message
+        // params.cm -> contents of the message
 
         var d = params.cm.getData();
 
@@ -104,50 +104,50 @@ module.exports = {
         if (("type" in d) && d.type == 'ext_android_gcm_myregid') {
             if (("regid" in d) && (typeof d.regid == "string")) {
                 wlog.info("Adding/Updating Android regId:", d.regid, ", for IDclient=", params.IDclient);
-                Database.updateAndroidRegId(params.IDclient, d.regid, function(err) {
-                    if(err) {
+                Database.updateAndroidRegId(params.IDclient, d.regid, function (err) {
+                    if (err) {
                         wlog.error("Database Error in updateAndroidRegId()!");
                         return;
                     }
                 });
             }
         }
-	},
+    },
 
     // Client sent a Message to Server which is forwarded to all targeted Bases.
     // This function is called for each Base that is supposed to receive it.
     // Here we can see if it was forwarded to Base right now, or it is queued on Server.
-	onClientMessage: function(params) {
-		// "params" contains:
-		// params.IDclient -> sender of this message
-		// params.IDbase -> IDbase of Base who is supposed to receive this message from Client
-		// params.baseid -> baseid of Base who is supposed to receive this message from Client
-		// params.sent -> boolean saying if this message is sent to Base
-		// params.cm -> contents of the message as Client sent it (in clientMessage.js format).
+    onClientMessage: function (params) {
+        // "params" contains:
+        // params.IDclient -> sender of this message
+        // params.IDbase -> IDbase of Base who is supposed to receive this message from Client
+        // params.baseid -> baseid of Base who is supposed to receive this message from Client
+        // params.sent -> boolean saying if this message is sent to Base
+        // params.cm -> contents of the message as Client sent it (in clientMessage.js format).
         // Note: there is no message in baseMessage.js format, but can be added if required.
-		// To check if this is a notification-type message, simply do: params.cm.getIsNotification()
-	},
+        // To check if this is a notification-type message, simply do: params.cm.getIsNotification()
+    },
 
-	// Client went offline or is now connected.
-	onClientStatusChange: function(params) {
-		// "params" contains:
-		// params.IDclient -> sender of this message
-		// params.connected -> boolean saying if Client is now connected or disconnected
-	}
+    // Client went offline or is now connected.
+    onClientStatusChange: function (params) {
+        // "params" contains:
+        // params.IDclient -> sender of this message
+        // params.connected -> boolean saying if Client is now connected or disconnected
+    }
 };
 
 // Private functions of this Extension
 function notifyClient(IDclient, gcmmessage) {
 
     // Get regId of this IDclient
-    Database.getClientRegId(IDclient, function(err, rows, columns) {
-        if(err) {
+    Database.getClientRegId(IDclient, function (err, rows, columns) {
+        if (err) {
             wlog.error("Database Error in getClientsRegId()!");
             return;
         }
 
         // No Android regId for this Client? Maybe he is not Android Client after all...
-        if(rows.length <= 0) {
+        if (rows.length <= 0) {
             return;
         }
 
@@ -175,7 +175,7 @@ function notifyClient(IDclient, gcmmessage) {
                     wlog.info('GCM said', result.results[i].error, ', will delete Android regId:', regIds[i].toString());
 
                     Database.deleteAndroidDevice(regIds[i], function (err, result) {
-                        if(err) {
+                        if (err) {
                             wlog.error("Database Error in deleteAndroidDevice()!");
                             return;
                         }
@@ -184,7 +184,7 @@ function notifyClient(IDclient, gcmmessage) {
 
                 if (("registration_id" in result.results[i])) {
                     Database.changeAndroidRegId(result.results[i].registration_id, regIds[i], function (err, result) {
-                        if(err) {
+                        if (err) {
                             wlog.error("Database Error in changeAndroidRegId()!");
                             return;
                         }
