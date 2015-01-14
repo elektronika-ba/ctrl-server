@@ -158,11 +158,12 @@ function notifyClient(IDclient, gcmmessage) {
         // connected to Server or not, and then make a decision to send or not to send him a GCM.
         // Maybe it should be done that way... TODO!
 
-        var regIds = [];
-        regIds.push(rows[0].regid);
+        var regids = [
+        	rows[0].regid.toString()
+        ];
 
         // Params: message-literal, registrationIds-array, No. of retries, callback-function
-        gcmsender.send(gcmmessage, regIds, 4, function (err, result) {
+        gcmsender.send(gcmmessage, regids, 3, function (err, result) {
             if (err) {
                 wlog.error('Error in gcmsender.send()', err, result);
                 return;
@@ -172,9 +173,9 @@ function notifyClient(IDclient, gcmmessage) {
 
             for (var i = 0; i < result.results.length; i++) {
                 if (result.results[i].error == 'InvalidRegistration' || result.results[i].error == 'MissingRegistration') {
-                    wlog.info('GCM said', result.results[i].error, ', will delete Android regId:', regIds[i].toString());
+                    wlog.info('GCM said', result.results[i].error, ', will delete Android regId:', regids[i].toString());
 
-                    Database.deleteAndroidDevice(regIds[i], function (err, result) {
+                    Database.deleteAndroidDevice(regids[i], function (err, result) {
                         if (err) {
                             wlog.error("Database Error in deleteAndroidDevice()!");
                             return;
@@ -183,7 +184,7 @@ function notifyClient(IDclient, gcmmessage) {
                 }
 
                 if (("registration_id" in result.results[i])) {
-                    Database.changeAndroidRegId(result.results[i].registration_id, regIds[i], function (err, result) {
+                    Database.changeAndroidRegId(result.results[i].registration_id, regids[i], function (err, result) {
                         if (err) {
                             wlog.error("Database Error in changeAndroidRegId()!");
                             return;
