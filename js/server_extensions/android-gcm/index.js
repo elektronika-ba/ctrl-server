@@ -55,16 +55,30 @@ module.exports = {
         // To check if this is a notification-type message, simply do: params.bp.getIsNotification()
 
         if (!params.sent) {
-            wlog.info('Sending New Message Android GCM to Client IDclient=', params.IDclient);
 
-            var gcmmessage = new gcm.Message({
-                collapseKey: 'tickle',
-                delayWhileIdle: true,
-                timeToLive: 3,
-                data: { 'what': 'tickle-tickle', 'why': 'onBaseMessage', 'baseid': params.baseid }
-            });
+			Database.getBaseClientConfig(params.IDbase, params.IDclient, function (err, rows, columns) {
+				if (err) {
+					wlog.error("Database Error in getBaseClientConfig()!");
+					return;
+				}
 
-            notifyClient(params.IDclient, gcmmessage);
+				// If option is > 0 then it is disabled!
+				if (rows[0].disable_new_data_event > 0) {
+					wlog.info('Disabled New Message Android GCM to IDclient=', params.IDclient, 'for IDbase=', params.IDbase);
+					return;
+				}
+
+				wlog.info('Sending New Message Android GCM to Client IDclient=', params.IDclient);
+
+				var gcmmessage = new gcm.Message({
+					collapseKey: 'tickle',
+					delayWhileIdle: true,
+					timeToLive: 3,
+					data: { 'what': 'tickle-tickle', 'why': 'onBaseMessage', 'baseid': params.baseid }
+				});
+
+				notifyClient(params.IDclient, gcmmessage);
+			});
         }
     },
 
@@ -79,16 +93,29 @@ module.exports = {
         // params.connected -> boolean saying if Base is now connected or disconnected
 
         if (!params.sent) {
-            wlog.info('Sending Base Status Android GCM to Client IDclient=', params.IDclient);
+			Database.getBaseClientConfig(params.IDbase, params.IDclient, function (err, rows, columns) {
+				if (err) {
+					wlog.error("Database Error in getBaseClientConfig()!");
+					return;
+				}
 
-            var gcmmessage = new gcm.Message({
-                collapseKey: 'tickle',
-                delayWhileIdle: true,
-                timeToLive: 3,
-                data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid, 'connected': params.connected }
-            });
+				// If option is > 0 then it is disabled!
+				if (rows[0].disable_status_change_event > 0) {
+					wlog.info('Disabled Base Status Android GCM to IDclient=', params.IDclient, ' for IDbase=', params.IDbase);
+					return;
+				}
 
-            notifyClient(params.IDclient, gcmmessage);
+				wlog.info('Sending Base Status Android GCM to Client IDclient=', params.IDclient);
+
+				var gcmmessage = new gcm.Message({
+					collapseKey: 'tickle',
+					delayWhileIdle: true,
+					timeToLive: 3,
+					data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid, 'connected': params.connected }
+				});
+
+				notifyClient(params.IDclient, gcmmessage);
+			});
         }
     },
 

@@ -397,3 +397,22 @@
 {"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-14T12:19:33.199Z"}
 {"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-14T12:19:33.199Z"}
 {"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-14T12:19:39.754Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-16T21:08:47.501Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-16T21:08:48.125Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-16T21:08:48.140Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-16T21:08:48.140Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-16T21:09:04.364Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-16T21:09:04.364Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-16T21:09:05.066Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-16T21:09:05.066Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-16T21:09:12.679Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-16T21:09:16.314Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-16T21:09:16.314Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-16T21:09:17.499Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-16T21:09:17.499Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-16T21:09:25.908Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-16T21:09:53.910Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-16T21:09:53.910Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-16T21:09:55.033Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-16T21:09:55.033Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-16T21:09:58.434Z"}
