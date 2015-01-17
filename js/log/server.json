@@ -416,3 +416,421 @@
 {"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-16T21:09:55.033Z"}
 {"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-16T21:09:55.033Z"}
 {"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-16T21:09:58.434Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:31:05.274Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:31:05.665Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:31:05.682Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:31:05.682Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:32:23.026Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:32:23.395Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:32:23.413Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:32:23.413Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:32:37.649Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:32:38.018Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:32:38.035Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:32:38.035Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:33:15.630Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:33:16.013Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:33:16.030Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:33:16.030Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:33:40.490Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:33:40.860Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:33:40.877Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:33:40.878Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:33:53.356Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:33:53.730Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:33:53.748Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:33:53.748Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:34:19.326Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:34:19.326Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T10:34:20.415Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T10:34:22.336Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:41:43.104Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:41:43.488Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:41:43.506Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:41:43.506Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:44:57.811Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:44:58.195Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:44:58.203Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:44:58.212Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:44:58.212Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:44:58.212Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:45:15.932Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:45:16.321Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:45:16.331Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:45:16.340Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:45:16.340Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:45:16.340Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:46:25.091Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:46:25.091Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T10:46:25.942Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T10:46:28.105Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:48:10.545Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:48:10.925Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:48:10.934Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:48:10.943Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:48:10.943Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:48:10.943Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:48:13.450Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:48:13.450Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T10:48:14.334Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:48:14.334Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T10:48:18.104Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:51:05.694Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:51:06.075Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:51:06.084Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:51:06.093Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:51:06.093Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:51:06.094Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:51:08.359Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:51:08.360Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T10:51:09.208Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T10:51:11.366Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:51:20.862Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:51:20.863Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T10:51:21.712Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T10:51:23.878Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:52:55.514Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:52:55.514Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T10:52:56.414Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:52:56.414Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:53:11.630Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:53:11.630Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T10:53:12.475Z"}
+{"level":"info","message":"  ...found already existing connection at IP 127.0.0.1 , continuing its TXbase ( 3 ). Destroying it now!","timestamp":"2015-01-17T10:53:12.475Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:53:12.476Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:55:55.038Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:55:55.422Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:55:55.430Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:55:55.440Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:55:55.440Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:55:55.440Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T10:56:00.381Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:56:00.381Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T10:56:01.238Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:56:01.239Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T10:56:10.589Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:56:10.589Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T10:56:10.617Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:56:10.618Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T10:56:23.149Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:56:23.150Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T10:56:23.171Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 2 ). Destroying it now!","timestamp":"2015-01-17T10:56:23.171Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:56:23.172Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T10:56:23.175Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T10:57:45.466Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T10:57:45.857Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T10:57:45.867Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T10:57:45.877Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T10:57:45.877Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T10:57:45.877Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T10:57:58.925Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:57:58.925Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T10:57:58.944Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:57:58.944Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T10:58:05.441Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T10:58:08.872Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T10:58:08.872Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T10:58:08.899Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T10:58:08.899Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:00:10.633Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:00:11.008Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:00:11.023Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:00:11.023Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:00:11.023Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:00:11.023Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:00:39.805Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:00:39.805Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:00:39.852Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:00:39.852Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:00:50.164Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:00:50.164Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:00:50.179Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:00:50.179Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:00:50.179Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:00:50.179Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:02:26.183Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:02:26.557Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:02:26.573Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:02:26.573Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:02:26.573Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:02:26.573Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:02:28.289Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:02:28.289Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:02:28.320Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:02:28.320Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:03:07.117Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:03:07.117Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:03:07.133Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:03:07.133Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:03:07.133Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:03:07.133Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:15:56.081Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:15:56.461Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:15:56.471Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:15:56.481Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:15:56.481Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:15:56.481Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:15:58.881Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:15:58.881Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:15:58.921Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:15:58.921Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:16:01.221Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:16:33.215Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:16:33.215Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:16:33.225Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:16:33.225Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:16:44.885Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:16:44.885Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:16:44.895Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:16:44.895Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:16:44.895Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:16:44.895Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:19:06.965Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:19:11.177Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:19:11.192Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:19:11.192Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:19:11.192Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:20:06.546Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:20:06.905Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:20:06.920Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:20:06.920Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:20:06.920Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:20:06.920Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:20:11.538Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:20:11.538Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:20:11.569Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:20:11.569Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:20:15.220Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:20:15.220Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:20:15.220Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:20:15.220Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:20:15.220Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:20:15.235Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:20:44.282Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:20:44.282Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:20:45.140Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:20:45.140Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:21:39.890Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:21:40.264Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:21:40.264Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:21:40.280Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:21:40.280Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:21:40.280Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:21:41.434Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:21:41.434Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:21:42.292Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:21:42.292Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:21:43.369Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:21:43.369Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:21:43.400Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:21:43.400Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:22:16.659Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:22:21.823Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 closed.","timestamp":"2015-01-17T11:22:21.823Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:23:28.519Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:23:28.889Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:23:28.904Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:23:28.904Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:23:28.904Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:23:28.904Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:23:33.881Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:23:33.881Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:23:33.927Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:23:33.927Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:23:37.297Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:23:56.017Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:23:56.017Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:23:56.033Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:23:56.033Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:24:00.759Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:24:21.227Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:24:47.910Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:24:48.271Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:24:48.286Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:24:48.286Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:24:48.286Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:24:48.286Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:24:50.361Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:24:50.361Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2015-01-17T11:24:50.392Z"}
+{"level":"warn","message":"  ...reason: Wrong auth_token.","timestamp":"2015-01-17T11:24:50.408Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2015-01-17T11:24:53.372Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:24:53.372Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:25:23.878Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:25:24.253Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:25:24.253Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:25:24.268Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:25:24.268Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:25:24.268Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:25:25.048Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:25:25.048Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:25:25.906Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:25:28.059Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:25:54.956Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:25:55.330Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:25:55.330Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:25:55.346Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:25:55.346Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:25:55.346Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:25:58.263Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:25:58.263Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:25:59.121Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:26:01.274Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 closed.","timestamp":"2015-01-17T11:26:01.274Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:30:40.165Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:30:40.537Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:30:40.546Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:30:40.555Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:30:40.555Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:30:40.555Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:30:43.924Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:30:43.924Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:30:44.774Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:30:46.934Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:30:46.934Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:30:57.264Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:31:30.427Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:31:30.797Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:31:30.807Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:31:30.817Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:31:30.817Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:31:30.817Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:31:33.017Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:31:33.017Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:31:33.867Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:31:36.027Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:31:36.027Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:33:49.478Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:33:49.858Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:33:49.868Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:33:49.868Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:33:49.878Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:33:49.878Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:33:52.248Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:33:52.248Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:33:53.098Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:33:55.258Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:33:55.258Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:33:59.028Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:33:59.028Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:33:59.859Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:34:02.046Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:34:02.046Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:34:10.656Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:34:10.656Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:34:11.506Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:34:11.506Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:34:12.226Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:34:25.816Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:34:25.816Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:34:26.646Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:34:26.646Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:34:34.806Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:35:18.115Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:35:18.485Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:35:18.495Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:35:18.505Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:35:18.505Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:35:18.505Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:35:20.105Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:35:20.105Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:35:20.135Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:35:20.135Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:35:20.945Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:35:20.945Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:35:21.785Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:35:21.785Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:35:23.365Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:35:32.725Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:35:37.545Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:35:37.545Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:35:37.565Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:35:37.565Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:35:42.167Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:35:42.167Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:35:42.167Z"}
+{"level":"info","message":"  ...found already existing connection to 127.0.0.1 , continuing its TXclient ( 0 ). Destroying it now!","timestamp":"2015-01-17T11:35:42.177Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:35:42.177Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:35:42.177Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:35:42.177Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:35:47.757Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:41:16.483Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:41:16.853Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:41:16.863Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:41:16.873Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:41:16.873Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:41:16.873Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:41:18.533Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:41:18.533Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2015-01-17T11:41:18.563Z"}
+{"level":"warn","message":"  ...reason: Wrong auth_token.","timestamp":"2015-01-17T11:41:18.563Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2015-01-17T11:41:21.533Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:41:21.533Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:41:21.533Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:45:46.580Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:45:46.948Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:45:46.958Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:45:46.967Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:45:46.967Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:45:46.967Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:45:48.902Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:45:48.902Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2015-01-17T11:45:48.937Z"}
+{"level":"warn","message":"  ...reason: Wrong auth_token.","timestamp":"2015-01-17T11:45:48.938Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2015-01-17T11:45:51.909Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:45:51.909Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:45:59.412Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:45:59.412Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2015-01-17T11:45:59.428Z"}
+{"level":"warn","message":"  ...reason: Wrong auth_token.","timestamp":"2015-01-17T11:45:59.428Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:46:00.863Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:46:00.863Z"}
+{"level":"warn","message":"Client ( 127.0.0.1 ) failed to authorize.","timestamp":"2015-01-17T11:46:00.863Z"}
+{"level":"warn","message":"  ...reason: Wrong auth_token.","timestamp":"2015-01-17T11:46:00.863Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2015-01-17T11:46:02.423Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:46:02.423Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Client 127.0.0.1!","timestamp":"2015-01-17T11:46:03.874Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 closed.","timestamp":"2015-01-17T11:46:03.874Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:46:37.610Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:46:37.976Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:46:37.991Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:46:37.991Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:46:37.991Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:46:37.991Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:46:42.094Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:46:42.094Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:46:42.921Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:46:45.105Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:46:45.105Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:48:18.695Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:48:19.067Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:48:19.067Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:48:19.082Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:48:19.082Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:48:19.082Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:48:20.408Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:48:20.408Z"}
+{"level":"info","message":"  ...CMAC validation failed. Message discarded!","timestamp":"2015-01-17T11:48:21.235Z"}
+{"level":"info","message":"Authorization timeout, killing connection with Base 127.0.0.1!","timestamp":"2015-01-17T11:48:23.419Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-01-17T11:51:14.519Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-01-17T11:51:14.893Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-01-17T11:51:14.893Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-01-17T11:51:14.909Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-01-17T11:51:14.909Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-01-17T11:51:14.909Z"}
+{"level":"info","message":"Connection with Client 127.0.0.1 established.","timestamp":"2015-01-17T11:51:17.982Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:51:17.982Z"}
+{"level":"info","message":"  ...authorized as IDclient = 1","timestamp":"2015-01-17T11:51:18.013Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:51:18.013Z"}
+{"level":"info","message":"Connection with Base 127.0.0.1 established.","timestamp":"2015-01-17T11:51:18.528Z"}
+{"level":"info","message":"Authorization timeout set to 3 sec...","timestamp":"2015-01-17T11:51:18.528Z"}
+{"level":"info","message":"  ...authorized as IDbase = 1","timestamp":"2015-01-17T11:51:19.371Z"}
+{"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-01-17T11:51:19.371Z"}
+{"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-01-17T11:51:23.427Z"}
+{"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-01-17T11:51:28.450Z"}

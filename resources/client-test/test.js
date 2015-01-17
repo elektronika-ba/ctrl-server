@@ -207,6 +207,8 @@ function doAuthorize(socket) {
 }
 
 function simulator() {
+    //return; // disable sender... debugging something...
+
     console.log('Sending data... TXsender:', TXclient);
 
     // Note: we can send data to a targeted Base, but lets send to all for this example...

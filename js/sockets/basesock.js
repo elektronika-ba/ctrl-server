@@ -55,7 +55,11 @@ function BaseSock(socket) {
         wlog.info("Authorization timeout set to", Configuration.base.sock.AUTH_TIMEOUT_MS / 1000, "sec...");
         socket.myObj.authTimer = setTimeout(function () {
             wlog.info("Authorization timeout, killing connection with Base %s!", socket.myObj.ip);
+
+            socket.emit('error', {code: 'ECONNRESET'});
+            socket.end();
             socket.destroy();
+
         }, Configuration.base.sock.AUTH_TIMEOUT_MS);
     }
 
@@ -66,8 +70,8 @@ function BaseSock(socket) {
             Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
             Database.baseOnlineStatus(socket.myObj.IDbase, 0);
             socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
+            self.informMyClients(false);
         }
-        self.informMyClients(false);
         clearTimeout(socket.myObj.tmrSenderTask);
         clearTimeout(socket.myObj.tmrBackoff);
         clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
@@ -83,8 +87,8 @@ function BaseSock(socket) {
                 Database.saveTXbase(socket.myObj.IDbase, socket.myObj.TXbase);
                 Database.baseOnlineStatus(socket.myObj.IDbase, 0);
                 socket.myObj.wlog.info('  ...saved current TXbase (', socket.myObj.TXbase, ') and OnlineStatus to database.');
+                self.informMyClients(false);
             }
-            self.informMyClients(false);
             clearTimeout(socket.myObj.tmrSenderTask);
             clearTimeout(socket.myObj.tmrBackoff);
             clearTimeout(socket.myObj.authTimer); // added on 25-11-2014
@@ -245,6 +249,8 @@ BaseSock.prototype.onData = function () {
 
                                         // DISCONNECT (kill socket)
                                         socket.myObj.wlog.error('Socket destroyed because of out-of-sync!');
+
+                                        socket.emit('error', {code: 'ECONNRESET'});
                                         socket.end();
                                         socket.destroy();
                                     });
@@ -567,7 +573,8 @@ BaseSock.prototype.doAuthorize = function () {
 			if (err) {
 				wlog.error('Unknown error in Database.authBasePhase1()!');
 
-				socket.end();
+                socket.emit('error', {code: 'ECONNRESET'});
+                socket.end();
 				socket.destroy();
 				return;
 			}
@@ -625,7 +632,8 @@ BaseSock.prototype.doAuthorize = function () {
 				if (err) {
 					wlog.error('Unknown error in Database.authBasePhase2()!');
 
-					socket.end();
+                    socket.emit('error', {code: 'ECONNRESET'});
+                    socket.end();
 					socket.destroy();
 					return;
 				}
@@ -644,6 +652,9 @@ BaseSock.prototype.doAuthorize = function () {
 					wlog.info('  ...found already existing connection at IP', fMyConns[b].myObj.ip, ', continuing its TXbase (', fMyConns[b].myObj.TXbase, '). Destroying it now!');
 					socket.myObj.TXbase = fMyConns[b].myObj.TXbase; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
 					fMyConns[b].myObj.authorized = false;
+
+                    fMyConns[b].emit('error', {code: 'ECONNRESET'});
+                    fMyConns[b].end();
 					fMyConns[b].destroy(); // NOTE: this will trigger an error on socket error listener... but what can we do about it, eh?
 				}
 

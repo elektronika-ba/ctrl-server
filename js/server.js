@@ -9,10 +9,15 @@ var fs = require('fs');
 var net = require('net');
 var winston = require('winston');
 var crypto = require('crypto');
+var http = require('http');
+
+var start_stamp = Math.round(new Date() / 1000);
 
 // Array of connected Bases and Clients (sockets)
-exports.connBases = [];
-exports.connClients = [];
+var connBases = [];
+var connClients = [];
+exports.connBases = connBases;
+exports.connClients = connClients;
 
 // Global exported logger until Base/Client authenticates
 var wl = new (winston.Logger)({
@@ -77,3 +82,22 @@ wl.info("Client's Server is starting...");
 srvClient.listen(Configuration.client.srv.PORT + Configuration.version); // GO!
 
 // All further work is done in BaseSock and ClientSock .js files
+
+// Tiny Status Server
+wl.info("Tiny Status Server is starting...");
+var tinyStatusServer = http.createServer(function(request, response) {
+    console.log("Status Server http request...");
+    response.writeHeader(200, {"Content-Type": "text/plain"});
+
+    var answer = {
+        'up_for_seconds': Math.round(new Date() / 1000) - start_stamp,
+        'online_bases': connBases.length,
+        'online_clients': connClients.length,
+    };
+
+    response.write(JSON.stringify(answer));
+    response.end();
+}).listen(Configuration.tinyStatusServer.PORT + Configuration.version);
+tinyStatusServer.on('listening', function () {
+    wl.info("Tiny Status Server listening on port: %d.", Configuration.tinyStatusServer.PORT + Configuration.version);
+});

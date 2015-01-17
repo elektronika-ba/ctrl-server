@@ -14,7 +14,7 @@ var Configuration = {
     },
 
     // Base Socket Server related
-    //-----------------------------
+    //---------------------------
     base: {
         // Server Setup
         srv: {
@@ -65,6 +65,12 @@ var Configuration = {
 
             OUT_OF_SYNC_CNT_MAX: 3,         // how many out of sync messages should we receive before flushing the txserver2client queue and dropping the connection?
         },
+    },
+
+    // Tiny Status Server related
+    //---------------------------
+    tinyStatusServer: {
+        PORT: 7000,                         // starting port number. actual port number is this value + version!
     },
 
 };

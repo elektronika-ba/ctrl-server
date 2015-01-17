@@ -49,7 +49,11 @@ function ClientSock(socket) {
         wlog.info("Authorization timeout set to", Configuration.client.sock.AUTH_TIMEOUT_MS / 1000, "sec...");
         socket.myObj.authTimer = setTimeout(function () {
             wlog.info("Authorization timeout, killing connection with Client %s!", socket.myObj.ip);
+
+            //socket.emit('error', {code: 'ECONNRESET'});
+            socket.end();
             socket.destroy();
+
         }, Configuration.client.sock.AUTH_TIMEOUT_MS);
     }
 
@@ -218,6 +222,8 @@ ClientSock.prototype.onData = function () {
 
                                 // DISCONNECT (kill socket)
                                 socket.myObj.wlog.error('Socket destroyed because of out-of-sync!');
+
+                                //socket.emit('error', {code: 'ECONNRESET'});
                                 socket.end();
                                 socket.destroy();
                             });
@@ -473,6 +479,7 @@ ClientSock.prototype.doAuthorize = function () {
         if (err) {
             wlog.error('Unknown error in Database.authClient()!');
 
+            //socket.emit('error', {code: 'ECONNRESET'});
             socket.end();
             socket.destroy();
             return;
@@ -494,6 +501,9 @@ ClientSock.prototype.doAuthorize = function () {
                 wlog.info('  ...found already existing connection to', fMyConns[b].myObj.ip, ', continuing its TXclient (', fMyConns[b].myObj.TXclient, '). Destroying it now!');
                 result[0][0].oTXclient = fMyConns[b].myObj.TXclient; // this will be assigned for each previous socket connection in loop so it will hold the value of last one. doesn't matter really...
                 fMyConns[b].myObj.IDclient = null;
+
+                //fMyConns[b].emit('error', {code: 'ECONNRESET'});
+                fMyConns[b].end();
                 fMyConns[b].destroy();
             }
 

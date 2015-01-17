@@ -51,7 +51,7 @@ clientMessage.prototype.extractFrom = function (jd) {
             this.jsonData.TXsender = jd.TXsender;
         }
         else {
-            console.log('Warning in extractFrom(), extracted TXsender is not a number! Using default.');
+            //console.log('Warning in extractFrom(), extracted TXsender is not a number! Using default.');
         }
 
         if (("baseid" in jd) && (typeof jd.baseid == "string")) {
