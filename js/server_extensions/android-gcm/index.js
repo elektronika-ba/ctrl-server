@@ -74,7 +74,7 @@ module.exports = {
 					collapseKey: 'tickle',
 					delayWhileIdle: true,
 					timeToLive: 3,
-					data: { 'what': 'tickle-tickle', 'why': 'onBaseMessage', 'baseid': params.baseid }
+					data: { 'what': 'tickle-tickle', 'why': 'onBaseMessage', 'baseid': params.baseid.toString('hex') }
 				});
 
 				notifyClient(params.IDclient, gcmmessage);
@@ -111,7 +111,7 @@ module.exports = {
 					collapseKey: 'tickle',
 					delayWhileIdle: true,
 					timeToLive: 3,
-					data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid, 'connected': params.connected }
+					data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid.toString('hex'), 'connected': params.connected }
 				});
 
 				notifyClient(params.IDclient, gcmmessage);
