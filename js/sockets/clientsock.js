@@ -312,6 +312,7 @@ ClientSock.prototype.onData = function () {
                             new Buffer(cm.getData(), 'hex');
                         } catch (err) {
                             socket.myObj.wlog.warn('  ...Warning, data provided is not a HEX string!');
+                            cm.setData('00'); // 2015-01-31 added to prevent server crash
                         }
 
                         var bp = new baseMessage();
