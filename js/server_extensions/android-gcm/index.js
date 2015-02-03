@@ -73,7 +73,7 @@ module.exports = {
 				var gcmmessage = new gcm.Message({
 					collapseKey: 'tickle',
 					delayWhileIdle: true,
-					timeToLive: 3,
+					timeToLive: Configuration.gcmTimeToLive,
 					data: { 'what': 'tickle-tickle', 'why': 'onBaseMessage', 'baseid': params.baseid.toString('hex') }
 				});
 
@@ -110,7 +110,7 @@ module.exports = {
 				var gcmmessage = new gcm.Message({
 					collapseKey: 'tickle',
 					delayWhileIdle: true,
-					timeToLive: 3,
+					timeToLive: Configuration.gcmTimeToLive,
 					data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid.toString('hex'), 'connected': params.connected }
 				});
 

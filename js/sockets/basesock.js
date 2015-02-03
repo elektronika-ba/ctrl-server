@@ -135,7 +135,6 @@ function BaseSock(socket) {
                         bp.extractFrom(new Buffer(result[0][0].oBinaryPackage, 'hex'));
                         bp.unpackAsPlainMessage();
                         bp.setTXsender(result[0][0].oTXserver);
-
                         socket.write(bp.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
                         socket.myObj.wlog.info('  ...sent.');
 
@@ -185,7 +184,7 @@ BaseSock.prototype.onData = function () {
 					if(bp.getIsSaveTXserver()) {
 						socket.myObj.wlog.info('  ...saving Base\'s TXserver value in DB.');
 						if(bp.getData().length == 4) {
-							Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(0)); // alwas in Little Endian
+							Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(0)); // always in Little Endian
 						}
 						else {
 							socket.myObj.wlog.warn('  ...not saved, I got (', bp.getData().length, '/4) bytes:', bp.getData().toString('hex'));

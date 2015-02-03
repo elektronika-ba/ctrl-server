@@ -202,6 +202,14 @@ baseMessage.prototype.extractFrom = function (binaryPackage) {
 
     var packageLength = binaryPackage.readUInt16LE(0);
 
+	// added on 2015-02-03
+	// if we received more than one message, just take one of them! whoever called us should keep remaining in their own buffer
+	//console.log('extractFrom holds: ');
+	//console.log(this.binaryPackage.toString('hex'));
+	this.binaryPackage = this.binaryPackage.slice(0, packageLength + 2);
+	//console.log('extractFrom trimmed holds: ');
+	//console.log(this.binaryPackage.toString('hex'));
+
     if (binaryPackage.length < (packageLength + 2)) {
         return false;
     }
@@ -211,14 +219,14 @@ baseMessage.prototype.extractFrom = function (binaryPackage) {
     return this.isExtracted;
 };
 
-// this unpacks unencrypted message from this.binaryPackage
+// this unpacks NON-encrypted message from this.binaryPackage
 // returns true on OK, or false on Error
 baseMessage.prototype.unpackAsPlainMessage = function () {
     // How many usable bytes follow in this message? Note: there is a posibillity that
     // there is a padding which we need to discard, so this msgLength is important
     var msgLength = this.binaryPackage.readUInt16LE(0);
     if (this.binaryPackage.length < (msgLength + 2)) {
-        console.log('Warning in baseMessage.unpack(), erroneous unencrypted binary package. Not enough data to unpack!');
+        console.log('Warning in baseMessage.unpack(), erroneous NON-encrypted binary package. Not enough data to unpack!');
         return false;
     }
     this.header = this.binaryPackage.readUInt8(2);

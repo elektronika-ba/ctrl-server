@@ -11,6 +11,8 @@ var Configuration = {
     // Google Cloud Messaging AUTH API KEY
     gcmApiKey: 'THIS IS TOP SECRET, MY FRIEND :)',
 
+    gcmTimeToLive: 60*60*96, // 96 hours
+
 };
 
 module.exports = Configuration;
