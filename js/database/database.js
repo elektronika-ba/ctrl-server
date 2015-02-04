@@ -17,4 +17,32 @@ var pool = mysql.createPool({
 
 exports.pool = pool;
 
-// NOTE: moved functions to basedb.js and clientdb.js
+exports.resetOnlineStatusForClients = function () {
+    var sql = "UPDATE client SET online=0";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('resetOnlineStatusForClients() error:', err); return; }
+        });
+    });
+};
+
+exports.resetOnlineStatusForBases = function () {
+    var sql = "UPDATE base SET online=0";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('resetOnlineStatusForBases() error:', err); return; }
+        });
+    });
+};
+
+// NOTE: other functions can be found to basedb.js and clientdb.js

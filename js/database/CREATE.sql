@@ -178,12 +178,14 @@ BEGIN
 	DECLARE oForceSync TINYINT;
 	DECLARE oTXclient INT UNSIGNED;
 	DECLARE oIDclient BIGINT UNSIGNED;
+	DECLARE oTXserver INT UNSIGNED;
 
 	DECLARE vNr TINYINT;
 
 	SET oAuthorized = 0;
 	SET oTooMany = 0;
 	SET oForceSync = 0;
+	SET oTXserver = 0;
 
 	### Provjeri failed auth attempts
 	SELECT COUNT(*) INTO vNr FROM client_auth_fail WHERE remote_ip = pRemoteAddr AND stamp_system >= DATE_SUB(NOW(), INTERVAL pMinutes MINUTE);
@@ -218,6 +220,10 @@ BEGIN
 					IF vNr = 0 THEN
 						SET oForceSync = 1;
 					END IF;
+					
+					### Lets load server-stored TXserver value (Clients might use this feature to store their local TXserver
+					### value only for convinience purposes. Clients do not have problems with wearing out their Flash or EEPROM storage).
+					SELECT TXserver INTO oTXserver FROM client WHERE IDclient=oIDclient LIMIT 1;
 				END;
 			ELSE
 				BEGIN
@@ -228,7 +234,7 @@ BEGIN
 		END;
 	END IF;
 
-	SELECT oAuthorized, oTooMany, oForceSync, oTXclient, oIDclient;
+	SELECT oAuthorized, oTooMany, oForceSync, oTXclient, oIDclient, oTXserver;
 END$$
 
 DROP PROCEDURE IF EXISTS `spGetNextTxServer2Base`$$
@@ -448,6 +454,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `clientname` varchar(100) NOT NULL,
   `last_online` datetime DEFAULT NULL,
   `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `TXserver` int(10) unsigned NOT NULL COMMENT 'Server-stored TXserver value',
   PRIMARY KEY (`IDclient`),
   UNIQUE KEY `auth_token` (`auth_token`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
@@ -456,8 +463,8 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`, `clientname`, `last_online`, `online`) VALUES
-(1, 1, 'fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4', 0, 'Test Account', NULL, 0);
+INSERT INTO `client` (`IDclient`, `IDaccount`, `auth_token`, `TXclient`, `clientname`, `last_online`, `online`, `TXserver`) VALUES
+(1, 1, 'fiBBBpb2PRbpbSAwQ6X1Wt2gUeewzqCFz583k9T1RWgTDHgkE4', 0, 'Test Account', NULL, 0, 0);
 
 -- --------------------------------------------------------
 

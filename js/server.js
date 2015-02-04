@@ -1,6 +1,7 @@
 'use strict';
 
 // Base's and Client's server
+var start_stamp = Math.round(new Date() / 1000);
 
 var Configuration = require('./configuration/configuration');
 
@@ -11,7 +12,10 @@ var winston = require('winston');
 var crypto = require('crypto');
 var http = require('http');
 
-var start_stamp = Math.round(new Date() / 1000);
+// Reset Online status for everyone
+var Database = require('./database/database');
+Database.resetOnlineStatusForClients();
+Database.resetOnlineStatusForBases();
 
 // Array of connected Bases and Clients (sockets)
 var connBases = [];
@@ -90,7 +94,7 @@ var tinyStatusServer = http.createServer(function(request, response) {
     response.writeHeader(200, {"Content-Type": "text/plain"});
 
     var answer = {
-        'up_for_seconds': Math.round(new Date() / 1000) - start_stamp,
+        'uptime_seconds': Math.round(new Date() / 1000) - start_stamp,
         'online_bases': connBases.length,
         'online_clients': connClients.length,
     };

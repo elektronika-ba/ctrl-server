@@ -5,6 +5,20 @@ var pool = require('./database').pool;
 // For Client Socket
 //////////////////////////////////////////
 
+exports.clientUpdateStoredTXserver = function (IDclient, TXserver) {
+    var sql = "UPDATE client SET TXserver=? WHERE IDclient=CAST(? AS UNSIGNED) LIMIT 1";
+
+    pool.getConnection(function (err, connection) {
+        if (err) { console.log('MySQL connection pool error:', err); return; }
+
+        connection.query(sql, [TXserver, IDclient], function (err, result) {
+            connection.release();
+
+            if (err) { console.log('clientUpdateStoredTXserver() error:', err); return; }
+        });
+    });
+};
+
 exports.clientOnlineStatus = function (IDclient, online) {
     var sql = "UPDATE client SET online=?, last_online=NOW() WHERE IDclient=CAST(? AS UNSIGNED) LIMIT 1";
 

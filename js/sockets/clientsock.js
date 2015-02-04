@@ -192,6 +192,18 @@ ClientSock.prototype.onData = function () {
             // handle received ACK
             if (cm.getIsAck()) {
                 socket.myObj.wlog.info('Processing Client\'s ACK for our TXserver:', cm.getTXsender());
+
+                // Client sent us his TXserver, for us to save?
+                if(cm.getIsSaveTXserver()) {
+                    socket.myObj.wlog.info('  ...saving Client\'s TXserver value in DB.');
+                    if ("TXserver" in cm.getData() && typeof cm.getData().TXserver == "number") {
+                        Database.clientUpdateStoredTXserver(socket.myObj.IDclient, cm.getData().TXserver);
+                    }
+                    else {
+                        socket.myObj.wlog.warn('  ...not saved, provided value:', cm.getData().TXserver, 'is not a number.');
+                    }
+                }
+
                 Database.ackTxServer2Client(socket.myObj.IDclient, cm.getTXsender(), function (err, result) {
                     if (err) {
                         return;
@@ -539,6 +551,7 @@ ClientSock.prototype.doAuthorize = function () {
             cmdRes.result = 0;
             cmdRes.type = "authentication_response";
             cmdRes.description = 'Logged in.';
+            cmdRes.TXserver = result[0][0].oTXserver; // server-stored TXserver value
             jsAns.setDataAsObject(cmdRes);
 
             // should we force other side to re-sync?
@@ -571,6 +584,7 @@ ClientSock.prototype.doAuthorize = function () {
             var cmdRes = {};
 
             cmdRes.type = "authentication_response";
+            cmdRes.TXserver = 0;
 
             if (result[0][0].oTooMany == 1) {
                 cmdRes.result = 2;

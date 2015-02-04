@@ -14,6 +14,7 @@ function clientMessage() {
             "notification": false,
             "system_message": false,
             "backoff": false,
+            "save_txserver": false,
         },
 
         "TXsender": 0,
@@ -40,7 +41,7 @@ clientMessage.prototype.extractFrom = function (jd) {
             jd.header = {};
         }
 
-        var harr = ["ack", "sync", "processed", "out_of_sync", "notification", "system_message", "backoff"];
+        var harr = ["ack", "sync", "processed", "out_of_sync", "notification", "system_message", "backoff", "save_txserver"];
         for (var aim = 0; aim < harr.length; aim++) {
             if ((harr[aim] in jd.header) && (typeof jd.header[harr[aim]] == "boolean")) {
                 this.jsonData.header[harr[aim]] = jd.header[harr[aim]];
@@ -85,6 +86,13 @@ clientMessage.prototype.getIsAck = function () {
     return this.jsonData.header.ack;
 };
 
+clientMessage.prototype.setIsSaveTXserver = function (is) {
+    this.jsonData.header.save_txserver = is;
+};
+
+clientMessage.prototype.getIsSaveTXserver = function () {
+    return this.jsonData.header.save_txserver;
+};
 
 clientMessage.prototype.setIsSystemMessage = function (is) {
     this.jsonData.header.system_message = is;

@@ -684,7 +684,7 @@ BaseSock.prototype.doAuthorize = function () {
 				bpAns.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 				bpAns.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
 
-				var authResponse = new Buffer(4); // response is a TXserver value which Base previously saved into our DB via SystemMessage 0x07
+				var authResponse = new Buffer(4); // response is a TXserver value which Base previously saved into our DB
 				authResponse.writeUInt32LE(result[0][0].oTXserver, 0); // we store/restore it as Little Endian
 
 				bpAns.setDataFromHexString(authResponse);
