@@ -217,7 +217,7 @@ exports.saveTXbase = function (IDbase, TXbase) {
 };
 
 exports.getClientsOfBase = function (IDbase, callback) {
-    var sql = "SELECT bc.IDclient FROM base_client bc WHERE bc.IDbase=CAST(? AS UNSIGNED)";
+    var sql = "SELECT bc.IDclient, b.basename FROM base_client bc JOIN base b ON b.IDbase=bc.IDbase WHERE bc.IDbase=CAST(? AS UNSIGNED)";
 
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
@@ -230,4 +230,3 @@ exports.getClientsOfBase = function (IDbase, callback) {
         });
     });
 };
-

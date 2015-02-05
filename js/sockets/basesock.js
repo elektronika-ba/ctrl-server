@@ -26,7 +26,7 @@ function BaseSock(socket) {
 		authorized: false, // once authorized this will be true
         IDbase: null,
         baseid: Buffer(0),
-        timezome: 0,
+        timezone: 0,
         TXbase: 0,
         aes128Key: new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
 
@@ -746,6 +746,7 @@ BaseSock.prototype.informMyClients = function (connected) {
             "baseid": socket.myObj.baseid.toString('hex'),
             "type": "base_connection_status",
             "connected": connected,
+            "basename": rows[0].basename, // it is safe to do this here, all rows have the same basename so we will take it from the first result row
         };
         cm.setDataAsObject(ccm);
 

@@ -130,7 +130,7 @@ exports.saveTXclient = function (IDclient, TXclient) {
 };
 
 exports.getBasesOfClient = function (IDclient, callback) {
-    var sql = "SELECT b.IDbase, b.baseid FROM base_client bc JOIN base b ON b.IDbase=bc.IDbase WHERE bc.IDclient=CAST(? AS UNSIGNED)";
+    var sql = "SELECT b.IDbase, b.baseid, b.basename FROM base_client bc JOIN base b ON b.IDbase=bc.IDbase WHERE bc.IDclient=CAST(? AS UNSIGNED)";
 
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }

@@ -624,6 +624,7 @@ ClientSock.prototype.sendBasesStatusNotification = function () {
         for (var i = 0; i < rowsLength; i++) {
             var IDbase = rows[i].IDbase;
             var baseid = rows[i].baseid;
+            var baseName = rows[i].basename;
 
             var foundConnected = false;
 
@@ -643,6 +644,7 @@ ClientSock.prototype.sendBasesStatusNotification = function () {
             ccm.type = "base_connection_status";
             ccm.connected = foundConnected;
             ccm.baseid = baseid.toString('hex');
+            ccm.basename = baseName.toString();
             jsNotif.setDataAsObject(ccm);
 
             var jsonPackageAsString = JSON.stringify(jsNotif.buildMessage());

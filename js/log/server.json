@@ -900,3 +900,9 @@
 {"level":"info","message":"  ...stopping logging in this file.","timestamp":"2015-02-04T12:38:55.731Z"}
 {"level":"info","message":"Connection to Base 127.0.0.1 dropped.","timestamp":"2015-02-04T12:39:07.574Z"}
 {"level":"info","message":"Connection to Client 127.0.0.1 dropped.","timestamp":"2015-02-04T12:39:09.244Z"}
+{"level":"info","message":"Base's Server is starting...","timestamp":"2015-02-05T08:07:58.344Z"}
+{"level":"info","message":"Client's Server is starting...","timestamp":"2015-02-05T08:07:58.749Z"}
+{"level":"info","message":"Tiny Status Server is starting...","timestamp":"2015-02-05T08:07:58.760Z"}
+{"level":"info","message":"Base's Server listening on port: 8001.","timestamp":"2015-02-05T08:07:58.771Z"}
+{"level":"info","message":"Client's Server listening on port: 9001.","timestamp":"2015-02-05T08:07:58.771Z"}
+{"level":"info","message":"Tiny Status Server listening on port: 7001.","timestamp":"2015-02-05T08:07:58.771Z"}
