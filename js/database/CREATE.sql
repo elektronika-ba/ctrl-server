@@ -366,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `base` (
   `basename` varchar(100) NOT NULL,
   `last_online` datetime DEFAULT NULL,
   `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `TXserver` int(10) unsigned NOT NULL COMMENT 'Server-stored TXserver value',
+  `TXserver` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Server-stored TXserver value',
   PRIMARY KEY (`IDbase`),
   UNIQUE KEY `baseid` (`baseid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
@@ -454,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `clientname` varchar(100) NOT NULL,
   `last_online` datetime DEFAULT NULL,
   `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `TXserver` int(10) unsigned NOT NULL COMMENT 'Server-stored TXserver value',
+  `TXserver` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Server-stored TXserver value',
   PRIMARY KEY (`IDclient`),
   UNIQUE KEY `auth_token` (`auth_token`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
