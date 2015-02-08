@@ -1,7 +1,7 @@
 'use strict';
 
 // A way to enable/disable this Server Extension even when it is included in the /server_extensions/ directory
-var EXTENSION_ENABLED = false;
+var EXTENSION_ENABLED = true;
 
 var Configuration = require('./configuration/configuration');
 
@@ -108,8 +108,8 @@ module.exports = {
 				wlog.info('Sending Base Status Android GCM to Client IDclient=', params.IDclient);
 
 				var gcmmessage = new gcm.Message({
-					collapseKey: 'tickle',
-					delayWhileIdle: true,
+					//collapseKey: 'tickle',
+					//delayWhileIdle: true,
 					timeToLive: Configuration.gcmTimeToLive,
 					data: { 'what': 'tickle-tickle', 'why': 'onBaseStatusChange', 'baseid': params.baseid.toString('hex'), 'connected': params.connected }
 				});

@@ -180,22 +180,14 @@ BaseSock.prototype.onData = function () {
                 if (bp.getIsAck()) {
                     socket.myObj.wlog.info('Processing Base\'s ACK for our TXserver:', bp.getTXsender());
 
-					// Base sent us his TXserver, for us to save?
-					if(bp.getIsSaveTXserver()) {
-						socket.myObj.wlog.info('  ...saving Base\'s TXserver value in DB.');
-						if(bp.getData().length == 4) {
-							Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(0)); // always in Little Endian
-						}
-						else {
-							socket.myObj.wlog.warn('  ...not saved, I got (', bp.getData().length, '/4) bytes:', bp.getData().toString('hex'));
-						}
-					}
-
                     if (bp.getIsBackoff()) {
                         clearInterval(socket.myObj.tmrSenderTask); // stop sender of pending items
                         socket.myObj.tmrSenderTask = null; // don't forget this!
 
-                        socket.myObj.backoffMs = socket.myObj.backoffMs * 2;
+						// don't increase this too much
+						if(socket.myObj.backoffMs < Configuration.base.sock.MAXIMUM_BACKOFF_MS) {
+                        	socket.myObj.backoffMs = socket.myObj.backoffMs * 2;
+						}
                         socket.myObj.wlog.info('  ...didn\'t ACK on TXserver', bp.getTXsender(), ', Base wants me to Backoff! (Delay:', socket.myObj.backoffMs, 'ms).');
 
                         // mark this TXserver from txserver2base as NOT sent (sent = 0) so that we can take it again after backoff expires!!!
@@ -204,7 +196,17 @@ BaseSock.prototype.onData = function () {
                                 return;
                             }
 
-                            socket.myObj.wlog.info('Marked our Server2Base TXserver', bp.getTXsender(), ', as unsent, started Backoff timer...');
+                            socket.myObj.wlog.info('Marked our Server2Base TXserver', bp.getTXsender(), ', as unsent (and all after this one), started Backoff timer...');
+
+							// Need to sent ACK to this BACKOFF ACK. Need to do this after tmrSenderTask has completed its last run, so lets do it after tmrSenderTask's interval to make sure we are the last thing sent!
+							setTimeout(function() {
+								var bpAck = new baseMessage();
+								bpAck.setIsAck(true);
+								bpAck.setIsBackoff(true);
+								bpAck.setTXsender(bp.getTXsender()); // not important for confirmation ACK on BACKOFF ACK, but lets send it anyway
+								socket.write(bpAck.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
+								socket.myObj.wlog.info('  ...ACK on BACKOFF ACK sent back for TXsender:', bp.getTXsender());
+							}, Configuration.base.sock.SENDER_TASK_MS);
 
                             // set backoff timer, and when it executes it will resume sender. in case we get additional ACK before it triggers, it will be restarted but with double time
                             clearTimeout(socket.myObj.tmrBackoff);
@@ -216,6 +218,18 @@ BaseSock.prototype.onData = function () {
                         });
                     }
                     else {
+						// Base sent us his TXserver, for us to save?
+						// Save this only if this was not Backoff ACK, so that we can re-send it and not lose sync.
+						if(bp.getIsSaveTXserver()) {
+							socket.myObj.wlog.info('  ...saving Base\'s TXserver value in DB.');
+							if(bp.getData().length == 4) {
+								Database.baseUpdateStoredTXserver(socket.myObj.IDbase, bp.getData().readUInt32LE(0)); // always in Little Endian
+							}
+							else {
+								socket.myObj.wlog.warn('  ...not saved, I got (', bp.getData().length, '/4) bytes:', bp.getData().toString('hex'));
+							}
+						}
+
                         Database.ackTxServer2Base(socket.myObj.IDbase, bp.getTXsender(), function (err, result) {
                             if (err) {
                                 return;

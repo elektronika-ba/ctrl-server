@@ -35,7 +35,8 @@ var Configuration = {
             MAX_AUTH_ATTEMPTS: 10,			// how many failed auth attempts are allowed?
             MAX_AUTH_ATTEMPTS_MINUTES: 5,	// ...in this duration (minutes)?
 
-            BACKOFF_MS: 3000,				// initial backoff period (milliseconds) - will increment by *2 on each successive backoff reply from Base
+            BACKOFF_MS: 2000,				// initial backoff period (milliseconds) - will increment by *2 on each successive backoff reply from Base
+            MAXIMUM_BACKOFF_MS: 60000,		// maximum backoff delay that can be achieved if Base backoffs on too many successive messages
 
             OUT_OF_SYNC_CNT_MAX: 3,         // how many out of sync messages should we receive before flushing the txserver2base queue and dropping the connection?
         },

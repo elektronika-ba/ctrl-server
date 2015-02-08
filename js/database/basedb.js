@@ -106,7 +106,8 @@ exports.flushBaseQueue = function (IDbase, callback) {
 };
 
 exports.markUnsentTxServer2Base = function (IDbase, TXserver, callback) {
-    var sql = "UPDATE txserver2base SET sent = 0 WHERE IDbase = CAST(? AS UNSIGNED) AND TXserver = ? LIMIT 1";
+	// 2015-02-07 changed condition TXserver = ? to TXserver >= ? to unsend all messages after this one, including this one!
+    var sql = "UPDATE txserver2base SET sent = 0 WHERE IDbase = CAST(? AS UNSIGNED) AND TXserver >= ? LIMIT 1";
 
     pool.getConnection(function (err, connection) {
         if (err) { console.log('MySQL connection pool error:', err); callback(true); return; }
