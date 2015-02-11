@@ -169,7 +169,7 @@ function simulator() {
 
     var bp = new baseMessage();
     bp.setTXsender(TXbase);
-    bp.setData(new Buffer('ABCDEF','hex'));
+    bp.setData(new Buffer('30313233343536373839','hex'));
 
     var aaa = bp.buildEncryptedMessage(aes128Key, crypto.randomBytes(16));
 
