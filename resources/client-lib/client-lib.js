@@ -64,6 +64,8 @@ var createSocketConnection = function (self) {
         // Reconnect automatically
         if (e.code == 'ECONNRESET' || e.code == 'ETIMEDOUT' || e.code == 'ECONNREFUSED') {
             if(self.sessionOptions.reconnectLimit == 0 || self.reconnectCount < self.sessionOptions.reconnectLimit) {
+                self.ctrlAuthorized = false;
+
                 setTimeout(function () {
                     if(self.logging) console.log(TAG, "Reconnecting automatically...");
                     createSocketConnection(self);
