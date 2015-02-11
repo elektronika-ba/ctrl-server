@@ -56,6 +56,7 @@ var createSocketConnection = function (self) {
         }
         else {
             if(self.logging) console.log(TAG, "Failed to auth TLS connection:", this.authorizationError);
+            self.emit('error', this.authorizationError);
             this.end();
         }
     });
