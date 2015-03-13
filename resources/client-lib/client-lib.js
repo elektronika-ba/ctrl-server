@@ -8,7 +8,7 @@ var tls = require('tls');
 
 var TAG = "CtrlClient #";
 
-var clientMessage = require('../../js/messages/clientMessage');
+var clientMessage = require('./clientMessage');
 
 function CtrlClient(serverPort, serverName, sslOptions, logging) {
     this.clientSocket = null;
@@ -104,7 +104,9 @@ CtrlClient.prototype.disconnect = function(callback) {
 CtrlClient.prototype.sendString = function(dataString, baseIds, isNotification) {
     var dataHex = '';
     for (var i=0; i<dataString.length; i++) {
-        dataHex += dataString.charCodeAt(i).toString(16);
+		var c = dataString.charCodeAt(i).toString(16);
+		if(c.length == 1) c = '0' + c;
+        dataHex += c;
     }
     return this.sendHex(dataHex, baseIds, isNotification);
 };
@@ -119,7 +121,7 @@ CtrlClient.prototype.sendHex = function(dataHex, baseIds, isNotification) {
             "notification": (!(!isNotification)),
         },
         "TXsender": this.sessionOptions.TXclient, // not important if it was notification, but doesn't hurt to be here
-        "data": dataHex,
+        "data": dataHex.toString(),
     };
 
     if(Array.isArray(baseIds)) {

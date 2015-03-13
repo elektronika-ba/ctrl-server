@@ -12,7 +12,7 @@ var authorized = false;
 var TXserver = 0;
 var TXbase = 1;
 var tmrSimulator = null;
-var aes128Key = new Buffer([0x06,0x2f,0x1c,0x1b,0x30,0xc5,0x3f,0xcd,0x51,0x17,0x5a,0x56,0x20,0x9d,0xf6,0x00]);
+var aes128Key = new Buffer([0x79,0xae,0xb1,0x04,0x13,0xbc,0xba,0xaf,0x4e,0x0e,0x71,0x3f,0xb8,0xa3,0x79,0x4f]);
 var authPhase = 1;
 var client = new net.Socket();
 
@@ -26,7 +26,7 @@ client.connect(PORT, HOST, function () {
         // login
         var msg = new baseMessage();
         msg.setData(new Buffer([
-        	0xd3,0xfe,0xf1,0x93,0x16,0x95,0x65,0x2b,0x73,0x3d,0xd9,0x30,0xad,0xda,0x3e,0xa0
+        	0x3e,0xee,0x0e,0x31,0x1f,0xed,0x98,0xde,0x6d,0xce,0xff,0xea,0x88,0xd0,0x22,0xf6
         ]));
         var aaa = msg.buildEncryptedMessage(new Buffer([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]), crypto.randomBytes(16));
         client.write(aaa, 'hex');
@@ -149,7 +149,8 @@ client.on('data', function (data) {
 					}
 					else {
 						console.log('  ...fresh data!');
-						console.log(bp.getData());
+						//console.log(bp.getData());
+						console.log(bp.getData().toString('hex'));
 
 						// do something with data we received from Server!
 					} // not system message
@@ -176,7 +177,7 @@ function simulator() {
 
     var bp = new baseMessage();
     bp.setTXsender(TXbase);
-    bp.setData(new Buffer('ABCDEFABCDEFABCDEFABCDEFABCDEF','hex'));
+    bp.setData(new Buffer('4333303441333437333438333437334246573D313B5245513D313B4F4E3D303B50574D3D3130303B4155583D303B13','hex'));
 
     var aaa = bp.buildEncryptedMessage(aes128Key, crypto.randomBytes(16));
 
