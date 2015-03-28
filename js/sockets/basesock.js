@@ -396,17 +396,21 @@ BaseSock.prototype.onData = function () {
 								}
 							}
 							else if (bp.getData().toString('hex') == '06') {
-								var tss = moment.utc().zone(socket.myObj.timezone).format("YYYYMMDDHHmmssd"); // YYYY MM DD HH MM SS DAY-OF-WEEK(1-7)
+								var tss = moment.utc().zone(-1 * socket.myObj.timezone).format("YYYYMMDDHHmmssd"); // YYYY MM DD HH MM SS DAY-OF-WEEK(1-7)
 								var ts = new Buffer(tss);
 								for (var i = 0; i < ts.length; i++) {
 									ts[i] = ts[i] - 0x30; // remove ascii base
 								}
 
+								var variableResponse = new Buffer(16); // 1(systemMessageType 0x06)+15(timestamp)
+								variableResponse.writeUInt8(0x06, 0);
+								ts.copy(variableResponse, 1);
+
 								// push it to him via system message + notification type
 								var bpSys = new baseMessage();
 								bpSys.setIsNotification(true); // da ispostujemo protokol jer ne zahtjevamo ACK nazad
 								bpSys.setIsSystemMessage(true); // da ispostujemo protokol jer ovaj podatak nije od Klijenta nego od Servera
-								bpSys.setData(ts);
+								bpSys.setData(variableResponse);
 								socket.write(bpSys.buildEncryptedMessage(socket.myObj.aes128Key), 'hex');
 							}
 							else if (bp.getData().toString('hex') == '07') {

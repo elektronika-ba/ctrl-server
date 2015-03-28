@@ -59,8 +59,8 @@ srvBase.listen(Configuration.base.srv.PORT + Configuration.version); // GO!
 
 // Client's server
 var sslOptions = {
-    key: fs.readFileSync('./sockets/server.key'),
-    cert: fs.readFileSync('./sockets/cert.pem'),
+    key: fs.readFileSync('./cert/server.key'),
+    cert: fs.readFileSync('./cert/cert.pem'),
     rejectUnauthorized: false
 };
 
