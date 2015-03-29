@@ -27,6 +27,7 @@ function BaseSock(socket) {
         IDbase: null,
         baseid: Buffer(0),
         timezone: 0,
+        dst: 0,
         TXbase: 0,
         aes128Key: new Buffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
 
@@ -396,15 +397,17 @@ BaseSock.prototype.onData = function () {
 								}
 							}
 							else if (bp.getData().toString('hex') == '06') {
-								var tss = moment.utc().zone(-1 * socket.myObj.timezone).format("YYYYMMDDHHmmssd"); // YYYY MM DD HH MM SS DAY-OF-WEEK(1-7)
+								var tss = moment.utc().add(socket.myObj.timezone, 'minutes').format("YYYYMMDDHHmmssE"); // YYYY MM DD HH MM SS DAY-OF-WEEK(1-7)
+
 								var ts = new Buffer(tss);
 								for (var i = 0; i < ts.length; i++) {
 									ts[i] = ts[i] - 0x30; // remove ascii base
 								}
 
-								var variableResponse = new Buffer(16); // 1(systemMessageType 0x06)+15(timestamp)
+								var variableResponse = new Buffer(17); // 1(systemMessageType 0x06)+1(Daylight Savings Option)+15(timestamp)
 								variableResponse.writeUInt8(0x06, 0);
-								ts.copy(variableResponse, 1);
+								variableResponse.writeUInt8(socket.myObj.dst, 1);
+								ts.copy(variableResponse, 2);
 
 								// push it to him via system message + notification type
 								var bpSys = new baseMessage();
@@ -606,6 +609,7 @@ BaseSock.prototype.doAuthorize = function () {
 				socket.myObj.baseid = baseid;
 				socket.myObj.aes128Key = new Buffer(result[0][0].oCryptKey, 'hex');
 				socket.myObj.timezone = result[0][0].oTimezone;
+				socket.myObj.dst = result[0][0].oDst;
 				socket.myObj.TXbase = result[0][0].oTXbase;
 
 				// send challenge

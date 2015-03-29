@@ -5,6 +5,7 @@ BEGIN
 	DECLARE oOK TINYINT;
 	DECLARE oIDbase BIGINT UNSIGNED;
 	DECLARE oTimezone SMALLINT;
+	DECLARE oDst TINYINT;
 	DECLARE oTXbase INT UNSIGNED;
 	DECLARE oCryptKey VARCHAR(32);
 
@@ -12,12 +13,12 @@ BEGIN
 
 	SET oOK = 0;
 
-	### Check failed auth attempts in past "pMinutes" minutes from this IP
+	
 	SELECT COUNT(*) INTO vNr FROM base_auth_fail WHERE remote_ip = pRemoteAddr AND stamp_system >= DATE_SUB(NOW(), INTERVAL pMinutes MINUTE);
 	IF vNr <= pLimit THEN
 		BEGIN
-			### Fetch Base information from database
-			SELECT IDbase, timezone, TXbase, crypt_key INTO oIDbase, oTimezone, oTXbase, oCryptKey FROM base WHERE LOWER(baseid) = LOWER(pBaseid) LIMIT 1;
+			
+			SELECT IDbase, timezone, dst, TXbase, crypt_key INTO oIDbase, oTimezone, oDst, oTXbase, oCryptKey FROM base WHERE LOWER(baseid) = LOWER(pBaseid) LIMIT 1;
 			IF FOUND_ROWS() = 1 THEN
 				BEGIN
 					SET oOK = 1;
@@ -26,7 +27,7 @@ BEGIN
 		END;
 	END IF;
 
-	SELECT oOK, oIDbase, oTimezone, oTXbase, oCryptKey;
+	SELECT oOK, oIDbase, oTimezone, oTXbase, oCryptKey, oDst;
 END//
 
 DELIMITER ;

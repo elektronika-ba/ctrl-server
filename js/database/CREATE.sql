@@ -110,6 +110,7 @@ BEGIN
 	DECLARE oOK TINYINT;
 	DECLARE oIDbase BIGINT UNSIGNED;
 	DECLARE oTimezone SMALLINT;
+	DECLARE oDst TINYINT;
 	DECLARE oTXbase INT UNSIGNED;
 	DECLARE oCryptKey VARCHAR(32);
 
@@ -117,12 +118,11 @@ BEGIN
 
 	SET oOK = 0;
 
-	### Check failed auth attempts in past "pMinutes" minutes from this IP
 	SELECT COUNT(*) INTO vNr FROM base_auth_fail WHERE remote_ip = pRemoteAddr AND stamp_system >= DATE_SUB(NOW(), INTERVAL pMinutes MINUTE);
 	IF vNr <= pLimit THEN
 		BEGIN
-			### Fetch Base information from database
-			SELECT IDbase, timezone, TXbase, crypt_key INTO oIDbase, oTimezone, oTXbase, oCryptKey FROM base WHERE LOWER(baseid) = LOWER(pBaseid) LIMIT 1;
+			
+			SELECT IDbase, timezone, dst, TXbase, crypt_key INTO oIDbase, oTimezone, oDst, oTXbase, oCryptKey FROM base WHERE LOWER(baseid) = LOWER(pBaseid) LIMIT 1;
 			IF FOUND_ROWS() = 1 THEN
 				BEGIN
 					SET oOK = 1;
@@ -131,7 +131,7 @@ BEGIN
 		END;
 	END IF;
 
-	SELECT oOK, oIDbase, oTimezone, oTXbase, oCryptKey;
+	SELECT oOK, oIDbase, oTimezone, oTXbase, oCryptKey, oDst;
 END$$
 
 DROP PROCEDURE IF EXISTS `spAuthBasePhase2`$$
@@ -361,6 +361,7 @@ CREATE TABLE IF NOT EXISTS `base` (
   `IDaccount` bigint(20) unsigned NOT NULL,
   `baseid` varchar(32) NOT NULL,
   `timezone` smallint(5) NOT NULL DEFAULT '0',
+  `dst` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0=No - always UTC, 1=Yes EU, 2=Yes USA',
   `TXbase` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sequence No - Base to Server for binary protocol',
   `crypt_key` varchar(32) NOT NULL COMMENT 'AES 128',
   `basename` varchar(100) NOT NULL,
@@ -375,8 +376,8 @@ CREATE TABLE IF NOT EXISTS `base` (
 -- Dumping data for table `base`
 --
 
-INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `TXbase`, `crypt_key`, `basename`, `last_online`, `online`, `TXserver`) VALUES
-(1, 1, 'aacca539d159a7ca300aee98deda7e92', -120, 0, '206aadf27bfeb331d8cbb270d37e458a', 'Test Base', NULL, 0, 0);
+INSERT INTO `base` (`IDbase`, `IDaccount`, `baseid`, `timezone`, `dst`, `TXbase`, `crypt_key`, `basename`, `last_online`, `online`, `TXserver`) VALUES
+(1, 1, 'aacca539d159a7ca300aee98deda7e92', -120, 0, 0, '206aadf27bfeb331d8cbb270d37e458a', 'Test Base', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
